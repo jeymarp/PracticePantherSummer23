@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PracticePanther.MAUI.Views.ProjectDetailView"
+             Title="ProjectDetailView">
+    <VerticalStackLayout>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="8*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label 
+                Text="Id"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start" 
+                Grid.Row="0"
+                Grid.Column="0"
+                />
+            <Entry 
+                Text="{Binding Path=Id, Mode=TwoWay}"
+                Grid.Row="1"
+                Grid.Column="0"
+                ></Entry>
+            <Label 
+                Text="Short Name"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start" 
+                Grid.Row="0"
+                Grid.Column="1"/>
+            <Entry 
+                Text="{Binding Path=ShortName, Mode=TwoWay}"
+                Grid.Row="1"
+                Grid.Column="1"></Entry>
+            <Label 
+                Text="Long Name"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start" 
+                Grid.Row="0"
+                Grid.Column="1"/>
+            <Entry 
+                Text="{Binding Path=LongName, Mode=TwoWay}"
+                Grid.Row="1"
+                Grid.Column="1"></Entry>
+
+        </Grid>
+
+
+        <Label 
+            Text="Client Id"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Entry Text="{Binding Path=ClientId, Mode=TwoWay}"></Entry>
+
+        <!--Clients-->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Text="Not Linked to a project" Grid.Column="0"></Label>
+            <Label Text="Buttons" Grid.Column="1"></Label>
+            <Label Text="Linked to a project" Grid.Column="2"></Label>
+        </Grid>
+
+        <Button Text="Ok"
+                Clicked="OkClicked"
+                />
+        <Button Text="Cancel"
+                Clicked="CancelClicked"
+                />
+    </VerticalStackLayout>
+</ContentPage>
