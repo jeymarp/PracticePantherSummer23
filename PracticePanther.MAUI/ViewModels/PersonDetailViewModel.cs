@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 using PracticePanther.Library.Models;
 using System.Runtime.CompilerServices;
 using PracticePanther.CLI.Models;
+using static PracticePanther.CLI.Models.Client;
 
 namespace PracticePanther.MAUI.ViewModels
 {
-    public class PersonDetailViewModel : INotifyPropertyChanged
+    /* public class PersonDetailViewModel : INotifyPropertyChanged
     {
         public string Name { get; set; }
-
         public int Id { get; set; }
-
+        /*
         public PersonDetailViewModel(int id = 0)
         {
             if (id > 0)
@@ -27,7 +27,7 @@ namespace PracticePanther.MAUI.ViewModels
 
         public void LoadById(int id)
         {
-            if(id == 0) { return; }
+            if (id == 0) { return; }
             var person = ClientService.Current.Get(id) as Client;
             if (person != null)
             {
@@ -36,10 +36,8 @@ namespace PracticePanther.MAUI.ViewModels
             }
 
             NotifyPropertyChanged(nameof(Name));
-            
         }
-        
-        public void AddPerson()
+       public void AddPerson()
         {
             if (Id <= 0)
             {
@@ -47,10 +45,12 @@ namespace PracticePanther.MAUI.ViewModels
             }
             else
             {
-                var refToUpdate = ClientService.Current.Get(Id) as Client;
-                refToUpdate.Name = Name;
+                var refToUpdate = ClientService.Current.Get(Id);
+ 
+                //var refToUpdate = ClientService.Current.Get(Id) as Client;
+                //refToUpdate.Name = Name;
             }
-            //Shell.Current.GoToAsync("//Instructor");
+            Shell.Current.GoToAsync("//Client");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -58,8 +58,7 @@ namespace PracticePanther.MAUI.ViewModels
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        }*/
 
-
-    }
 }
+

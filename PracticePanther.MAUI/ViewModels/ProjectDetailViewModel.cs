@@ -35,7 +35,7 @@ namespace PracticePanther.MAUI.ViewModels
         public void AddProject(Shell s)
         {
             ProjectService.CurrentProj.Add(project);
-            s.GoToAsync("//Project");
+            s.GoToAsync("//MainPage");
         }
     }
 }

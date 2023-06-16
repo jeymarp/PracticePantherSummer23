@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using PracticePanther.Library.Models;
+using PracticePanther.Library.Services;
+using PracticePanther.Library.DataBase;
 
 namespace PracticePanther.CLI.Models
 {
@@ -26,7 +29,7 @@ namespace PracticePanther.CLI.Models
         public List<Client>? Roster { get; set; }   //list of clients
 
         public Client? Client { get; set; }
-
+        public List<Employee>? employees { get; set; }
         public override string ToString()
         {
             return $"{Id}. {ShortName}";

@@ -7,95 +7,119 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using PracticePanther.Library.Models;
 using PracticePanther.Library.Services;
+using PracticePanther.Library.DataBase;
 
 namespace PracticePanther.Library.Services
 {
     public class ClientService
     {
-        private static ClientService? instance;
-        private static object instanceLock = new object();
-        public static ClientService Current
+        public List<Client> Clients
         {
             get
             {
-                lock (instanceLock)
-                {
-                    if (instance == null)
-                    {
-                        instance = new ClientService();
-                    }
-                }
-                return instance;
+                return clients;
             }
         }
 
-        private List<Client> clientsList;
+        private List<Client> clients;
+
+        private static ClientService? instance;
+        public static ClientService Current {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new ClientService();
+                }
+                
+               return instance;
+            }
+        }
+
         private ClientService()
         {
-            clientsList = new List<Client>
+            clients = new List<Client>
             {
-                new Client{Id = 1, Name = "Jhon Smith"},
-                new Client{Id = 2, Name = "Bob Smith"},
-                new Client{Id = 3, Name = "Sue Smith"}
+               new Client{ Id = 1, Name = "Client 1"},
+                new Client{ Id = 2, Name = "Client 2"},
+                new Client{ Id = 3, Name = "Client 3"},
+                new Client{ Id = 4, Name = "Client 4"},
+                new Client{ Id = 5, Name = "Client 5"},
+                new Client{ Id = 6, Name = "Client 6"}
             };
         }
 
-        public List<Client> ClientsList
+        public void Delete(int id)
         {
-            get { return clientsList; }
+            var clientToDelete = Clients.FirstOrDefault(c => c.Id == id);
+            if (clientToDelete != null)
+            {
+                Clients.Remove(clientToDelete);
+            }
         }
 
-        public List<Client> Search(string query)
+        public void Add(Client? c)
         {
-            return ClientsList.Where(c => c.Name.ToUpper().Contains(query.ToUpper())).ToList();
+            if (c.Id == 0)
+            {
+                //add
+                c.Id = LastId + 1;
+            }
+
+            Clients.Add(c);
+        }
+
+        private int LastId
+        {
+            get
+            {
+                return Clients.Any() ? Clients.Select(c => c.Id).Max() : 0;
+            }
         }
 
         public Client? Get(int id)
         {
-            return clientsList.FirstOrDefault(c => c.Id == id);
+            return clients.FirstOrDefault(c => c.Id == id);
         }
+        /* public List<Client> Search(string query)
+       {
+           return Clients.Where(c => c.Name.ToUpper().Contains(query.ToUpper())).ToList();
+       }
 
-        public void Add(Client? client)
-        {
-            if (client != null)
-            {
-                clientsList.Add(client);
-            }
-        }
 
-        public void Remove(int id)
-        {
-            var clientToRemove = Get(id);
-            if (clientToRemove != null)
-            {
-                clientsList.Remove(clientToRemove);
-            }
-        }
+       public void Remove(int id)
+       {
+           var clientToRemove = Get(id);
+           if (clientToRemove != null)
+           {
+               ClientsList.Remove(clientToRemove);
+           }
+       }
 
-        public void Remove(Client c)
-        {
-            Remove(c.Id);
-        }
-
+       public void Remove(Client c)
+       {
+           Remove(c.Id);
+       }
+        }*/
         public void Read()
-        {
-            if (!clientsList.Any())
-            {
-                System.Console.WriteLine("Currently, there are no registered clients");
-            }
-            else
-            {
-                foreach (var client in clientsList)
-                {
-                    System.Console.WriteLine("Client information: ");
-                    System.Console.WriteLine($"ID: {client.Id}");
-                    System.Console.WriteLine($"Name: {client.Name}");
-                    System.Console.WriteLine($"Notes: {client.Notes}");
-                    System.Console.WriteLine($"Open Date: {client.OpenDate}");
-                    System.Console.WriteLine($"Client status: {client.IsActive}");
-                }
-            }
-        }
+         {
+             if (!clients.Any())
+             {
+                 System.Console.WriteLine("Currently, there are no registered clients");
+             }
+             else
+             {
+                 foreach (var client in clients)
+                 {
+                     System.Console.WriteLine("Client information: ");
+                     System.Console.WriteLine($"ID: {client.Id}");
+                     System.Console.WriteLine($"Name: {client.Name}");
+                     System.Console.WriteLine($"Notes: {client.Notes}");
+                     System.Console.WriteLine($"Open Date: {client.OpenDate}");
+                     System.Console.WriteLine($"Client status: {client.IsActive}");
+                 }
+             }
+         }
 
     }
 }

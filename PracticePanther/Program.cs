@@ -108,7 +108,7 @@ namespace PracticePanther // Note: actual namespace depends on the project name.
                     Console.WriteLine("Which client should be deleted? Enter client ID: ");
                     clientService.Read();
                     var deleteChoice = int.Parse(Console.ReadLine() ?? string.Empty);
-                    clientService.Remove(deleteChoice);
+                    clientService.Delete(deleteChoice);
 
                 }
                 else if (option.Equals("M", StringComparison.InvariantCultureIgnoreCase))

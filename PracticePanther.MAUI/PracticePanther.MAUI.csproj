@@ -57,7 +57,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\ClientDetailView.xaml.cs">
+	    <DependentUpon>ClientDetailView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ClientView.xaml.cs">
+	    <DependentUpon>ClientView.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="Views\ClientView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ClientDetailView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\PersonDetailView.xaml">

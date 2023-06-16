@@ -1,51 +1,48 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PracticePanther.MAUI.ViewModels"
              x:Class="PracticePanther.MAUI.Views.ClientView"
-             Title="ClientView">
-
-    <ScrollView>
+             Title="ClientView"
+             NavigatedTo="OnArrived">
+    <ContentPage.BindingContext>
+        <vm:ClientViewViewModel/>
+    </ContentPage.BindingContext>
+    <VerticalStackLayout>
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="12*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="8*"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Entry Grid.Column="0" Text="{Binding Path=Query}"></Entry>
-                <Button Grid.Column="1" Text="Search" Clicked="SearchClicked"></Button>
-            </Grid>
-
-            <Grid Grid.Row="1">
-                <ListView
-                    ItemsSource="{Binding Path=Clients, Mode=TwoWay}"
-                    SelectedItem="{Binding Path=SelectedClient, Mode=TwoWay}"
-                    >
-
-
-                </ListView>
-            </Grid>
-
-            <Grid Grid.Row="2">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Button Text="Add" Grid.Column="0"></Button>
-                    <Button Text="Edit" Grid.Column="1"></Button>
-                    <Button Text="Delete" Grid.Column="2" Clicked="DeleteClick"></Button>
-                    <Button Text="Go Back" Grid.Column="3" Clicked="GoBackClicked"></Button>
-                </Grid>
-            </Grid>
-
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="11*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Entry Grid.Column="0"></Entry>
+            <Button Grid.Column="1" Text="Search" Clicked="SearchClicked"></Button>
+            <Button Grid.Column="2" Text="Add" Clicked="AddClicked"></Button>
         </Grid>
-    </ScrollView>
+        <ListView 
+            ItemsSource="{Binding Path=Clients}"
+            SelectedItem="{Binding Path=SelectedClient}"
+            >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="12*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0"  Text="{Binding Path=Display}"/>
+                            <Button Grid.Column="1" 
+                                    Text="Delete" 
+                                    Command="{Binding Path=DeleteCommand}" 
+                                    CommandParameter="{Binding}"
+                                    Clicked="DeleteClicked"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!--<Button Text="Delete" Clicked="DeleteClicked"/>-->
+        <Button Text="Go Back" Clicked="GoBackClicked"/>
+    </VerticalStackLayout>
 </ContentPage>

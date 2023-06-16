@@ -9,14 +9,24 @@
             BindingContext = new MainViewModel();
         }
 
-        private void ClientClicked(object sender, EventArgs e)
+        private void ClientsClicked(object sender, EventArgs e)
         {
             Shell.Current.GoToAsync("//Client");
         }
-
-        private void ProjectClicked(object sender, EventArgs e)
+        
+        private void ProjectsClicked(object sender, EventArgs e)
         {
             Shell.Current.GoToAsync("//Project");
         }
+        /*
+        private void TimeClicked(object sender, EventArgs e)
+        {
+            Shell.Current.GoToAsync("//Time");
+        }
+
+        private void EmployeeClicked(object sender, EventArgs e)
+        {
+            Shell.Current.GoToAsync("Employees");
+        }*/
     }
 }

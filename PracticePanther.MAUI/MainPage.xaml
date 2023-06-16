@@ -10,13 +10,21 @@
             VerticalOptions="Center">
 
             <Button
-                Text="Client"
-                Clicked="ClientClicked"
+                Text="Client" 
+                Clicked="ClientsClicked"
                 ></Button>
             <Button
-                Text="Project"
-                Clicked="ProjectClicked"
+                Text="Project" 
+                Clicked="ProjectsClicked"
                 ></Button>
+            <Button
+                Text="Time"
+                />
+            <Button
+                Text="Employees"
+                />
+
+
         </VerticalStackLayout>
     </ScrollView>
 

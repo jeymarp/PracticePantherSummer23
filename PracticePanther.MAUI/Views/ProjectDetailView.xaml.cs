@@ -15,7 +15,7 @@ public partial class ProjectDetailView : ContentPage
 
 	private void CancelClicked(object sender, EventArgs e)
 	{
-		Shell.Current.GoToAsync("//Client");
+		Shell.Current.GoToAsync("//MainPage");
 	}
 
 	private void OkClicked(object sender, EventArgs e)

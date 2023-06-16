@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PracticePanther.Library.Models;
+using PracticePanther.Library.DataBase;
 
 namespace PracticePanther.Library.Services
 {
@@ -34,7 +35,13 @@ namespace PracticePanther.Library.Services
         }
 
 
-        public List<Project> Projects => projects;
+        public List<Project>? Projects
+        {
+            get
+            {
+                return FakeDataBase.Projects;
+            }
+        }
         public Project? Get(int id)
         {
             return projects?.FirstOrDefault(p => p.Id == id);
@@ -44,7 +51,7 @@ namespace PracticePanther.Library.Services
         {
             if (project != null)
             {
-                projects?.Add(project);
+                FakeDataBase.Projects?.Add(project);
             }
         }
 
@@ -64,11 +71,7 @@ namespace PracticePanther.Library.Services
 
         public void Read()
         {
-            if (!projects.Any())
-            {
-                Console.WriteLine("Currently, there are no created projects");
-            }
-            foreach (var project in projects)
+            foreach (Project project in projects)
             {
                 Console.WriteLine("Project details: ");
                 Console.WriteLine($"ID: {project.Id}");
