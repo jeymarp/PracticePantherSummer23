@@ -24,10 +24,7 @@ public partial class ClientDetailView : ContentPage
         Shell.Current.GoToAsync("//Client");
     }
     //working on it
-    private void EditClicked(object sender, EventArgs e)
-    {
-        Shell.Current.GoToAsync("//EditClient");
-    }
+  
     /*
   private void AddClicked(object sender, EventArgs e)
   {

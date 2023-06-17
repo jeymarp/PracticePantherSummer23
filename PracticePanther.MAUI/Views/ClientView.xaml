@@ -44,5 +44,6 @@
         </ListView>
         <!--<Button Text="Delete" Clicked="DeleteClicked"/>-->
         <Button Text="Go Back" Clicked="GoBackClicked"/>
+        <Button Text="Edit" Clicked="EditClicked"/>
     </VerticalStackLayout>
 </ContentPage>

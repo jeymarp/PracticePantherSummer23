@@ -7,7 +7,7 @@ public partial class ClientView : ContentPage
 	public ClientView()
 	{
 		InitializeComponent();
-        //BindingContext = new ClientViewViewModel();
+        BindingContext = new ClientViewViewModel();
 
     }
 
@@ -33,9 +33,13 @@ public partial class ClientView : ContentPage
 
     private void SearchClicked(object sender, EventArgs e)
     {
-        (BindingContext as ClientViewViewModel).RefreshClientList();
+        (BindingContext as ClientViewViewModel).Search();
     }
-    
+
+    private void EditClicked(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("//EditClient");
+    }
     /*
 private void CancelClicked(object sender, EventArgs e)
 {

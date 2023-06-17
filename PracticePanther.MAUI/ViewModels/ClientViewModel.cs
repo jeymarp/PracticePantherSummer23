@@ -49,7 +49,7 @@ namespace PracticePanther.MAUI.ViewModels
             ClientService.Current.Add(Model);
         }
 
-        public ObservableCollection<Client> Clients
+        public ObservableCollection<Client> ClientsL
         {
             get
             {
@@ -64,8 +64,10 @@ namespace PracticePanther.MAUI.ViewModels
 
         public void Search()
         {
-            NotifyPropertyChanged(nameof(Clients));
+            NotifyPropertyChanged(nameof(ClientsL));
         }
+
+        public Client SelectedClient { get; set; }  
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string PropertyName = "")
