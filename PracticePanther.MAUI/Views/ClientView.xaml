@@ -15,13 +15,13 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Entry Grid.Column="0"></Entry>
+            <Entry Grid.Column="0" Text="{Binding Path=Query}"></Entry>
             <Button Grid.Column="1" Text="Search" Clicked="SearchClicked"></Button>
             <Button Grid.Column="2" Text="Add" Clicked="AddClicked"></Button>
         </Grid>
         <ListView 
-            ItemsSource="{Binding Path=Clients}"
-            SelectedItem="{Binding Path=SelectedClient}"
+            ItemsSource="{Binding Path=Clients, Mode=TwoWay}"
+            SelectedItem="{Binding Path=SelectedClient, Mode=TwoWay}"
             >
             <ListView.ItemTemplate>
                 <DataTemplate>

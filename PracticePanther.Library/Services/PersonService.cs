@@ -43,14 +43,5 @@ namespace PracticePanther.Library.Services
             return clientsList.FirstOrDefault(c => c.Id == id);
         }
 
-        public void Add(Client? client)
-        {
-            if (client != null)
-            {
-                clientsList.Add(client);
-            }
-        }
-        
-
     }*/
 }

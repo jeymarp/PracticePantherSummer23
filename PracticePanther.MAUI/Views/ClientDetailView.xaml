@@ -15,5 +15,7 @@
             <Entry Grid.Column="1" Text="{Binding Path=Model.Name}"/>
         </Grid>
         <Button Text="OK" Clicked="OkClicked"/>
+        <Button Text="Cancel" Clicked="CancelClicked"/>
+        <Button Text="Edit" Clicked="EditClicked"/>
     </VerticalStackLayout>
 </ContentPage>

@@ -81,26 +81,26 @@ namespace PracticePanther.Library.Services
         {
             return clients.FirstOrDefault(c => c.Id == id);
         }
-        /* public List<Client> Search(string query)
+        public List<Client> Search(string query)
        {
            return Clients.Where(c => c.Name.ToUpper().Contains(query.ToUpper())).ToList();
        }
 
+        /*
+      public void Remove(int id)
+      {
+          var clientToRemove = Get(id);
+          if (clientToRemove != null)
+          {
+              ClientsList.Remove(clientToRemove);
+          }
+      }
 
-       public void Remove(int id)
-       {
-           var clientToRemove = Get(id);
-           if (clientToRemove != null)
-           {
-               ClientsList.Remove(clientToRemove);
-           }
-       }
-
-       public void Remove(Client c)
-       {
-           Remove(c.Id);
-       }
-        }*/
+      public void Remove(Client c)
+      {
+          Remove(c.Id);
+      }
+       }*/
         public void Read()
          {
              if (!clients.Any())

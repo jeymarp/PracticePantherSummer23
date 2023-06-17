@@ -30,6 +30,11 @@ namespace PracticePanther.CLI.Models
             }
         }
 
+        public Client()
+        {
+            Name = string.Empty;
+        }
+
         public override string ToString()
         {
             return $"{Id}. {Name}";

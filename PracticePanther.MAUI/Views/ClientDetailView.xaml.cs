@@ -18,36 +18,44 @@ public partial class ClientDetailView : ContentPage
         (BindingContext as ClientViewModel).Add();
         Shell.Current.GoToAsync("//Client");
     }
- 
-  
-      /*
-    private void AddClicked(object sender, EventArgs e)
-    {
-        (BindingContext as ClientViewViewModel).AddClicked(Shell.Current);
-    }
 
+    private void CancelClicked(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("//Client");
+    }
+    //working on it
     private void EditClicked(object sender, EventArgs e)
     {
-        (BindingContext as ClientViewViewModel).EditClicked(Shell.Current);
+        Shell.Current.GoToAsync("//EditClient");
     }
+    /*
+  private void AddClicked(object sender, EventArgs e)
+  {
+      (BindingContext as ClientViewViewModel).AddClicked(Shell.Current);
+  }
 
-    private void DeleteClick(object sender, EventArgs e)
-    {
-        (BindingContext as ClientViewViewModel).Delete();
-    }
+  private void EditClicked(object sender, EventArgs e)
+  {
+      (BindingContext as ClientViewViewModel).EditClicked(Shell.Current);
+  }
 
-    private void GoBackClicked(object sender, EventArgs e)
-    {
-        Shell.Current.GoToAsync("//MainPage");
-    }
+  private void DeleteClick(object sender, EventArgs e)
+  {
+      (BindingContext as ClientViewViewModel).Delete();
+  }
 
-    private void CloseClientClicked(object sender, EventArgs e) 
-    { 
+  private void GoBackClicked(object sender, EventArgs e)
+  {
+      Shell.Current.GoToAsync("//MainPage");
+  }
 
-    }
+  private void CloseClientClicked(object sender, EventArgs e) 
+  { 
 
-    private void CloseProjectClicked(object sender, EventArgs e)
-    {
+  }
 
-    }*/
+  private void CloseProjectClicked(object sender, EventArgs e)
+  {
+
+  }*/
 }

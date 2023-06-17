@@ -23,5 +23,8 @@
         Title="Client Details"
         ContentTemplate="{DataTemplate local2:ClientDetailView}"
         Route="ClientDetail" />
-    
+    <ShellContent
+        Title="Client Edit"
+        ContentTemplate="{DataTemplate local2:EditClientView}"
+        Route="EditClient" />
 </Shell>

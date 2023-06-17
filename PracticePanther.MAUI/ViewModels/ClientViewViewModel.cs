@@ -46,11 +46,13 @@ namespace PracticePanther.MAUI.ViewModels
             NotifyPropertyChanged(nameof(Clients));
         }
 
+        
+        /*
         public void Search()
         {
             NotifyPropertyChanged(nameof(Clients));
         }
-        /*public string Query { get; set; }
+        /public string Query { get; set; }
 
        
         public void Remove()
