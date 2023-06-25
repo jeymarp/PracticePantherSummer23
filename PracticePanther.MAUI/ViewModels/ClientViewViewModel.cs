@@ -15,10 +15,10 @@ namespace PracticePanther.MAUI.ViewModels
         {
             get
             {
-                return
+                    return
                    new ObservableCollection<ClientViewModel>
                    (ClientService
-                       .Current.Clients
+                       .Current.Clients.Where(c => c.Name.ToUpper().Contains(Query?.ToUpper() ?? string.Empty))
                        .Select(c => new ClientViewModel(c)).ToList());
             }
         }
@@ -41,48 +41,32 @@ namespace PracticePanther.MAUI.ViewModels
             }
         }
 
+        public void Edit()
+        {
+            Shell.Current.GoToAsync($"//EditClient?clientId={SelectedClient?.Id ?? 0 }");
+        }
+
         public void RefreshClientList()
         {
             NotifyPropertyChanged(nameof(Clients));
         }
 
-        
-        
+
+        public string Query { get; set; }
+
         public void Search()
         {
+           // ClientService.Current.Search(Query);    //new
             NotifyPropertyChanged(nameof(Clients));
         }
+        //-------------------------------------------------------------------------------
         /*
-        /public string Query { get; set; }
-
-       
-        public void Remove()
-        {
-            if (SelectedClient == null)
-            {
-                return;
-            }
-            ClientService.Current.Remove(SelectedClient);
-            NotifyPropertyChanged(nameof(Clients));
-        }
-
-        public Client SelectedClient { get; set; }
-
+        
        
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public void AddClicked(Shell c)
-        {
-            c.GoToAsync("//Person");
-        }
-
-        public void EditClicked(Shell e)
-        {
-            e.GoToAsync("//Client");
         }*/
 
     }

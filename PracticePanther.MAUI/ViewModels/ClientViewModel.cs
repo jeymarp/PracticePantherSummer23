@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace PracticePanther.MAUI.ViewModels
 {
-    public class ClientViewModel : INotifyPropertyChanged
+    public class ClientViewModel //: INotifyPropertyChanged
     {
         public Client Model { get; set; }
 
@@ -24,31 +24,80 @@ namespace PracticePanther.MAUI.ViewModels
             }
         }
 
+        //---------------------------- DELETE ---------------------------------------------------
+
         public ICommand DeleteCommand { get; private set; }
         public void ExecuteDelete(int id)
         {
             ClientService.Current.Delete(id);
         }
 
+        //---------------------------- EDIT ---------------------------------------------------
+        public ICommand EditCommand { get; private set; }
+
+        public void ExecuteEdit(int id)
+        {
+            Shell.Current.GoToAsync($"//ClientDetail?clientId={id}");
+        }
+
+        //---------------------------- CONSTRUCTORS ------------------------------------------
+        private void SetupCommands()
+        {
+            DeleteCommand = new Command(
+                           (c) => ExecuteDelete((c as ClientViewModel).Model.Id));
+            EditCommand = new Command(
+                   (c) => ExecuteEdit((c as ClientViewModel).Model.Id));
+        }
+
+
         public ClientViewModel(Client client)
         {
             Model = client;
-            DeleteCommand = new Command(
-                (c) => ExecuteDelete((c as ClientViewModel).Model.Id));
+            SetupCommands();
+        }
+
+        public ClientViewModel(int clientId)
+        {
+            if(clientId == 0)
+            {
+                Model = new Client();
+            } else
+            {
+                Model = ClientService.Current.Get(clientId);
+            }
+            SetupCommands();
         }
 
         public ClientViewModel()
         {
             Model = new Client();
-            DeleteCommand = new Command(
-                (c) => ExecuteDelete((c as ClientViewModel).Model.Id));
+            SetupCommands();
+
         }
 
-        public void Add()
+        //------------------------------------- ADD ------------------------------------------
+
+        public void AddOrUpdate()
         {
-            ClientService.Current.Add(Model);
+            ClientService.Current.AddOrUpdate(Model);
         }
 
+        //------------------------------------- SEARCH ------------------------------------------
+
+        /* public string Query { get; set; }
+         public ICommand SearchCommand { get; private set; }
+         public void ExecuteSearch(string Query)
+         {
+             ClientService.Current.Search(Query);
+         }
+         public void Search()
+         {
+             NotifyPropertyChanged(nameof(Model));
+         }*/
+
+
+
+        /*
         public ObservableCollection<Client> ClientsL
         {
             get
@@ -60,6 +109,7 @@ namespace PracticePanther.MAUI.ViewModels
                 return new ObservableCollection<Client>(ClientService.Current.Search(Query));
             }
         }
+        
         public string Query { get; set; }
 
         public void Search()
@@ -67,12 +117,19 @@ namespace PracticePanther.MAUI.ViewModels
             NotifyPropertyChanged(nameof(ClientsL));
         }
 
-        public Client SelectedClient { get; set; }  
 
-        public event PropertyChangedEventHandler PropertyChanged;
+         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string PropertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
         }
+        //-------------------------------------------------------------------------------
+        */
+
+        //public Client SelectedClient { get; set; }  
+
+
+
+
     }
 }

@@ -5,17 +5,19 @@ using PracticePanther.MAUI.ViewModels;
 
 namespace PracticePanther.MAUI.Views;
 
+[QueryProperty(nameof(ClientId), "clientId")]
 public partial class ClientDetailView : ContentPage
 {
+    public int ClientId { get; set; }
 	public ClientDetailView()
 	{
 		InitializeComponent();
-        BindingContext = new ClientViewModel();
+        
     }
 
     private void OkClicked(object sender, EventArgs e)
     {
-        (BindingContext as ClientViewModel).Add();
+        (BindingContext as ClientViewModel).AddOrUpdate();
         Shell.Current.GoToAsync("//Client");
     }
 
@@ -23,8 +25,13 @@ public partial class ClientDetailView : ContentPage
     {
         Shell.Current.GoToAsync("//Client");
     }
+
+    private void OnArriving(object sender, NavigatedToEventArgs e)
+    {
+        BindingContext = new ClientViewModel(ClientId);
+    }
     //working on it
-  
+
     /*
   private void AddClicked(object sender, EventArgs e)
   {

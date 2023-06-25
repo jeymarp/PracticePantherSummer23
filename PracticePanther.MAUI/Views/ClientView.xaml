@@ -20,8 +20,8 @@
             <Button Grid.Column="2" Text="Add" Clicked="AddClicked"></Button>
         </Grid>
         <ListView 
-            ItemsSource="{Binding Path=Clients, Mode=TwoWay}"
-            SelectedItem="{Binding Path=SelectedClient, Mode=TwoWay}"
+            ItemsSource="{Binding Path=Clients}"
+            SelectedItem="{Binding Path=SelectedClient}"
             >
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -30,20 +30,26 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="12*"/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0"  Text="{Binding Path=Display}"/>
                             <Button Grid.Column="1" 
-                                    Text="Delete" 
-                                    Command="{Binding Path=DeleteCommand}" 
+                                    Text="Edit" 
+                                    Command="{Binding Path=EditCommand}"
+                                    CommandParameter="{Binding}"
+                                    Clicked="EditClicked"
+                                    />
+                            <Button Grid.Column="2" 
+                                    Text="Delete"
+                                Command="{Binding Path=DeleteCommand}" 
                                     CommandParameter="{Binding}"
                                     Clicked="DeleteClicked"/>
+
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <!--<Button Text="Delete" Clicked="DeleteClicked"/>-->
         <Button Text="Go Back" Clicked="GoBackClicked"/>
-        <Button Text="Edit" Clicked="EditClicked"/>
     </VerticalStackLayout>
 </ContentPage>

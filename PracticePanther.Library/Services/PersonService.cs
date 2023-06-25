@@ -8,40 +8,71 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PracticePanther.Library.Services
-{/*
-    public class PersonService
+{
+  /* public class PersonService
     {
-        private static ClientService? instancep;
-        private static object instanceLock = new object();
-        public static ClientService Current
+        public List<Person> People { 
+            get {
+                return people;
+            } 
+        }
+
+        private List<Person> people;
+
+        private static PersonService? instancep;
+
+        public static PersonService CurrentP
         {
             get
             {
-                lock (instanceLock)
+                if (instancep == null)
                 {
-                    if (instancep == null)
-                    {
-                        instancep = new ClientService();
-                    }
+                    instancep = new PersonService();
                 }
                 return instancep;
             }
         }
-        private List<Client> clientsList;
         private PersonService()
         {
-            clientsList = new List<Client>();
+            people = new List<Client>
+            {
+                new Person{ Id = 1, Name = "Person 1"},
+                new Person{ Id = 2, Name = "Person 2"},
+                new Person{ Id = 3, Name = "Person 3"},
+                new Person{ Id = 4, Name = "Person 4"},
+                new Person{ Id = 5, Name = "Person 5"},
+                new Person{ Id = 6, Name = "Person 6"}
+            };
         }
 
-        public List<Client> ClientList
+        public void Delete(int id)
         {
-            get { return clientsList; }
+            var personToDelete = People.FirstOrDefault(p => p.Id == id);
+            if(personToDelete != null)
+            {
+                People.Remove(PersonToDelete);
+            }
         }
 
-        public Client? GetById(int id)
+        public void Add(Person p)
         {
-            return clientsList.FirstOrDefault(c => c.Id == id);
+            if(c.Id == 0)
+            {
+                //add
+                c.Id = LastId + 1;
+            }
+
+            People.Add(p);
         }
 
-    }*/
+        private int LastId
+        {
+            get
+            {
+                return People.Any() ? People.Select(p => p.Id).Max() : 0;
+            }
+        }
+    }
+  */
+  
 }

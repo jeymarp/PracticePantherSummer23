@@ -45,7 +45,7 @@ namespace PracticePanther.Library.Services
                 new Client{ Id = 3, Name = "Client 3"},
                 new Client{ Id = 4, Name = "Client 4"},
                 new Client{ Id = 5, Name = "Client 5"},
-                new Client{ Id = 6, Name = "Client 6"}
+                new Client{ Id = 6, Name = "home"}
             };
         }
 
@@ -58,15 +58,26 @@ namespace PracticePanther.Library.Services
             }
         }
 
-        public void Add(Client? c)
+        public void AddOrUpdate(Client? c)
         {
-            if (c.Id == 0)
+            var isAdd = false;
+            if (c?.Id == 0)
             {
                 //add
+                isAdd = true;
                 c.Id = LastId + 1;
+               
             }
 
-            Clients.Add(c);
+            if (isAdd)
+            {
+                Clients.Add(c);
+            }
+        }
+
+        public Client? Get(int id)
+        {
+            return Clients.FirstOrDefault(c => c.Id == id);
         }
 
         private int LastId
@@ -77,30 +88,12 @@ namespace PracticePanther.Library.Services
             }
         }
 
-        public Client? Get(int id)
-        {
-            return clients.FirstOrDefault(c => c.Id == id);
-        }
+       
         public List<Client> Search(string query)
-       {
+        {
            return Clients.Where(c => c.Name.ToUpper().Contains(query.ToUpper())).ToList();
-       }
+        }
 
-        /*
-      public void Remove(int id)
-      {
-          var clientToRemove = Get(id);
-          if (clientToRemove != null)
-          {
-              ClientsList.Remove(clientToRemove);
-          }
-      }
-
-      public void Remove(Client c)
-      {
-          Remove(c.Id);
-      }
-       }*/
         public void Read()
          {
              if (!clients.Any())
@@ -121,5 +114,18 @@ namespace PracticePanther.Library.Services
              }
          }
 
+        /*
+ public void Edit(Client? updatedClient)
+    {
+        var clientToUpdate = Clients.FirstOrDefault(c => c.Id == updatedClient?.Id);
+        if (clientToUpdate != null)
+        {
+            clientToUpdate.Name = updatedClient?.Name;
+            clientToUpdate.Notes = updatedClient.Notes;
+            clientToUpdate.OpenDate = updatedClient.OpenDate;
+            clientToUpdate.ClosedDate = updatedClient.ClosedDate;
+        }
+    }
+   }*/
     }
 }

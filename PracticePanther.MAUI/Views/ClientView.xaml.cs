@@ -38,16 +38,6 @@ public partial class ClientView : ContentPage
 
     private void EditClicked(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("//EditClient");
+        (BindingContext as ClientViewViewModel).RefreshClientList();
     }
-    /*
-private void CancelClicked(object sender, EventArgs e)
-{
-   Shell.Current.GoToAsync("//MainPage");
-}
-
-private void OkayClicked(object sender, EventArgs e)
-{
-
-}*/
 }

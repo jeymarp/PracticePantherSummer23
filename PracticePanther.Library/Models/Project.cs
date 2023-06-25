@@ -7,6 +7,7 @@ using System.Xml.Linq;
 using PracticePanther.Library.Models;
 using PracticePanther.Library.Services;
 using PracticePanther.Library.DataBase;
+using System.Collections.ObjectModel;
 
 namespace PracticePanther.CLI.Models
 {
@@ -26,7 +27,7 @@ namespace PracticePanther.CLI.Models
 
         public int ClientId { get; set; }
 
-        public List<Client>? Roster { get; set; }   //list of clients
+        public ObservableCollection<Client>? Roster { get; set; }   //list of clients
 
         public Client? Client { get; set; }
         public List<Employee>? employees { get; set; }

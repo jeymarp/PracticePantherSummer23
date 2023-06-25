@@ -7,88 +7,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PracticePanther.Library.Services;
+using PracticePanther.Library.Models;
 using System.Xml.Linq;
+using System.Windows.Input;
 
 namespace PracticePanther.MAUI.ViewModels
 {
-    public class EditClientViewModel : INotifyPropertyChanged
+    public class EditClientViewModel 
     {
-        private Client _client;
+        public Client Model { get; set; }
 
-        public int Id
+        public string Display
         {
-            get => _client.Id;
-        }
-
-        public string Name
-        {
-            get => _client.Name;
-            set
+            get
             {
-                if (_client.Name != value)
-                {
-                    _client.Name = value;
-                    OnPropertyChanged(nameof(Name));
-                }
+                return Model.ToString() ?? string.Empty;
             }
         }
 
-        public string Notes
+        /*public void Edit()
         {
-            get => _client.Notes;
-            set
-            {
-                if (_client.Notes != value)
-                {
-                    _client.Notes = value;
-                    OnPropertyChanged(nameof(Notes));
-                }
-            }
-        }
+            ClientService.Current.Edit(Model);
+        }*/
 
-        public DateTime OpenDate
-        {
-            get => _client.OpenDate;
-            set
-            {
-                if (_client.OpenDate != value)
-                {
-                    _client.OpenDate = value;
-                    OnPropertyChanged(nameof(OpenDate));
-                }
-            }
-        }
-
-        public DateTime ClosedDate
-        {
-            get => _client.ClosedDate;
-            set
-            {
-                if (_client.ClosedDate != value)
-                {
-                    _client.ClosedDate = value;
-                    OnPropertyChanged(nameof(ClosedDate));
-                }
-            }
-        }
-
-        public EditClientViewModel(Client client)
-        {
-            _client = client;
-        }
-
-        public void Update()
-        {
-            // Implement the update logic here
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 
-   
 }

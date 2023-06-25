@@ -3,30 +3,25 @@ using PracticePanther.Library.Models;
 using PracticePanther.Library.Services;
 using PracticePanther.MAUI.ViewModels;
 using System.Xml.Linq;
+//using static Java.Util.Jar.Attributes;
 
 namespace PracticePanther.MAUI.Views;
 
-
+[QueryProperty(nameof(ClientId), "clientId")]
 public partial class EditClientView : ContentPage
 {
-	public EditClientView()
+    public int ClientId { get; set; }
+    //private EditClientViewViewModel viewModel;
+    public EditClientView()
 	{
-		InitializeComponent();
-        BindingContext = new EditClientViewViewModel();
+        InitializeComponent();
+        //BindingContext = new EditClientViewViewModel(ClientId);
     }
 
-    private void OkClicked(object sender, EventArgs e)
-    {
-        //in this line goes update call
-        Shell.Current.GoToAsync("//Client");
-    }
 
     private void CancelClicked(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("//Client");
     }
-
-
-
 
 }
