@@ -9,7 +9,7 @@
         <Label Text="{Binding SelectedClient.Model.Name}" />
 
        
-        <Button Text="Cancel" Clicked="CancelClicked" />
+        <!--<Button Text="Cancel" Clicked="CancelClicked" />-->
     </StackLayout>
 
 </ContentPage>

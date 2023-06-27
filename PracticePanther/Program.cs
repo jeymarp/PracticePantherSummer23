@@ -69,7 +69,7 @@ namespace PracticePanther // Note: actual namespace depends on the project name.
                     Console.WriteLine("Note: ");
                     string notes = Console.ReadLine() ?? string.Empty;
 
-                    ClientService.Current.Add(    //creating new client 
+                    ClientService.Current.AddOrUpdate(    //creating new client 
                         new Client
                         {
                             Id = Id,
@@ -131,7 +131,7 @@ namespace PracticePanther // Note: actual namespace depends on the project name.
         /******************************************** Project Menu **********************************************/
         static void ProjectMenu(List<Project> projects)
         {
-            var projectService = ProjectService.CurrentProj;
+            var projectService = ProjectService.Current;
             bool quit = false;
             while (!quit)    //using while loop for menu selection
             {
@@ -158,7 +158,7 @@ namespace PracticePanther // Note: actual namespace depends on the project name.
                     Console.Write("Project ID: ");
                     var Id = int.Parse(Console.ReadLine() ?? "0");
 
-                    ProjectService.CurrentProj?.Add(
+                    ProjectService.Current?.Add(
                         new Project
                         {
                             Id = Id,
@@ -175,7 +175,7 @@ namespace PracticePanther // Note: actual namespace depends on the project name.
                 }
                 else if (option.Equals("R", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    ProjectService.CurrentProj?.Read();
+                    ProjectService.Current?.Read();
                 }
                 else if (option.Equals("U", StringComparison.InvariantCultureIgnoreCase))
                 {

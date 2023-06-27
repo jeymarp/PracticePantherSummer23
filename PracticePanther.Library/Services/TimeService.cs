@@ -41,7 +41,7 @@ namespace PracticePanther.Library.Services
         public void UpdateTime(Time time)
         {
             //finding time entry to update 
-            Time? existingTime = _times.FirstOrDefault(t => t.ProjectId == time.ProjectId && 
+            Time? existingTime = _times?.FirstOrDefault(t => t.ProjectId == time.ProjectId && 
                                    t.EmployeeId == time.EmployeeId);
 
             if (existingTime != null)
@@ -54,7 +54,7 @@ namespace PracticePanther.Library.Services
 
         public void DeleteTime(Time time)
         {
-            _times.Remove(time);
+            _times?.Remove(time);
         }
     }
 }

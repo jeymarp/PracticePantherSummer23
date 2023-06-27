@@ -1,5 +1,6 @@
 ﻿using PracticePanther.CLI.Models;
 using PracticePanther.Library.Services;
+using PracticePanther.Library.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +17,19 @@ namespace PracticePanther.MAUI.ViewModels
     {
         public Client Model { get; set; }
 
+        public ObservableCollection<ProjectViewModel> Projects
+        {
+            get
+            {
+                if (Model == null || Model.Id == 0)
+                {
+                    return new ObservableCollection<ProjectViewModel>();
+                }
+                return new ObservableCollection<ProjectViewModel>(ProjectService
+                    .Current.Projects.Where(p => p.ClientId == Model.Id)
+                    .Select(r => new ProjectViewModel(r)));
+            }
+        }
         public string Display
         {
             get
@@ -24,29 +38,58 @@ namespace PracticePanther.MAUI.ViewModels
             }
         }
 
-        //---------------------------- DELETE ---------------------------------------------------
-
+        public ICommand AddProjectCommand { get; private set; }
+        public ICommand ShowProjectsCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
+        public ICommand EditCommand { get; private set; }
+
+
+
+        //---------------------------- ADD PROJECT ---------------------------------------------------
+
+        public void ExecuteAddProject()
+        {
+            AddOrUpdate(); //save the client so that we have an id to link the project to
+            //TODO: if we cancel the creation of this client, we need to delete it on cancel.
+            Shell.Current.GoToAsync($"//ProjectDetail?clientId={Model.Id}");
+        }
+
+        public void ExecuteShowProjects(int id)
+        {
+            Shell.Current.GoToAsync($"//ProjectDetail?clientId={id}");
+        }
+
+       
+        //---------------------------- DELETE ---------------------------------------------------
         public void ExecuteDelete(int id)
         {
             ClientService.Current.Delete(id);
         }
 
         //---------------------------- EDIT ---------------------------------------------------
-        public ICommand EditCommand { get; private set; }
 
         public void ExecuteEdit(int id)
         {
             Shell.Current.GoToAsync($"//ClientDetail?clientId={id}");
         }
 
+        public void RefreshProjects()
+        {
+            NotifyPropertyChanged(nameof(Projects));
+        }
+
         //---------------------------- CONSTRUCTORS ------------------------------------------
         private void SetupCommands()
         {
             DeleteCommand = new Command(
-                           (c) => ExecuteDelete((c as ClientViewModel).Model.Id));
+                (c) => ExecuteDelete((c as ClientViewModel).Model.Id));
             EditCommand = new Command(
-                   (c) => ExecuteEdit((c as ClientViewModel).Model.Id));
+                (c) => ExecuteEdit((c as ClientViewModel).Model.Id));
+            AddProjectCommand = new Command(
+                (c) => ExecuteAddProject());
+            ShowProjectsCommand = new Command(
+                (c) => ExecuteShowProjects((c as ClientViewModel).Model.Id));
+     
         }
 
 
@@ -58,10 +101,11 @@ namespace PracticePanther.MAUI.ViewModels
 
         public ClientViewModel(int clientId)
         {
-            if(clientId == 0)
+            if (clientId == 0)
             {
                 Model = new Client();
-            } else
+            }
+            else
             {
                 Model = ClientService.Current.Get(clientId);
             }
@@ -80,6 +124,13 @@ namespace PracticePanther.MAUI.ViewModels
         public void AddOrUpdate()
         {
             ClientService.Current.AddOrUpdate(Model);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         //------------------------------------- SEARCH ------------------------------------------

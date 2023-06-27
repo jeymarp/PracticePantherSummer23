@@ -5,68 +5,67 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PracticePanther.Library.Models;
-using PracticePanther.Library.DataBase;
 
 namespace PracticePanther.Library.Services
 {
     public class ProjectService
     {
-        private static ProjectService? instance;
-        private static object _lock = new object();
-        public static ProjectService? CurrentProj
+        private List<Project> projects;
+        public List<Project> Projects
         {
             get
             {
-                lock (_lock)
+                return projects;
+            }
+        }
+
+        private static ProjectService? instance;
+        public static ProjectService? Current
+        {
+
+            get
+            {
+                if (instance == null)
                 {
-                    if (instance == null)
-                    {
-                        instance = new ProjectService();
-                    }
+                    instance = new ProjectService();
                 }
+
                 return instance;
             }
         }
 
-        private List<Project>? projects;
         private ProjectService()
         {
-            projects = new List<Project>();
-        }
-
-
-        public List<Project>? Projects
-        {
-            get
+            projects = new List<Project>()
             {
-                return FakeDataBase.Projects;
-            }
+                new Project{ Id = 1, Name = "Project 1"},
+                new Project{ Id = 2, Name = "Project 2"},
+                new Project{ Id = 3, Name = "Project 3"},
+                new Project{ Id = 4, Name = "Project 4"}
+            };
         }
+
         public Project? Get(int id)
         {
-            return projects?.FirstOrDefault(p => p.Id == id);
+            return Projects?.FirstOrDefault(p => p.Id == id);
         }
 
         public void Add(Project project)
         {
-            if (project != null)
+            if (project.Id == 0)
             {
-                FakeDataBase.Projects?.Add(project);
+                //add
+                project.Id = LastId + 1;
             }
+            projects.Add(project);
         }
 
-        public void Remove(int id)
+        private int LastId
         {
-            var projectToRemove = Get(id);
-            if (projectToRemove != null)
+            get
             {
-                projects?.Remove(projectToRemove);
+                return Projects.Any() ? Projects.Select(c => c.Id).Max() : 0;
             }
-        }
-
-        public void Remove(Project p)
-        {
-            Remove(p.Id);
         }
 
         public void Read()
@@ -81,5 +80,21 @@ namespace PracticePanther.Library.Services
                 Console.WriteLine($"Project status: {project.IsActive}");
             }
         }
+
+
+        public void Remove(Project p)
+        {
+            Remove(p.Id);
+        }
+
+         public void Remove(int id)
+        {
+            var projectToRemove = Projects.FirstOrDefault(p => p.Id == id);
+            if (projectToRemove != null)
+            {
+                Projects?.Remove(projectToRemove);
+            }
+        }
+         
     }
 }

@@ -20,8 +20,9 @@ namespace PracticePanther.CLI.Models
 
         public string? Notes { get; set; }  //String property called Notes
 
-        public List<Project>? projects { get; set; }
+        public List<Project>? Projects { get; set; }
 
+        public int ProjectId { get; set; }
         public string Display
         {
             get
@@ -37,7 +38,7 @@ namespace PracticePanther.CLI.Models
 
         public override string ToString()
         {
-            return $"{Id}. {Name}";
+            return $"{Id} {Name}";
         }
     }
 }

@@ -57,28 +57,25 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\ClientDetailView.xaml.cs">
-	    <DependentUpon>ClientDetailView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\ClientView.xaml.cs">
-	    <DependentUpon>ClientView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\EditClientView.xaml.cs">
-	    <DependentUpon>EditClientView.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Update="Views\ClientView.xaml">
+	  <MauiXaml Update="Controls\SearchBarControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\ClientDetailView.xaml">
+		<MauiXaml Update="Views\ClientDetailView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+	  <MauiXaml Update="Views\ClientView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\EditClientView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ProjectDetailView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ProjectView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\TimerView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

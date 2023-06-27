@@ -16,6 +16,40 @@
         </Grid>
         <Button Text="OK" Clicked="OkClicked"/>
         <Button Text="Cancel" Clicked="CancelClicked"/>
+        <!--<Grid Padding="5" Margin="5">
+            <Label Text="Projects:"></Label>
+        </Grid>
+        <Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="12*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Entry Grid.Column="0"></Entry>
+            <Button Grid.Column="1" Text="Search"></Button>
+            <Button Grid.Column="2" Text="Add Project" Command="{Binding AddProjectCommand}"></Button>
+        </Grid>
+    </Grid>-->
+    <!--<ListView
+        ItemsSource="{Binding Projects}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="12*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" VerticalTextAlignment="Center" Text="{Binding Display}"></Label>
+                            <Button Grid.Column="1" Text="Timer" Command="{Binding TimerCommand}"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+    </ListView>
+    <Button Text="OK" Clicked="OkClicked"/>
+    <Button Text="Cancel" Clicked="CancelClicked"/>-->
         
     </VerticalStackLayout>
 </ContentPage>

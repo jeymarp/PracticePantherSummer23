@@ -11,7 +11,7 @@ using PracticePanther.Library.Models;
 using System.Xml.Linq;
 using System.Windows.Input;
 
-namespace PracticePanther.MAUI.ViewModels
+/*namespace PracticePanther.MAUI.ViewModels
 {
     public class EditClientViewModel 
     {
@@ -25,11 +25,11 @@ namespace PracticePanther.MAUI.ViewModels
             }
         }
 
-        /*public void Edit()
+        public void Edit()
         {
             ClientService.Current.Edit(Model);
-        }*/
+        }
 
     }
 
-}
+}*/

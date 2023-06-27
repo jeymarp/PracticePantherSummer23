@@ -6,7 +6,6 @@
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = new MainViewModel();
         }
 
         private void ClientsClicked(object sender, EventArgs e)
