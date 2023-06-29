@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:PracticePanther.MAUI.ViewModels"
              xmlns:c="clr-namespace:PracticePanther.MAUI.Controls"
-             x:Class="PracticePanther.MAUI.Views.ClientView"
-             Title="ClientView"
+             x:Class="PracticePanther.MAUI.Views.EmployeeView"
+             Title="EmployeeView"
              NavigatedTo="OnArrived">
     <ContentPage.BindingContext>
         <vm:ClientViewViewModel/>
@@ -22,10 +22,10 @@
             <Button Grid.Column="2" Text="Add" Clicked="AddClicked"></Button>
         </Grid>
         <ListView 
-            ItemsSource="{Binding Path=Clients}"
-            SelectedItem="{Binding Path=SelectedClient}"
+            ItemsSource="{Binding Path=Employees}"
+            SelectedItem="{Binding Path=SelectedEmployee}"
             >
-            <ListView.ItemTemplate>
+        <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <Grid>
@@ -33,32 +33,24 @@
                                 <ColumnDefinition Width="12*"/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
-                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0"  Text="{Binding Path=Display}"/>
+                            <Label  Grid.Column="0" Text="{Binding Path=Display}"/>
                             <Button Grid.Column="1" 
-                                    Text="Projects"
-                                    Command="{Binding Path = ShowProjectsCommand}"
-                                    CommandParameter="{Binding}"
-                                    Clicked="ProjectsClicked"
-                                    />
+                            Text="Edit"
+                            Command="{Binding Path = EditCommand}"
+                            CommandParameter="{Binding}"
+                            Clicked="EditClicked"
+                            />
                             <Button Grid.Column="2" 
-                                    Text="Edit"
-                                    Command="{Binding Path = EditCommand}"
-                                    CommandParameter="{Binding}"
-                                    Clicked="EditClicked"
-                                    />
-                            <Button Grid.Column="3" 
-                                    Text="Delete" 
-                                    Command="{Binding Path=DeleteCommand}" 
-                                    CommandParameter="{Binding}"
-                                    Clicked="DeleteClicked"/>
+                            Text="Delete" 
+                            Command="{Binding Path=DeleteCommand}" 
+                            CommandParameter="{Binding}"
+                            Clicked="DeleteClicked"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <!--<Button Text="Delete" Clicked="DeleteClicked"/>-->
         <Button Text="Go Back" Clicked="GoBackClicked"/>
     </VerticalStackLayout>
 </ContentPage>

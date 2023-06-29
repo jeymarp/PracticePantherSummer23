@@ -22,7 +22,8 @@
                 />
             <Button
                 Text="Employees"
-                />
+                Clicked="EmployeeClicked"
+                ></Button>
 
 
         </VerticalStackLayout>

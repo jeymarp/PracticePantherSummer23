@@ -11,7 +11,7 @@ namespace PracticePanther.Library.Services
     {
         private static TimeService? _instance;
         private List<Time>? _times;
-        public static TimeService CurrentTime
+        public static TimeService Current
         {
             get
             {
@@ -28,10 +28,7 @@ namespace PracticePanther.Library.Services
             _times = new List<Time>();
         }
 
-        public List<Time> GetTimes() 
-        {
-            return _times;
-        }
+        public List<Time>? Times => _times;
 
         public void AddTime(Time time)
         {
@@ -52,7 +49,7 @@ namespace PracticePanther.Library.Services
             }
         }
 
-        public void DeleteTime(Time time)
+        public void Delete(Time time)
         {
             _times?.Remove(time);
         }

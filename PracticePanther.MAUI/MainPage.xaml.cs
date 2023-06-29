@@ -21,11 +21,11 @@
         private void TimeClicked(object sender, EventArgs e)
         {
             Shell.Current.GoToAsync("//Time");
-        }
+        }*/
 
         private void EmployeeClicked(object sender, EventArgs e)
         {
-            Shell.Current.GoToAsync("Employees");
-        }*/
+            Shell.Current.GoToAsync("//Employees");
+        }
     }
 }
