@@ -10,16 +10,15 @@
             VerticalOptions="Center">
 
             <Button
-                Text="Client" 
+                Text="Manage Clients &amp; Projects" 
                 Clicked="ClientsClicked"
                 ></Button>
-            <Button
-                Text="Project" 
-                Clicked="ProjectsClicked"
-                ></Button>
+
             <Button
                 Text="Time"
-                />
+               Clicked="TimeClicked"
+                ></Button>
+              
             <Button
                 Text="Employees"
                 Clicked="EmployeeClicked"

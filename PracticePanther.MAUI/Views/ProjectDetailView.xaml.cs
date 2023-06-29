@@ -6,9 +6,12 @@ using PracticePanther.MAUI.ViewModels;
 namespace PracticePanther.MAUI.Views;
 
 [QueryProperty(nameof(ClientId), "clientId")]
+[QueryProperty(nameof(ProjectId), "projectId")]
 public partial class ProjectDetailView : ContentPage
 {
     public int ClientId { get; set; }
+    public int Query { get; set; }
+    public int ProjectId { get; set; }
     public ProjectDetailView()
     {
         InitializeComponent();
@@ -17,7 +20,7 @@ public partial class ProjectDetailView : ContentPage
 
     private void CancelClicked(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("//MainPage");
+        Shell.Current.GoToAsync("//Clients");
     }
 
     private void OkClicked(object sender, EventArgs e)
@@ -25,13 +28,14 @@ public partial class ProjectDetailView : ContentPage
         //var viewModel = (ProjectViewModel)BindingContext;
         //viewModel.Add(Shell.Current);
         (BindingContext as ProjectViewModel).Add();
-        Shell.Current.GoToAsync("//Projects");
+        Shell.Current.GoToAsync($"//ClientDetail?clientId={ClientId}");
+
     }
 
     private void OnArrived(object sender, NavigatedToEventArgs e)
     {
-        BindingContext = new ProjectViewModel(ClientId);
-        (BindingContext as ProjectViewModel).RefreshClients();
+        BindingContext = new ProjectViewModel(ClientId, ProjectId);
+        //(BindingContext as ProjectViewModel).RefreshClients();
     }
 	
 }

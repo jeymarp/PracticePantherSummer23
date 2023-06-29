@@ -17,5 +17,11 @@ namespace PracticePanther.Library.Models
         public int ProjectId { get; set; }
 
         public int EmployeeId { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Date}, {Hours}";
+        }
     }
+     
 }

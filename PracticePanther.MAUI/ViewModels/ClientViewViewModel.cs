@@ -28,7 +28,7 @@ namespace PracticePanther.MAUI.ViewModels
         {
             get
             {
-                    return
+                 return
                    new ObservableCollection<ClientViewModel>
                    (ClientService
                        .Current.Search(Query ?? string.Empty)

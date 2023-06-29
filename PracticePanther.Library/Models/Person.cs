@@ -8,7 +8,7 @@ namespace PracticePanther.Library.Models
 {
     public class Person
     {
-        private static int lastId = 0;
+       /* private static int lastId = 0;
 
         public int Id
         {
@@ -26,6 +26,6 @@ namespace PracticePanther.Library.Models
         public override string ToString()
         {
             return $"[{Id}] {Name}";
-        }
+        }*/
     }
 }

@@ -10,7 +10,7 @@ public partial class ProjectView : ContentPage
     public ProjectView()
 	{
 		InitializeComponent();
-        BindingContext = new ProjectViewViewModel();
+        //BindingContext = new ProjectViewViewModel();
     }
    
     private void OnArriving(object sender, NavigatedToEventArgs e)
@@ -18,7 +18,8 @@ public partial class ProjectView : ContentPage
         BindingContext =new ProjectViewViewModel(ClientId);
     }
 
-    private void GoBackClicked(object sender, EventArgs e)
+
+    /*private void GoBackClicked(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("//MainPage");
     }
@@ -28,15 +29,11 @@ public partial class ProjectView : ContentPage
     {
         (BindingContext as ProjectViewViewModel).RefreshProjectList();
     }
-
-    private void AddClicked(object sender, EventArgs e)
+      /*
+   private void AddClicked(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("//ProjectDetail");
     }
-    /*
-     
-
-     
 
      private void EditClicked(object sender, EventArgs e)
      {

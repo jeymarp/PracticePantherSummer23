@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace PracticePanther.MAUI.ViewModels
 {
-    public class ClientViewModel //: INotifyPropertyChanged
+    public class ClientViewModel : INotifyPropertyChanged
     {
         public Client Model { get; set; }
 
@@ -43,15 +43,17 @@ namespace PracticePanther.MAUI.ViewModels
         public ICommand DeleteCommand { get; private set; }
         public ICommand EditCommand { get; private set; }
 
+        public event PropertyChangedEventHandler PropertyChanged;
 
-
-        //---------------------------- ADD PROJECT ---------------------------------------------------
-
-        public void ExecuteAddProject()
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
-            AddOrUpdate(); //save the client so that we have an id to link the project to
-            //TODO: if we cancel the creation of this client, we need to delete it on cancel.
-            Shell.Current.GoToAsync($"//ProjectDetail?clientId={Model.Id}");
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        //---------------------------- DELETE ---------------------------------------------------
+        public void ExecuteDelete(int id)
+        {
+            ClientService.Current.Delete(id);
         }
 
         public void ExecuteShowProjects(int id)
@@ -59,15 +61,7 @@ namespace PracticePanther.MAUI.ViewModels
             Shell.Current.GoToAsync($"//ProjectDetail?clientId={id}");
         }
 
-       
-        //---------------------------- DELETE ---------------------------------------------------
-        public void ExecuteDelete(int id)
-        {
-            ClientService.Current.Delete(id);
-        }
-
         //---------------------------- EDIT ---------------------------------------------------
-
         public void ExecuteEdit(int id)
         {
             Shell.Current.GoToAsync($"//ClientDetail?clientId={id}");
@@ -76,6 +70,15 @@ namespace PracticePanther.MAUI.ViewModels
         public void RefreshProjects()
         {
             NotifyPropertyChanged(nameof(Projects));
+        }
+
+        //---------------------------- ADD PROJECT ---------------------------------------------------
+
+        public void ExecuteAddProject()
+        {
+            AddOrUpdate(); //save the client so that we have an id to link the project to
+            //TODO: if we cancel the creation of this client, we need to delete it on cancel.
+            Shell.Current.GoToAsync($"//ProjectDetail?clientId={Model.Id}&projectId{0}");
         }
 
         //---------------------------- CONSTRUCTORS ------------------------------------------
@@ -123,15 +126,11 @@ namespace PracticePanther.MAUI.ViewModels
 
         public void AddOrUpdate()
         {
+            if(Model.Id == 0)
             ClientService.Current.AddOrUpdate(Model);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+     
 
         //------------------------------------- SEARCH ------------------------------------------
 

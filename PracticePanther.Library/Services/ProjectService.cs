@@ -38,6 +38,7 @@ namespace PracticePanther.Library.Services
         {
             projects = new List<Project>()
             {
+                //fake projects for test purposes
                 new Project{ Id = 1, Name = "Project 1"},
                 new Project{ Id = 2, Name = "Project 2"},
                 new Project{ Id = 3, Name = "Project 3"},

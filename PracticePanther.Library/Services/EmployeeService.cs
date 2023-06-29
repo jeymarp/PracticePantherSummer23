@@ -36,9 +36,9 @@ namespace PracticePanther.Library.Services
         {
             employees = new List<Employee>
             {
-                new Employee{Id = 1, Name = "Employee1"},
-                new Employee{Id = 2, Name = "Employee2"},
-                new Employee{Id = 1, Name = "Employee3"}
+                new Employee{Id = 1, Name = "Employee1", Rate = 19},
+                new Employee{Id = 2, Name = "Employee2", Rate = 20},
+                new Employee{Id = 1, Name = "Employee3", Rate = 18}
             };
         }
 

@@ -114,19 +114,5 @@ namespace PracticePanther.Library.Services
                }
            }
        }
-
-        /*
-public void Edit(Client? updatedClient)
-{
-    var clientToUpdate = Clients.FirstOrDefault(c => c.Id == updatedClient?.Id);
-    if (clientToUpdate != null)
-    {
-        clientToUpdate.Name = updatedClient?.Name;
-        clientToUpdate.Notes = updatedClient.Notes;
-        clientToUpdate.OpenDate = updatedClient.OpenDate;
-        clientToUpdate.ClosedDate = updatedClient.ClosedDate;
-    }
-}
-}*/
     }
 }

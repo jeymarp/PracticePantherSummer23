@@ -10,18 +10,14 @@
 
         private void ClientsClicked(object sender, EventArgs e)
         {
-            Shell.Current.GoToAsync("//Client");
+            Shell.Current.GoToAsync("//Clients");
         }
+     
         
-        private void ProjectsClicked(object sender, EventArgs e)
-        {
-            Shell.Current.GoToAsync("//Project");
-        }
-        /*
         private void TimeClicked(object sender, EventArgs e)
         {
             Shell.Current.GoToAsync("//Time");
-        }*/
+        }
 
         private void EmployeeClicked(object sender, EventArgs e)
         {

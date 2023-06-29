@@ -6,9 +6,9 @@
              x:Class="PracticePanther.MAUI.Views.TimeView"
              Title="TimeView"
              NavigatedTo="OnArrived">
-    <ContentPage.BindingContext>
+    <!--<ContentPage.BindingContext>
         <vm:TimeViewModel/>
-    </ContentPage.BindingContext>
+    </ContentPage.BindingContext>-->
     <VerticalStackLayout>
         <ListView 
             ItemsSource="{Binding Path=Times}"
@@ -32,7 +32,7 @@
                                     />
                             <Button Grid.Column="2" 
                                     Text="Delete" 
-                                    Command="{Binding Path=DeleteCommand}" 
+                                    Command="{Binding DeleteCommand}" 
                                     CommandParameter="{Binding}"
                                     Clicked="DeleteClicked"/>
                         </Grid>

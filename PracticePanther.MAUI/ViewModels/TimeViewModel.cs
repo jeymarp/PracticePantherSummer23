@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Xml;
 using PracticePanther.Library.Models;
 using PracticePanther.Library.Services;
 
@@ -17,26 +18,35 @@ namespace PracticePanther.MAUI.ViewModels
         public ObservableCollection<Time> Times { get; private set; }
 
         public Time Model { get; private set; }
-        private Time selectedTime;
-        public Time SelectedTime
+        private Time SelectedTime { get; set; }
+
+        public string Display
         {
-            get { return selectedTime; }
-            set { SetProperty(ref selectedTime, value); }
+            get
+            {
+                return Model.ToString() ?? string.Empty;
+            }
         }
 
         public ICommand AddTimeCommand { get; private set; }
-        public ICommand EditTimeCommand { get; private set; }
-        public ICommand DeleteTimeCommand { get; private set; }
+        public ICommand EditCommand { get; private set; }
+        public ICommand DeleteCommand { get; private set; }
+        public DateTime Date { get; internal set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public TimeViewModel()
+        private void SetupCommands()
         {
-            Times = new ObservableCollection<Time>(TimeService.Current.Times);
+            DeleteCommand = new Command(
+                (t) => ExecuteDelete((t as TimeViewModel).Model));
+            /*EditCommand = new Command(
+                (e) => ExecuteEdit((e as TimeViewModel).Model.Id));*/
+        }
 
-            AddTimeCommand = new Command(AddTime);
-            EditTimeCommand = new Command(EditTime, CanEditTime);
-            DeleteTimeCommand = new Command(DeleteTime, CanDeleteTime);
+        public TimeViewModel(Time time)
+        {
+            Model = time;
+            SetupCommands();
         }
 
         private void AddTime()
@@ -53,41 +63,14 @@ namespace PracticePanther.MAUI.ViewModels
             // Similar to the AddTime method, gather the necessary information and update the selected Time object
         }
 
-        private bool CanEditTime()
+        public void ExecuteDelete(Time time)
         {
-            return SelectedTime != null;
-        }
-
-        private void DeleteTime()
-        {
-            // Implementation for deleting the selected time entry
-            if (SelectedTime != null)
-            {
-                TimeService.Current.Delete(Model);
-                Times.Remove(SelectedTime);
-            }
-        }
-
-        private bool CanDeleteTime()
-        {
-            return SelectedTime != null;
+            TimeService.Current.Delete(time);
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "")
-        {
-            if (EqualityComparer<T>.Default.Equals(storage, value))
-            {
-                return false;
-            }
-
-            storage = value;
-            OnPropertyChanged(propertyName);
-            return true;
         }
     }
 }

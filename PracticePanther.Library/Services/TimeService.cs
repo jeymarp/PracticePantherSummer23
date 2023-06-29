@@ -25,7 +25,10 @@ namespace PracticePanther.Library.Services
 
         private TimeService() 
         {
-            _times = new List<Time>();
+            _times = new List<Time>
+            {
+                new Time {Hours = 0, Date = DateTime.Now},
+            };
         }
 
         public List<Time>? Times => _times;
