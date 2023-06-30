@@ -206,7 +206,7 @@ namespace PracticePanther // Note: actual namespace depends on the project name.
                     projectService?.Read();
                     Console.Write("Enter project ID: ");
                     var deletChoice = int.Parse(Console.ReadLine() ?? "0");
-                    projectService?.Remove(deletChoice);
+                    projectService?.Delete(deletChoice);
 
                 }
                 else if (option.Equals("L", StringComparison.InvariantCultureIgnoreCase))

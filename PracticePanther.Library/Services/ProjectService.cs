@@ -82,13 +82,12 @@ namespace PracticePanther.Library.Services
             }
         }
 
-
-        public void Remove(Project p)
+        public void Delete(Project p)
         {
-            Remove(p.Id);
+            Delete(p.Id);
         }
 
-         public void Remove(int id)
+        public void Delete(int id)
         {
             var projectToRemove = Projects.FirstOrDefault(p => p.Id == id);
             if (projectToRemove != null)

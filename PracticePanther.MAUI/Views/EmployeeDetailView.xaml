@@ -13,7 +13,16 @@
             <Label Grid.Column="0"
             Text="Employee Name" />
             <Entry Grid.Column="1" Text="{Binding Path=Model.Name}"/>
+            <!--new code-->
         </Grid>
+        <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="11*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Text="Rate" />
+                <Entry Grid.Column="1" Text="{Binding Path=Model.Rate}"/>
+            </Grid>
         <Button Text="OK" Clicked="OkClicked"/>
         <Button Text="Cancel" Clicked="CancelClicked"/>
     </VerticalStackLayout>

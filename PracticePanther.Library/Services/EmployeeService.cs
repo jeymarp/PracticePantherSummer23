@@ -38,7 +38,7 @@ namespace PracticePanther.Library.Services
             {
                 new Employee{Id = 1, Name = "Employee1", Rate = 19},
                 new Employee{Id = 2, Name = "Employee2", Rate = 20},
-                new Employee{Id = 1, Name = "Employee3", Rate = 18}
+                new Employee{Id = 3, Name = "Employee3", Rate = 18}
             };
         }
 
@@ -51,12 +51,13 @@ namespace PracticePanther.Library.Services
             }
         }
 
-        public void AddOrUpdate(Employee e)
+        public void AddOrUpdate(Employee e, decimal rate)
         {
             if (e.Id == 0)
             {
                 //add
                 e.Id = LastId + 1;
+                e.Rate = rate;
                 Employees.Add(e);
             }
 

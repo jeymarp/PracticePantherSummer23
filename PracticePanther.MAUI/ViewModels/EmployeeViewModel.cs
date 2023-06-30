@@ -73,9 +73,9 @@ namespace PracticePanther.MAUI.ViewModel
             SetupCommands();
         }
 
-        public void AddOrUpdate()
+        public void AddOrUpdate(decimal rate)
         {
-            EmployeeService.Current.AddOrUpdate(Model);
+            EmployeeService.Current.AddOrUpdate(Model, rate);
         }
     }
 }

@@ -25,11 +25,8 @@ public partial class ProjectDetailView : ContentPage
 
     private void OkClicked(object sender, EventArgs e)
     {
-        //var viewModel = (ProjectViewModel)BindingContext;
-        //viewModel.Add(Shell.Current);
         (BindingContext as ProjectViewModel).Add();
         Shell.Current.GoToAsync($"//ClientDetail?clientId={ClientId}");
-
     }
 
     private void OnArrived(object sender, NavigatedToEventArgs e)

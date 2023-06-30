@@ -40,9 +40,15 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="12*"/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" VerticalTextAlignment="Center" Text="{Binding Display}"></Label>
                             <Button Grid.Column="1" Text="Timer" Command="{Binding TimerCommand}"/>
+                            <Button Grid.Column="2" Text="Delete" Command="{Binding Path=DeleteCommand}"
+                                     CommandParameter="{Binding}" Clicked="DeleteClicked"/>
+                            <Button Grid.Column="3" Text="Edit" Command="{Binding EditCommand}"
+                                    Clicked="EditClicked"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

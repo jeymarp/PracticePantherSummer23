@@ -20,6 +20,8 @@ namespace PracticePanther.MAUI.ViewModels
   
         public ICommand TimerCommand { get; private set; }
         public ICommand AddClientCommand { get; private set; }
+        public ICommand DeleteCommand { get; private set; }
+        public ICommand EditCommand { get; private set; }
 
         public string Display
         {
@@ -46,13 +48,24 @@ namespace PracticePanther.MAUI.ViewModels
             };
             Application.Current.OpenWindow(window);
         }
+        
+        public void ExecuteDelete(int id)
+        {
+            ProjectService.Current.Delete(id);
+        }
+
+        public void ExecuteEdit(int id)
+        {
+            
+            Shell.Current.GoToAsync($"//ProjectDetail?projectId={id}");
+        }
 
         private void SetupCommands()
         {
             AddClientCommand = new Command(ExecuteAdd);
             TimerCommand = new Command(ExecuteTimer);
-            //DeleteCommand = new Command(ExecuteAdd);
-            //EditCommand = new Command(ExecuteAdd);
+            DeleteCommand = new Command(ExecuteAdd);
+            EditCommand = new Command(ExecuteAdd);
             //ShowClientsCommand = new Command(ExecuteAdd);
         }
 
@@ -87,12 +100,10 @@ namespace PracticePanther.MAUI.ViewModels
         {
             ProjectService.Current.Add(Model);
         }
-
-
+    
 
         //NEW code 6/26-----------------------------------------------------------------
-        /*public ICommand DeleteCommand { get; private set; }
-       public ICommand EditCommand { get; private set; }
+        /*
 
        public ICommand ShowClientsCommand { get; private set; }
        public ObservableCollection<ClientViewModel> Clients
@@ -105,19 +116,9 @@ namespace PracticePanther.MAUI.ViewModels
            }
        }
 
-       public void ExecuteDelete(int id)
-       {
-           ProjectService.Current.Remove(id);
-       }
-
        public void ExecuteShowClients(int id)
        {
            Shell.Current.GoToAsync($"//Client?projectId={id}");
-       }
-
-       public void ExecuteEdit(int id)
-       {
-           Shell.Current.GoToAsync($"//ProjectDetail?projectId={id}");
        }
 
        public void RefreshClients()
@@ -135,18 +136,6 @@ namespace PracticePanther.MAUI.ViewModels
        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
        {
            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-       }
-
-        private void SetupCommands()
-       {
-           DeleteCommand = new Command(
-               (p) => ExecuteDelete((p as ProjectViewModel).Model.Id));
-           EditCommand = new Command(
-               (p) => ExecuteEdit((p as ProjectViewModel).Model.Id));
-           AddClientCommand = new Command(
-               (p) => ExecuteAddClient());
-           ShowClientsCommand = new Command(
-               (p) => ExecuteShowClients((p as ClientViewModel).Model.Id));
        }
 
 
