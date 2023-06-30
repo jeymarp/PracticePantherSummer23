@@ -76,8 +76,7 @@ namespace PracticePanther.MAUI.ViewModels
 
         public void ExecuteAddProject()
         {
-            AddOrUpdate(); //save the client so that we have an id to link the project to
-            //TODO: if we cancel the creation of this client, we need to delete it on cancel.
+            AddOrUpdate(); 
             Shell.Current.GoToAsync($"//ProjectDetail?clientId={Model.Id}&projectId{0}");
         }
 
