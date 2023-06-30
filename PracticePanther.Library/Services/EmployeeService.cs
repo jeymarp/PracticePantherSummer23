@@ -51,13 +51,12 @@ namespace PracticePanther.Library.Services
             }
         }
 
-        public void AddOrUpdate(Employee e, decimal rate)
+        public void AddOrUpdate(Employee e)
         {
             if (e.Id == 0)
             {
                 //add
                 e.Id = LastId + 1;
-                e.Rate = rate;
                 Employees.Add(e);
             }
 

@@ -18,7 +18,7 @@ public partial class EmployeeDetailView : ContentPage
 
     private void OkClicked(object sender, EventArgs e)
     {
-        (BindingContext as EmployeeViewModel).AddOrUpdate(EmployeeRate);
+        (BindingContext as EmployeeViewModel).AddOrUpdate();
         Shell.Current.GoToAsync("//Employees");
     }
 
@@ -30,6 +30,5 @@ public partial class EmployeeDetailView : ContentPage
     private void OnArriving(object sender, NavigatedToEventArgs e)
     {
         BindingContext = new EmployeeViewModel(EmployeeId);
-        //(BindingContext as EmployeeViewModel).RefreshEmployeeList();
     }
 }
