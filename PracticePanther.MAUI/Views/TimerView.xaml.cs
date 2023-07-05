@@ -12,4 +12,14 @@ public partial class TimerView : ContentPage
 		InitializeComponent();
         BindingContext = new TimerViewModel(projectId);
     }
+
+    private void StartClicked(object sender, EventArgs e)
+    {
+        (BindingContext as TimerViewModel).Equals(true);
+    }
+
+    private void StopClicked(object sender, EventArgs e)
+    {
+        (BindingContext as TimerViewModel).Equals(false);
+    }
 }

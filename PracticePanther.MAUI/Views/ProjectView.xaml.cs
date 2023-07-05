@@ -10,7 +10,7 @@ public partial class ProjectView : ContentPage
     public ProjectView()
 	{
 		InitializeComponent();
-        //BindingContext = new ProjectViewViewModel();
+       //BindingContext = new ProjectViewViewModel();
     }
    
     private void OnArriving(object sender, NavigatedToEventArgs e)

@@ -39,4 +39,8 @@
        Title="Time Management"
         ContentTemplate="{DataTemplate local2:TimeView}"
         Route="Time" />
+    <ShellContent
+       Title="Time Details"
+        ContentTemplate="{DataTemplate local2:TimeDetailView}"
+        Route="TimeDetail" />
 </Shell>

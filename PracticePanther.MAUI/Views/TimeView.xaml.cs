@@ -1,3 +1,4 @@
+using PracticePanther.CLI.Models;
 using PracticePanther.Library.Models;
 using PracticePanther.Library.Services;
 using PracticePanther.MAUI.ViewModels;
@@ -5,19 +6,33 @@ namespace PracticePanther.MAUI.Views;
 
 public partial class TimeView : ContentPage
 {
-	public TimeView()
+    public int ProjectId { get; set; } //new
+
+    public TimeView()
 	{
 		InitializeComponent();
         BindingContext = new TimeViewViewModel();
 	}
-    
+
+    //private void AddClicked(object sender, EventArgs e)
+    //{
+    //    (BindingContext as TimeViewViewModel).RefreshTimeList();
+    //    Shell.Current.GoToAsync("//TimeDetail");
+    //}
+
+    //---------------------------------new
+    private void AddClicked(object sender, EventArgs e)
+    {
+        var timeViewViewModel = (BindingContext as TimeViewViewModel);
+        timeViewViewModel.ProjectId = ProjectId;
+        timeViewViewModel.RefreshTimeList();
+        Shell.Current.GoToAsync("//TimeDetail");
+    }
+
     private void EditClicked(object sender, EventArgs e)
     {
-        var selectedTime = ((Button)sender).BindingContext as TimeViewModel;
-        if (selectedTime != null)
-        {
-            // Handle edit logic
-        }
+        Shell.Current.GoToAsync("//TimeDetail");
+        //(BindingContext as TimeViewViewModel).RefreshTimeList();
     }
 
     private void DeleteClicked(object sender, EventArgs e)

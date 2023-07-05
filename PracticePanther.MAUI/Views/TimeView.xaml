@@ -7,9 +7,19 @@
              Title="TimeView"
              NavigatedTo="OnArrived">
     <!--<ContentPage.BindingContext>
-        <vm:TimeViewModel/>
+        <vm:TimeViewViewModel/>
     </ContentPage.BindingContext>-->
     <VerticalStackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="11*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <c:SearchBarControl Grid.Column="0" 
+                                QueryText="{Binding Query}"
+                                SearchButtonText="Search"
+                                SearchCommand="{Binding SearchCommand}"/>
+        </Grid>
         <ListView 
             ItemsSource="{Binding Path=Times}"
             SelectedItem="{Binding Path=SelectedTime}"
@@ -41,5 +51,9 @@
             </ListView.ItemTemplate>
         </ListView>
         <Button Text="Go Back" Clicked="GoBackClicked"/>
+        <Button Text="Add Time" 
+                Command="{Binding Path=AddCommand}" 
+                CommandParameter="{Binding}" 
+                Clicked="AddClicked"/>
     </VerticalStackLayout>
 </ContentPage>

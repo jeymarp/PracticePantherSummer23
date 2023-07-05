@@ -6,6 +6,7 @@ using PracticePanther.MAUI.ViewModels;
 namespace PracticePanther.MAUI.Views;
 
 [QueryProperty(nameof(ClientId), "clientId")]
+
 public partial class ClientDetailView : ContentPage
 {
     public int ClientId { get; set; }
@@ -35,16 +36,16 @@ public partial class ClientDetailView : ContentPage
     //Project Delete & Edit
     private void DeleteClicked(object sender, EventArgs e)
     {
-        (BindingContext as ProjectViewViewModel).RefreshProjectList();
+        (BindingContext as ClientViewModel).RefreshProjects();
     }
 
-    private void EditClicked(object sender, EventArgs e)
-    {
-        (BindingContext as ProjectViewViewModel).RefreshProjectList();
-    }
     //working on it
 
     /*
+     *  private void EditClicked(object sender, EventArgs e)
+    {
+        (BindingContext as ProjectViewViewModel).RefreshProjectList();
+    }
 
   private void CloseClientClicked(object sender, EventArgs e) 
   { 

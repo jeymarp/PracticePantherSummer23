@@ -49,23 +49,24 @@ namespace PracticePanther.MAUI.ViewModels
             Application.Current.OpenWindow(window);
         }
         
-        public void ExecuteDelete(int id)
+        public void ExecuteDelete()
         {
-            ProjectService.Current.Delete(id);
+            ProjectService.Current.Delete(Model.Id);
         }
 
-        public void ExecuteEdit(int id)
-        {
-            
-            Shell.Current.GoToAsync($"//ProjectDetail?projectId={id}");
-        }
+       public void ExecuteEdit()
+       {
+          int ClientId = Model.ClientId;
+          int ProjectId = Model.Id;
+          Shell.Current.GoToAsync($"//ProjectDetail?projectId={ProjectId}&clientId={ClientId}");
+       }
 
         private void SetupCommands()
         {
             AddClientCommand = new Command(ExecuteAdd);
             TimerCommand = new Command(ExecuteTimer);
-            DeleteCommand = new Command(ExecuteAdd);
-            EditCommand = new Command(ExecuteAdd);
+            DeleteCommand = new Command(ExecuteDelete);
+            EditCommand = new Command(ExecuteEdit);
             //ShowClientsCommand = new Command(ExecuteAdd);
         }
 
@@ -77,69 +78,50 @@ namespace PracticePanther.MAUI.ViewModels
 
         public ProjectViewModel(int clientId)
         {
-
-            Model = new Project { ClientId = clientId };
+            if (clientId == 0)
+            {
+                Model = new Project();
+            }
+            else
+            {
+                Model = ProjectService.Current.Get(clientId);
+            }
             SetupCommands();
         }
 
         public ProjectViewModel(Project model)
         {
             Model = model;
-            SetupCommands();
+            SetupCommands();              
         }
-         public ProjectViewModel(int clientId, int projectId)
+        public ProjectViewModel(int clientId, int projectId)
         {
-            if(projectId > 0 && clientId > 0)
+            if (projectId > 0 && clientId > 0)
+            {
                 Model = ProjectService.Current.Get(projectId);
-            else if(clientId > 0)
+            }
+            else if (clientId > 0)
+            {
                 Model = new Project { ClientId = clientId };
+            }
             SetupCommands();
         }
+
 
         public void Add()
         {
             ProjectService.Current.Add(Model);
         }
     
+        public void Edit()
+        {
+            ProjectService.Current.Edit(Model);
+        }
 
-        //NEW code 6/26-----------------------------------------------------------------
-        /*
-
-       public ICommand ShowClientsCommand { get; private set; }
-       public ObservableCollection<ClientViewModel> Clients
-       {
-           get
-           {
-               return new ObservableCollection<ClientViewModel>(ClientService
-                   .Current.Clients.Where(c => c.ProjectId == Model.Id)
-                   .Select(r => new ClientViewModel(r)));
-           }
-       }
-
-       public void ExecuteShowClients(int id)
-       {
-           Shell.Current.GoToAsync($"//Client?projectId={id}");
-       }
-
-       public void RefreshClients()
-       {
-           NotifyPropertyChanged(nameof(Clients));
-       }
-
-       public void ExecuteAddClient()
-       {
-           Add(); 
-           Shell.Current.GoToAsync($"//ClientDetail?projectId={Model.Id}");
-       }
-       public event PropertyChangedEventHandler PropertyChanged;
-
-       private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-       {
-           PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-       }
-
-
-     */
-
+        public void Delete()
+        {
+            ProjectService.Current.Delete(Model);
+        }
+       
     }
 }

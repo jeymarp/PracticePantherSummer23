@@ -39,6 +39,8 @@ namespace PracticePanther.MAUI.ViewModels
         }
 
         public ICommand AddProjectCommand { get; private set; }
+        public ICommand EditProjectCommand { get; private set; }
+        public ICommand DeleteProjectCommand { get; private set; } 
         public ICommand ShowProjectsCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
         public ICommand EditCommand { get; private set; }
@@ -50,34 +52,45 @@ namespace PracticePanther.MAUI.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        //---------------------------- DELETE ---------------------------------------------------
+        //---------------------------- DELETE CLIENT---------------------------------------------------
         public void ExecuteDelete(int id)
         {
             ClientService.Current.Delete(id);
         }
 
-        public void ExecuteShowProjects(int id)
-        {
-            Shell.Current.GoToAsync($"//ProjectDetail?clientId={id}");
-        }
-
-        //---------------------------- EDIT ---------------------------------------------------
+        //---------------------------- EDIT CLIENT ---------------------------------------------------
         public void ExecuteEdit(int id)
         {
             Shell.Current.GoToAsync($"//ClientDetail?clientId={id}");
         }
 
+        //---------------------------- ADD PROJECT, EDIT & DELETE--------------------------------------
+        public void ExecuteShowProjects(int id)
+        {
+            Shell.Current.GoToAsync($"//ProjectDetail?clientId={id}");
+        }
+        public void ExecuteAddProject()
+        {
+            AddOrUpdate();
+            // Shell.Current.GoToAsync($"//ProjectDetail?clientId={Model.Id}&projectId={0}");
+            Shell.Current.GoToAsync($"//ProjectDetail?clientId={Model.Id}");
+        }
+
+        //new
+        public void ExecuteEditProject()
+        {
+            AddOrUpdate();
+            Shell.Current.GoToAsync($"//ProjectDetail?clientId={Model.Id}&projectId{0}");
+        }
+
+        public void ExecuteDeleteProject(int id)
+        {
+            ProjectService.Current.Delete(id);
+        }
+
         public void RefreshProjects()
         {
             NotifyPropertyChanged(nameof(Projects));
-        }
-
-        //---------------------------- ADD PROJECT ---------------------------------------------------
-
-        public void ExecuteAddProject()
-        {
-            AddOrUpdate(); 
-            Shell.Current.GoToAsync($"//ProjectDetail?clientId={Model.Id}&projectId{0}");
         }
 
         //---------------------------- CONSTRUCTORS ------------------------------------------
@@ -91,7 +104,10 @@ namespace PracticePanther.MAUI.ViewModels
                 (c) => ExecuteAddProject());
             ShowProjectsCommand = new Command(
                 (c) => ExecuteShowProjects((c as ClientViewModel).Model.Id));
-     
+            EditProjectCommand = new Command(
+                (c) => ExecuteEditProject());
+            DeleteProjectCommand = new Command(
+                (c) => ExecuteDeleteProject((c as ClientViewModel).Model.Id));
         }
 
 
@@ -121,7 +137,7 @@ namespace PracticePanther.MAUI.ViewModels
 
         }
 
-        //------------------------------------- ADD ------------------------------------------
+        //------------------------------------- ADD/UPD CLIENT ------------------------------------------
 
         public void AddOrUpdate()
         {

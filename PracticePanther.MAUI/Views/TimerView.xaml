@@ -14,7 +14,9 @@
             Text="{Binding TimerDisplay}"
             FontSize="Large"
             HorizontalTextAlignment="Center"/>
-        <Button Text="Start" Command="{Binding StartCommand}"/>
-        <Button Text="Stop" Command="{Binding StopCommand}"/>
+        <Button Text="Start" Command="{Binding StartCommand}"
+                CommandParameter="{Binding}" Clicked="StartClicked"/>
+        <Button Text="Stop" Command="{Binding StopCommand}"
+                CommandParameter="{Binding}" Clicked="StopClicked"/>
     </VerticalStackLayout>
 </ContentPage>

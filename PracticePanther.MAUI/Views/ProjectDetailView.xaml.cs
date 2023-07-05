@@ -29,10 +29,16 @@ public partial class ProjectDetailView : ContentPage
         Shell.Current.GoToAsync($"//ClientDetail?clientId={ClientId}");
     }
 
+    private void UpdateClicked(object sender, EventArgs e)
+    {
+        (BindingContext as ProjectViewModel).Edit();
+        Shell.Current.GoToAsync($"//ClientDetail?clientId={ClientId}");
+    }
+
     private void OnArrived(object sender, NavigatedToEventArgs e)
     {
         BindingContext = new ProjectViewModel(ClientId, ProjectId);
-        //(BindingContext as ProjectViewModel).RefreshClients();
+        
     }
 	
 }

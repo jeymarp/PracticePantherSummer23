@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PracticePanther.CLI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +18,22 @@ namespace PracticePanther.Library.Models
         public int ProjectId { get; set; }
 
         public int EmployeeId { get; set; }
-
+       
         public override string ToString()
         {
-            return $"{Date}, {Hours}";
+            return $"{Date}";
         }
+
+        //public Time()
+        //{
+        //    Id = 0 ;
+        //    ProjectId = 0 ;
+        //    EmployeeId = 0 ;
+        //    Hours = 0 ;
+        //    Date = DateTime.MinValue ;
+        //    Narrative = string.Empty ;
+        //}
+
     }
      
 }

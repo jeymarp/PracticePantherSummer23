@@ -14,8 +14,7 @@
         <ListView
             ItemsSource="{Binding Projects}"
             >
-            
+
         </ListView>
-        <!--<Button Text="Go Back" Clicked="GoBackClicked"/>-->
     </VerticalStackLayout>
 </ContentPage>

@@ -36,14 +36,7 @@ namespace PracticePanther.Library.Services
 
         private ProjectService()
         {
-            projects = new List<Project>()
-            {
-                //fake projects for test purposes
-                new Project{ Id = 1, Name = "Project 1"},
-                new Project{ Id = 2, Name = "Project 2"},
-                new Project{ Id = 3, Name = "Project 3"},
-                new Project{ Id = 4, Name = "Project 4"}
-            };
+            projects = new List<Project>();
         }
 
         public Project? Get(int id)
@@ -59,6 +52,18 @@ namespace PracticePanther.Library.Services
                 project.Id = LastId + 1;
             }
             projects.Add(project);
+        }
+
+        public void Edit(Project project)
+        {
+            Project? existingProj = Get(project.Id);
+            if(existingProj != null)
+            {
+                existingProj.Id = project.Id;
+                existingProj.LongName = project.LongName;
+                //existingProj.IsActive = project.IsActive;
+                //rest of properties here
+            }
         }
 
         private int LastId

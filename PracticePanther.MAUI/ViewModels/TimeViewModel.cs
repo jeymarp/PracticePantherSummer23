@@ -8,27 +8,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml;
+using PracticePanther.CLI.Models;
 using PracticePanther.Library.Models;
 using PracticePanther.Library.Services;
 
 namespace PracticePanther.MAUI.ViewModels
 {
-    public class TimeViewModel : INotifyPropertyChanged
+    public class TimeViewModel //: INotifyPropertyChanged
     {
-        public ObservableCollection<Time> Times { get; private set; }
-
         public Time Model { get; private set; }
         private Time SelectedTime { get; set; }
-
         public string Display
         {
             get
             {
-                return Model.ToString() ?? string.Empty;
+                return $"{Model.Date}";
             }
         }
 
-        public ICommand AddTimeCommand { get; private set; }
+        public ICommand AddCommand { get; private set; }
         public ICommand EditCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
         public DateTime Date { get; internal set; }
@@ -39,28 +37,46 @@ namespace PracticePanther.MAUI.ViewModels
         {
             DeleteCommand = new Command(
                 (t) => ExecuteDelete((t as TimeViewModel).Model));
-            /*EditCommand = new Command(
-                (e) => ExecuteEdit((e as TimeViewModel).Model.Id));*/
+            //EditCommand = new Command(
+            //    (t) => ExecuteEdit((t as TimeViewModel).Model));
+            EditCommand = new Command(ExecuteEdit);
+
+            //AddCommand = AddCommand = new Command(ExecuteAdd);
+            AddCommand = new Command(ExecuteAdd);
         }
 
+        public TimeViewModel()
+        {
+            Model = new Time();
+            SetupCommands();
+        }
         public TimeViewModel(Time time)
         {
             Model = time;
             SetupCommands();
         }
+    
 
-        private void AddTime()
-        {
-            // Implementation for adding a new time entry
-            Model = TimeService.Current.Get(projectId);
-            // The information can be obtained using dialogs or binding to properties in this ViewModel
-            // After gathering the information, create a new Time object and add it to the TimeService
-        }
+        //public TimeViewModel(int projectId)
+        //{
 
-        private void EditTime()
+        //    Model = TimeService.Current.Get(projectId);
+        //    SetupCommands();
+
+        //}
+
+        //THIS IS THE ADD THAT WORKS
+        //private void ExecuteAdd()
+        //{
+        //    TimeService.Current.Add(Model);
+        //    //Shell.Current.GoToAsync($"//TimeDetail?project={Model.ProjectId}");
+        //    Shell.Current.GoToAsync($"//TimeDetail?date={Model.Date}");
+        //}
+
+        private void ExecuteEdit()
         {
-            // Implementation for editing a selected time entry
-            // Similar to the AddTime method, gather the necessary information and update the selected Time object
+            //TimeService.Current.Update(Model);
+            Shell.Current.GoToAsync($"//TimeDetail?date={Model.Date}");
         }
 
         public void ExecuteDelete(Time time)
@@ -68,9 +84,47 @@ namespace PracticePanther.MAUI.ViewModels
             TimeService.Current.Delete(time);
         }
 
+
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public void Add()
+        {
+            TimeService.Current.Add(Model);
+        }
+
+        public void Edit()
+        {
+            TimeService.Current.Update(Model);
+        }
+
+        //new
+        public int ProjectId { get; set; }
+
+        private void ExecuteAdd()
+        {
+            int projectId = TimeService.Current.GetProjectId(ProjectId);
+
+            if (ProjectId == 0)
+            {
+                return;
+            }
+
+            Model.ProjectId = ProjectId;
+
+            var project = ProjectService.Current.Get(ProjectId);
+            if (project == null)
+            {
+                //Project does not exist
+                return;
+            }
+
+            TimeService.Current.Add(Model);
+            Shell.Current.GoToAsync($"//TimeDetail?project={Model.ProjectId}");
+
+        }
+
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PracticePanther.CLI.Models;
 using PracticePanther.Library.Models;
 
 namespace PracticePanther.Library.Services
@@ -27,18 +28,29 @@ namespace PracticePanther.Library.Services
         {
             _times = new List<Time>
             {
-                new Time {Hours = 0, Date = DateTime.Now},
+                new Time{ Date = DateTime.Now} 
             };
+          
         }
 
         public List<Time>? Times => _times;
 
-        public void AddTime(Time time)
+        public void Add(Time time)
         {
-            _times.Add(time);
+            if (time.ProjectId == 0 )
+              return;
+
+           var proj = ProjectService.Current.Get(time.ProjectId);
+           if(proj == null)
+            {
+                return;
+            }
+            _times?.Add(time);
+
         }
 
-        public void UpdateTime(Time time)
+
+        public void Update(Time time)
         {
             //finding time entry to update 
             Time? existingTime = _times?.FirstOrDefault(t => t.ProjectId == time.ProjectId && 
@@ -49,12 +61,40 @@ namespace PracticePanther.Library.Services
                 existingTime.Date = time.Date;
                 existingTime.Narrative = time.Narrative;
                 existingTime.Hours = time.Hours;
+                existingTime.ProjectId = time.ProjectId;
+                existingTime.EmployeeId = time.EmployeeId;
             }
         }
 
         public void Delete(Time time)
         {
             _times?.Remove(time);
+        }
+
+        public IEnumerable<Time> Search(string query)
+        {
+            if (DateTime.TryParse(query, out DateTime searchDate))
+            {
+                return Times.Where(t => t.Date.Date == searchDate.Date);
+            }
+
+            // Return an empty collection if the query cannot be parsed as a valid date
+            return Enumerable.Empty<Time>();
+        }
+
+
+        //-----------------------------------------------------
+        public int GetProjectId(int projectId)
+        {
+            if (Times != null)
+            {
+                var time = Times.FirstOrDefault(t => t.ProjectId == projectId);
+                if (time != null)
+                {
+                    return time.ProjectId;
+                }
+            }
+            return 0;
         }
     }
 }

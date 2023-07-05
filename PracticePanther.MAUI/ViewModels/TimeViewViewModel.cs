@@ -1,4 +1,5 @@
-﻿using PracticePanther.Library.Models;
+﻿using PracticePanther.CLI.Models;
+using PracticePanther.Library.Models;
 using PracticePanther.Library.Services;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,36 @@ namespace PracticePanther.MAUI.ViewModels
 {
     public class TimeViewViewModel : INotifyPropertyChanged
     {
-        public Time SelectedTime { get; set; }
-
         public Time Model { get; set; }
+        public Time SelectedTime { get; set; }
+        //public ICommand SearchCommand { get; private set; }
+        //public string Query { get; set; }
+        public Project Project { get; set; }
+        //public ObservableCollection<TimeViewModel> Times { get; set; }
         public ObservableCollection<TimeViewModel> times;
+        public void ExecuteSearchCommand()
+        {
+            NotifyPropertyChanged(nameof(Times));
+        }
+
+        //public TimeViewViewModel()
+        //{
+        //    SearchCommand = new Command(ExecuteSearchCommand);
+        //}
+
+        //public ObservableCollection<TimeViewModel> Times
+        //{
+        //    get
+        //    {
+        //        return
+        //            new ObservableCollection<TimeViewModel>
+        //            (TimeService
+        //                .Current.Search(Query ?? string.Empty)
+        //                .Select(t => new TimeViewModel(t)).ToList());
+        //    }
+        //}
+
+
         public ObservableCollection<TimeViewModel> Times
         {
             get
@@ -26,15 +53,9 @@ namespace PracticePanther.MAUI.ViewModels
             }
             set
             {
-               times = value;
+                times = value;
                 NotifyPropertyChanged();
             }
-        }
-
-        public TimeViewViewModel()
-        {
-            SelectedTime = new Time();
-            RefreshTimeList();
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -43,10 +64,21 @@ namespace PracticePanther.MAUI.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public TimeViewViewModel()
+        {
+            SelectedTime = new Time();
+            RefreshTimeList();
+        }
+
         public void RefreshTimeList()
         {
             Times = new ObservableCollection<TimeViewModel>(
-                TimeService.Current.Times.ConvertAll(t => new TimeViewModel(t)));
-         }
+            TimeService.Current.Times.ConvertAll(t => new TimeViewModel(t)));
+            //NotifyPropertyChanged(nameof(Times));
+        }
+
+        //new
+        public int ProjectId { get; set; }
+
     }
 }
