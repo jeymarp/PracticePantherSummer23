@@ -52,7 +52,7 @@ namespace PracticePanther.MAUI.ViewModels
         private void AddTime()
         {
             // Implementation for adding a new time entry
-            // create a separate page or use a dialog to gather the required information
+            Model = TimeService.Current.Get(projectId);
             // The information can be obtained using dialogs or binding to properties in this ViewModel
             // After gathering the information, create a new Time object and add it to the TimeService
         }
