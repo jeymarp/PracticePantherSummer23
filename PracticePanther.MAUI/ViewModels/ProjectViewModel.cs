@@ -22,6 +22,7 @@ namespace PracticePanther.MAUI.ViewModels
         public ICommand AddClientCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
         public ICommand EditCommand { get; private set; }
+        public ICommand CloseCommand { get; private set; }
 
         public string Display
         {
@@ -54,6 +55,13 @@ namespace PracticePanther.MAUI.ViewModels
             ProjectService.Current.Delete(Model.Id);
         }
 
+        public void ExecuteClose()
+        {
+            Model.IsActive = false;
+            ProjectService.Current.Delete(Model);
+
+        }
+
        public void ExecuteEdit()
        {
           int ClientId = Model.ClientId;
@@ -67,7 +75,7 @@ namespace PracticePanther.MAUI.ViewModels
             TimerCommand = new Command(ExecuteTimer);
             DeleteCommand = new Command(ExecuteDelete);
             EditCommand = new Command(ExecuteEdit);
-            
+            CloseCommand = new Command(ExecuteClose);
         }
 
         public ProjectViewModel()

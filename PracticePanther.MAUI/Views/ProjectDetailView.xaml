@@ -22,8 +22,8 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0"
             Padding="10"
-            Text="Project Id: " />
-            <Entry Grid.Column="1" Text="{Binding Path=Model.Id}"/>
+            Text="Is Active?:" />
+            <Entry Grid.Column="1" Text="{Binding Path=Model.IsActive}"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -37,6 +37,6 @@
         </Grid>
         <Button Text="OK" Command="{Binding Path = AddCommand}" Clicked="OkClicked"/>
         <Button Text="Cancel" Clicked="CancelClicked"/>
-        <Button Text="Update" Command="{Binding Path = EditCommand}" Clicked="UpdateClicked"/>
+        <Button Text="Acept Update" Command="{Binding Path = EditCommand}" Clicked="UpdateClicked"/>
     </VerticalStackLayout>
 </ContentPage>

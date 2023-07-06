@@ -33,8 +33,13 @@ public partial class ClientDetailView : ContentPage
         (BindingContext as ClientViewModel).RefreshProjects();
     }
 
-    //Project Delete & Edit
+    //Project Delete & Close
     private void DeleteClicked(object sender, EventArgs e)
+    {
+        (BindingContext as ClientViewModel).RefreshProjects();
+    }
+
+    private void CloseClicked(object sender, EventArgs e)
     {
         (BindingContext as ClientViewModel).RefreshProjects();
     }

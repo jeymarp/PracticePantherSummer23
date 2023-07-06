@@ -68,20 +68,5 @@ namespace PracticePanther.MAUI.ViewModels
           Shell.Current.GoToAsync($"ProjectView?clientId={SelectedClient?.Id ?? 0}");
 
         }
-        //-------------------------------------------------------------------------------
-        /*
-       
-       
-         public void Search()
-        {
-           // ClientService.Current.Search(Query);    //new
-            NotifyPropertyChanged(nameof(Clients));
-        }
-
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }*/
-
     }
 }

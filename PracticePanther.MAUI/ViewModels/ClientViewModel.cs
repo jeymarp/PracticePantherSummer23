@@ -44,6 +44,7 @@ namespace PracticePanther.MAUI.ViewModels
         public ICommand ShowProjectsCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
         public ICommand EditCommand { get; private set; }
+        public ICommand CloseProjCommand { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -72,11 +73,9 @@ namespace PracticePanther.MAUI.ViewModels
         public void ExecuteAddProject()
         {
             AddOrUpdate();
-            // Shell.Current.GoToAsync($"//ProjectDetail?clientId={Model.Id}&projectId={0}");
             Shell.Current.GoToAsync($"//ProjectDetail?clientId={Model.Id}");
         }
 
-        //new
         public void ExecuteEditProject()
         {
             AddOrUpdate();
@@ -86,6 +85,11 @@ namespace PracticePanther.MAUI.ViewModels
         public void ExecuteDeleteProject(int id)
         {
             ProjectService.Current.Delete(id);
+        }
+
+        public void ExecuteCloseProject(int id)
+        {
+            ProjectService.Current.CloseProject(id);
         }
 
         public void RefreshProjects()
@@ -108,6 +112,8 @@ namespace PracticePanther.MAUI.ViewModels
                 (c) => ExecuteEditProject());
             DeleteProjectCommand = new Command(
                 (c) => ExecuteDeleteProject((c as ClientViewModel).Model.Id));
+            CloseProjCommand = new Command(
+               (c) => ExecuteCloseProject((c as ClientViewModel).Model.Id));
         }
 
 
@@ -144,57 +150,5 @@ namespace PracticePanther.MAUI.ViewModels
             if(Model.Id == 0)
             ClientService.Current.AddOrUpdate(Model);
         }
-
-     
-
-        //------------------------------------- SEARCH ------------------------------------------
-
-        /* public string Query { get; set; }
-         public ICommand SearchCommand { get; private set; }
-         public void ExecuteSearch(string Query)
-         {
-             ClientService.Current.Search(Query);
-         }
-         public void Search()
-         {
-             NotifyPropertyChanged(nameof(Model));
-         }*/
-
-
-
-        /*
-        public ObservableCollection<Client> ClientsL
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(Query))
-                {
-                    return new ObservableCollection<Client>(ClientService.Current.Clients);
-                }
-                return new ObservableCollection<Client>(ClientService.Current.Search(Query));
-            }
-        }
-        
-        public string Query { get; set; }
-
-        public void Search()
-        {
-            NotifyPropertyChanged(nameof(ClientsL));
-        }
-
-
-         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] string PropertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
-        }
-        //-------------------------------------------------------------------------------
-        */
-
-        //public Client SelectedClient { get; set; }  
-
-
-
-
     }
 }

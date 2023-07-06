@@ -59,10 +59,9 @@ namespace PracticePanther.Library.Services
             Project? existingProj = Get(project.Id);
             if(existingProj != null)
             {
-                existingProj.Id = project.Id;
+                existingProj.IsActive = project.IsActive;
                 existingProj.LongName = project.LongName;
-                //existingProj.IsActive = project.IsActive;
-                //rest of properties here
+                existingProj.OpenDate = project.OpenDate;
             }
         }
 
@@ -100,6 +99,21 @@ namespace PracticePanther.Library.Services
                 Projects?.Remove(projectToRemove);
             }
         }
-         
+
+        public void CloseProject(Project p)
+        {
+            CloseProject(p.Id);
+        }
+
+        public void CloseProject(int id)
+        {
+            var projectToClose = Projects.FirstOrDefault(p => p.Id == id);
+            if (projectToClose != null)
+            {
+                Projects?.Remove(projectToClose);
+                
+            }
+        }
+
     }
 }

@@ -49,7 +49,7 @@ namespace PracticePanther.MAUI.ViewModels
             }
 
         }
-        //new code 6/30
+
         public void Delete()
         {
             if (SelectedProject != null)
@@ -60,8 +60,6 @@ namespace PracticePanther.MAUI.ViewModels
                 NotifyPropertyChanged(nameof(SelectedProject));
             }
         }
-
-        //here refresh
 
         public event PropertyChangedEventHandler PropertyChanged;
 
