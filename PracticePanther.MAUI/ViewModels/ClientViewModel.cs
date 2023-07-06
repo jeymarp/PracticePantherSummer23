@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Microsoft.Maui.Controls;
 
 namespace PracticePanther.MAUI.ViewModels
 {
@@ -45,6 +46,7 @@ namespace PracticePanther.MAUI.ViewModels
         public ICommand DeleteCommand { get; private set; }
         public ICommand EditCommand { get; private set; }
         public ICommand CloseProjCommand { get; private set; }
+        public ICommand CloseCommand { get; private set; }  //close client
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -97,7 +99,7 @@ namespace PracticePanther.MAUI.ViewModels
             NotifyPropertyChanged(nameof(Projects));
         }
 
-        //---------------------------- CONSTRUCTORS ------------------------------------------
+        //---------------------------- COMMANDS ------------------------------------------
         private void SetupCommands()
         {
             DeleteCommand = new Command(
@@ -114,6 +116,8 @@ namespace PracticePanther.MAUI.ViewModels
                 (c) => ExecuteDeleteProject((c as ClientViewModel).Model.Id));
             CloseProjCommand = new Command(
                (c) => ExecuteCloseProject((c as ClientViewModel).Model.Id));
+            CloseCommand = new Command(
+                (c) => ExecuteCloseAsync((c as ClientViewModel).Model.Id));
         }
 
 
@@ -149,6 +153,16 @@ namespace PracticePanther.MAUI.ViewModels
         {
             if(Model.Id == 0)
             ClientService.Current.AddOrUpdate(Model);
+        }
+
+        //---------------------------- CLOSE CLIENT ---------------------------------------------------
+        public async Task ExecuteCloseAsync(int id)
+        {
+            if (Projects == null)
+            {
+                ClientService.Current.Delete(id);
+                await Application.Current.MainPage.DisplayAlert("Success", "Client closed successfully.", "OK");
+            }
         }
     }
 }

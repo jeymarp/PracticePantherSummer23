@@ -11,6 +11,7 @@ using PracticePanther.CLI.Models;
 using PracticePanther.Library.Models;
 using PracticePanther.Library.Services;
 using PracticePanther.MAUI.Views;
+using Microsoft.Maui.Controls;
 
 namespace PracticePanther.MAUI.ViewModels
 {
@@ -55,11 +56,12 @@ namespace PracticePanther.MAUI.ViewModels
             ProjectService.Current.Delete(Model.Id);
         }
 
-        public void ExecuteClose()
+        public async void ExecuteClose()
         {
+
             Model.IsActive = false;
             ProjectService.Current.Delete(Model);
-
+           await Application.Current.MainPage.DisplayAlert("Success", "Project closed successfully.", "OK");
         }
 
        public void ExecuteEdit()
@@ -130,6 +132,6 @@ namespace PracticePanther.MAUI.ViewModels
         {
             ProjectService.Current.Delete(Model);
         }
-       
+
     }
 }

@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PracticePanther.MAUI.Views.ClientDetailView"
+             xmlns:c="clr-namespace:PracticePanther.MAUI.Controls"
              Title="ClientDetailView"
              NavigatedTo="OnArriving">
     <VerticalStackLayout>
@@ -34,12 +35,16 @@
         <Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="12*"/>
+                    <ColumnDefinition Width="5*"/>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
-                <Entry Grid.Column="0"></Entry>
-                <Button Grid.Column="1" Text="Search"></Button>
+                <!--<c:SearchBarControl Grid.Column="0" 
+                                QueryText="{Binding Query}"
+                                SearchButtonText="Search"
+                                SearchCommand="{Binding SearchCommand}"/>-->
+            </Grid>
+            <Grid HorizontalOptions="StartAndExpand">
                 <Button Grid.Column="2" Text="Add Project" Command="{Binding AddProjectCommand}"></Button>
             </Grid>
         </Grid>

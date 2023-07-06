@@ -95,8 +95,8 @@ namespace PracticePanther.Library.Services
         }
 
       
-      public void Read()
-       {
+        public void Read()
+        {
            if (!clients.Any())
            {
                System.Console.WriteLine("Currently, there are no registered clients");
@@ -113,6 +113,21 @@ namespace PracticePanther.Library.Services
                    System.Console.WriteLine($"Client status: {client.IsActive}");
                }
            }
-       }
+        }
+
+        public void Close(Client c)
+        {
+            Close(c.Id);
+        }
+
+        public void Close(int id)
+        {
+            var clientToClose = Clients.FirstOrDefault(c => c.Id == id);
+            if (clientToClose != null)
+            {
+                Clients?.Remove(clientToClose);
+
+            }
+        }
     }
 }
