@@ -18,21 +18,23 @@ namespace PracticePanther.Library.Models
         public int ProjectId { get; set; }
 
         public int EmployeeId { get; set; }
+
+        public int TimeId { get; set; }
        
         public override string ToString()
         {
             return $"{Date}";
         }
 
-        //public Time()
-        //{
-        //    Id = 0 ;
-        //    ProjectId = 0 ;
-        //    EmployeeId = 0 ;
-        //    Hours = 0 ;
-        //    Date = DateTime.MinValue ;
-        //    Narrative = string.Empty ;
-        //}
+        public Time()
+        {
+            TimeId = 0;
+            ProjectId = 0;
+            EmployeeId = 0;
+            Hours = 0;
+            Date = DateTime.MinValue;
+            Narrative = string.Empty;
+        }
 
     }
      

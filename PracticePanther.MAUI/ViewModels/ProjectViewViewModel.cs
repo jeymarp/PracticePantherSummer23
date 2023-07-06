@@ -85,19 +85,5 @@ namespace PracticePanther.MAUI.ViewModels
             NotifyPropertyChanged(nameof(Projects));
         }
 
-        /*
-
-     public ObservableCollection<ProjectViewModel> Projects
-      {
-          get
-          {
-              return
-                 new ObservableCollection<ProjectViewModel>
-                 (ProjectService
-                     .Current.Search(Query ?? string.Empty)
-                     .Select(p => new ProjectViewModel(p)).ToList());
-          }
-      }
-   */
     }
 }

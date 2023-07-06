@@ -10,7 +10,7 @@ namespace PracticePanther.MAUI.Views;
 
 [QueryProperty(nameof(EmployeeId), "employeeId")]
 [QueryProperty(nameof(ProjectId), "projectId")]
-//[QueryProperty(nameof(TimeId), "timeId")]
+[QueryProperty(nameof(TimeId), "timeId")]
 public partial class TimeDetailView : ContentPage
 {
     public int EmployeeId { get; set; }
@@ -38,9 +38,11 @@ public partial class TimeDetailView : ContentPage
     private void EditClicked(object sender, EventArgs e)
     {
         (BindingContext as TimeViewModel).Edit();
-        //Shell.Current.GoToAsync($"//TimeDetail?projectId={ProjectId}");
-        Shell.Current.GoToAsync("//Time");
-        //(BindingContext as TimeViewViewModel).RefreshTimeList();
+        Shell.Current.GoToAsync($"//Time?timeId={TimeId}");
+
+        //Shell.Current.GoToAsync("//Time");
+
+        // (BindingContext as TimeViewViewModel).RefreshTimeList();
     }
 
     private void OnArriving(object sender, NavigatedToEventArgs e)

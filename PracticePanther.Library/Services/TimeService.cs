@@ -16,7 +16,7 @@ namespace PracticePanther.Library.Services
         {
             get
             {
-                if(_instance == null)
+                if (_instance == null)
                 {
                     _instance = new TimeService();
                 }
@@ -24,27 +24,25 @@ namespace PracticePanther.Library.Services
             }
         }
 
-        private TimeService() 
+        private TimeService()
         {
-            _times = new List<Time>
-            {
-                new Time{ Date = DateTime.Now} 
-            };
-          
+            _times = new List<Time>();
+
         }
 
         public List<Time>? Times => _times;
 
         public void Add(Time time)
         {
-            if (time.ProjectId == 0 )
-              return;
+            if (time.ProjectId == 0)
+                return;
 
-           var proj = ProjectService.Current.Get(time.ProjectId);
-           if(proj == null)
+            var proj = ProjectService.Current.Get(time.ProjectId);
+            if (proj == null)
             {
                 return;
             }
+            time.TimeId = LastId + 1;
             _times?.Add(time);
 
         }
@@ -53,8 +51,10 @@ namespace PracticePanther.Library.Services
         public void Update(Time time)
         {
             //finding time entry to update 
-            Time? existingTime = _times?.FirstOrDefault(t => t.ProjectId == time.ProjectId && 
-                                   t.EmployeeId == time.EmployeeId);
+            //Time? existingTime = _times?.FirstOrDefault(t => t.ProjectId == time.ProjectId && 
+            //                       t.EmployeeId == time.EmployeeId);
+            Time? existingTime = _times?.FirstOrDefault(t => t.ProjectId == time.ProjectId);
+
 
             if (existingTime != null)
             {
@@ -71,16 +71,16 @@ namespace PracticePanther.Library.Services
             _times?.Remove(time);
         }
 
-        public IEnumerable<Time> Search(string query)
-        {
-            if (DateTime.TryParse(query, out DateTime searchDate))
-            {
-                return Times.Where(t => t.Date.Date == searchDate.Date);
-            }
+        //public IEnumerable<Time> Search(string query)
+        //{
+        //    if (DateTime.TryParse(query, out DateTime searchDate))
+        //    {
+        //        return Times.Where(t => t.Date.Date == searchDate.Date);
+        //    }
 
-            // Return an empty collection if the query cannot be parsed as a valid date
-            return Enumerable.Empty<Time>();
-        }
+        //    // Return an empty collection if the query cannot be parsed as a valid date
+        //    return Enumerable.Empty<Time>();
+        //}
 
 
         //-----------------------------------------------------
@@ -96,5 +96,19 @@ namespace PracticePanther.Library.Services
             }
             return 0;
         }
+
+        public Time? Get(int id)
+        {
+            return _times.FirstOrDefault(t => t.TimeId == id);
+        }
+
+        private int LastId
+        {
+            get
+            {
+                return Times.Any() ? Times.Select(t => t.TimeId).Max() : 0;
+            }
+        }
+
     }
 }

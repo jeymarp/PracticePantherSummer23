@@ -17,15 +17,15 @@ namespace PracticePanther.MAUI.ViewModels
     {
         public Time Model { get; set; }
         public Time SelectedTime { get; set; }
-        //public ICommand SearchCommand { get; private set; }
-        //public string Query { get; set; }
+        public ICommand SearchCommand { get; private set; }
+        public string Query { get; set; }
         public Project Project { get; set; }
         //public ObservableCollection<TimeViewModel> Times { get; set; }
         public ObservableCollection<TimeViewModel> times;
-        public void ExecuteSearchCommand()
-        {
-            NotifyPropertyChanged(nameof(Times));
-        }
+        //public void ExecuteSearchCommand()
+        //{
+        //    NotifyPropertyChanged(nameof(Times));
+        //}
 
         //public TimeViewViewModel()
         //{

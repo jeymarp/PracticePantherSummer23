@@ -39,21 +39,4 @@ public partial class ClientDetailView : ContentPage
         (BindingContext as ClientViewModel).RefreshProjects();
     }
 
-    //working on it
-
-    /*
-     *  private void EditClicked(object sender, EventArgs e)
-    {
-        (BindingContext as ProjectViewViewModel).RefreshProjectList();
-    }
-
-  private void CloseClientClicked(object sender, EventArgs e) 
-  { 
-
-  }
-
-  private void CloseProjectClicked(object sender, EventArgs e)
-  {
-
-  }*/
 }

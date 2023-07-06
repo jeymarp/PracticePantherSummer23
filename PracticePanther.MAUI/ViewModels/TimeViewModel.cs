@@ -18,6 +18,8 @@ namespace PracticePanther.MAUI.ViewModels
     {
         public Time Model { get; private set; }
         private Time SelectedTime { get; set; }
+
+        //public int TimeId {get; set;}
         public string Display
         {
             get
@@ -37,11 +39,7 @@ namespace PracticePanther.MAUI.ViewModels
         {
             DeleteCommand = new Command(
                 (t) => ExecuteDelete((t as TimeViewModel).Model));
-            //EditCommand = new Command(
-            //    (t) => ExecuteEdit((t as TimeViewModel).Model));
             EditCommand = new Command(ExecuteEdit);
-
-            //AddCommand = AddCommand = new Command(ExecuteAdd);
             AddCommand = new Command(ExecuteAdd);
         }
 
@@ -55,28 +53,22 @@ namespace PracticePanther.MAUI.ViewModels
             Model = time;
             SetupCommands();
         }
-    
-
-        //public TimeViewModel(int projectId)
-        //{
-
-        //    Model = TimeService.Current.Get(projectId);
-        //    SetupCommands();
-
-        //}
-
-        //THIS IS THE ADD THAT WORKS
-        //private void ExecuteAdd()
-        //{
-        //    TimeService.Current.Add(Model);
-        //    //Shell.Current.GoToAsync($"//TimeDetail?project={Model.ProjectId}");
-        //    Shell.Current.GoToAsync($"//TimeDetail?date={Model.Date}");
-        //}
 
         private void ExecuteEdit()
         {
+            var time = TimeService.Current.Get(Model.TimeId);
+            if (time == null)
+            {
+                //Time does not exist
+                return;
+            }
+
+            TimeService.Current.Update(Model);
             //TimeService.Current.Update(Model);
             Shell.Current.GoToAsync($"//TimeDetail?date={Model.Date}");
+            //Shell.Current.GoToAsync($"//TimeDetail?project={Model.ProjectId}");
+            //Shell.Current.GoToAsync($"//TimeDetail?timeId={Model.TimeId}");
+
         }
 
         public void ExecuteDelete(Time time)
@@ -105,16 +97,14 @@ namespace PracticePanther.MAUI.ViewModels
 
         private void ExecuteAdd()
         {
-            int projectId = TimeService.Current.GetProjectId(ProjectId);
+            int projectId = TimeService.Current.GetProjectId(Model.ProjectId);
 
-            if (ProjectId == 0)
+            if (Model.ProjectId == 0)
             {
                 return;
             }
 
-            Model.ProjectId = ProjectId;
-
-            var project = ProjectService.Current.Get(ProjectId);
+            var project = ProjectService.Current.Get(Model.ProjectId);
             if (project == null)
             {
                 //Project does not exist
@@ -126,5 +116,30 @@ namespace PracticePanther.MAUI.ViewModels
 
         }
 
-    }
+        public TimeViewModel(int timeId)
+        {
+            var time = TimeService.Current.Get(timeId);
+            if (time != null)
+            {
+                Model = time;
+                SetupCommands();
+            }
+        }
+
+            //public TimeViewModel(int projectId)
+            //{
+
+            //    Model = TimeService.Current.Get(projectId);
+            //    SetupCommands();
+
+            //}
+
+            //THIS IS THE ADD THAT WORKS
+            //private void ExecuteAdd()
+            //{
+            //    TimeService.Current.Add(Model);
+            //    //Shell.Current.GoToAsync($"//TimeDetail?project={Model.ProjectId}");
+            //    Shell.Current.GoToAsync($"//TimeDetail?date={Model.Date}");
+            //}
+        }
 }

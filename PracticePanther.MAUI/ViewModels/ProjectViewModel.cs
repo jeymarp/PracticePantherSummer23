@@ -67,7 +67,7 @@ namespace PracticePanther.MAUI.ViewModels
             TimerCommand = new Command(ExecuteTimer);
             DeleteCommand = new Command(ExecuteDelete);
             EditCommand = new Command(ExecuteEdit);
-            //ShowClientsCommand = new Command(ExecuteAdd);
+            
         }
 
         public ProjectViewModel()
