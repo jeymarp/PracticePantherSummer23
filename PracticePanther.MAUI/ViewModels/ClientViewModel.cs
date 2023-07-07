@@ -116,8 +116,8 @@ namespace PracticePanther.MAUI.ViewModels
                 (c) => ExecuteDeleteProject((c as ClientViewModel).Model.Id));
             CloseProjCommand = new Command(
                (c) => ExecuteCloseProject((c as ClientViewModel).Model.Id));
-            CloseCommand = new Command(
-                (c) => ExecuteCloseAsync((c as ClientViewModel).Model.Id));
+            CloseCommand = new Command(async (c) => 
+            await ExecuteCloseAsync((c as ClientViewModel).Model));
         }
 
 
@@ -156,13 +156,39 @@ namespace PracticePanther.MAUI.ViewModels
         }
 
         //---------------------------- CLOSE CLIENT ---------------------------------------------------
-        public async Task ExecuteCloseAsync(int id)
+        public bool HasProjects(Client client)
         {
-            if (Projects == null)
+            var projects = ProjectService.Current.Projects;
+
+            if (projects != null)
             {
-                ClientService.Current.Delete(id);
+                foreach (var project in projects)
+                {
+                    if (project.ClientId == client.Id && project.IsActive)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public async Task ExecuteCloseAsync(Client client)
+        {
+            bool hasProjects = HasProjects(client);
+
+            if (hasProjects)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Cannot close the client. There are still open projects.", "OK");
+            }
+            else
+            {
+                //Close the client
+                ClientService.Current.Delete(client.Id);
                 await Application.Current.MainPage.DisplayAlert("Success", "Client closed successfully.", "OK");
             }
         }
+        
     }
 }
