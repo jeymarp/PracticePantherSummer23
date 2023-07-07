@@ -18,8 +18,9 @@ namespace PracticePanther.MAUI.ViewModels
     {
         public Time Model { get; private set; }
         private Time SelectedTime { get; set; }
+        public DateTime OriginalEntryDate { get; set; } //Property to store the original entry date
 
-        //public int TimeId {get; set;}
+        //public int TimeId {get; set;} 
         public string Display
         {
             get
@@ -63,12 +64,10 @@ namespace PracticePanther.MAUI.ViewModels
                 return;
             }
 
-            TimeService.Current.Update(Model);
-            //TimeService.Current.Update(Model);
-            Shell.Current.GoToAsync($"//TimeDetail?date={Model.Date}");
-            //Shell.Current.GoToAsync($"//TimeDetail?project={Model.ProjectId}");
-            //Shell.Current.GoToAsync($"//TimeDetail?timeId={Model.TimeId}");
+            OriginalEntryDate = time.Date;
 
+            TimeService.Current.Update(Model);
+            Shell.Current.GoToAsync($"//TimeDetail?date={Model.Date}");
         }
 
         public void ExecuteDelete(Time time)
@@ -92,7 +91,6 @@ namespace PracticePanther.MAUI.ViewModels
             TimeService.Current.Update(Model);
         }
 
-        //new
         public int ProjectId { get; set; }
 
         private void ExecuteAdd()
@@ -126,20 +124,5 @@ namespace PracticePanther.MAUI.ViewModels
             }
         }
 
-            //public TimeViewModel(int projectId)
-            //{
-
-            //    Model = TimeService.Current.Get(projectId);
-            //    SetupCommands();
-
-            //}
-
-            //THIS IS THE ADD THAT WORKS
-            //private void ExecuteAdd()
-            //{
-            //    TimeService.Current.Add(Model);
-            //    //Shell.Current.GoToAsync($"//TimeDetail?project={Model.ProjectId}");
-            //    Shell.Current.GoToAsync($"//TimeDetail?date={Model.Date}");
-            //}
-        }
+    }
 }

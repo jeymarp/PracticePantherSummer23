@@ -47,6 +47,6 @@
         </Grid>
         <Button Text="OK" Clicked="OkClicked"/>
         <Button Text="Cancel" Clicked="CancelClicked"/>
-        <Button Text="Edit" Clicked="EditClicked"/>
+        <Button Text="Acept Edit" Clicked="EditClicked"/>
     </VerticalStackLayout>
 </ContentPage>

@@ -24,12 +24,6 @@ public partial class TimeDetailView : ContentPage
       
 	}
 
-    //private void OkClicked(object sender, EventArgs e)
-    //{
-    //    (BindingContext as TimeViewModel).Add();
-    //    Shell.Current.GoToAsync("//Time");
-    //}
-
     private void CancelClicked(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("//Time");
@@ -39,10 +33,6 @@ public partial class TimeDetailView : ContentPage
     {
         (BindingContext as TimeViewModel).Edit();
         Shell.Current.GoToAsync($"//Time?timeId={TimeId}");
-
-        //Shell.Current.GoToAsync("//Time");
-
-        // (BindingContext as TimeViewViewModel).RefreshTimeList();
     }
 
     private void OnArriving(object sender, NavigatedToEventArgs e)
@@ -50,7 +40,6 @@ public partial class TimeDetailView : ContentPage
         BindingContext = new TimeViewModel();
     }
 
-    //new
     private void OkClicked(object sender, EventArgs e)
     {
         var timeViewModel = (BindingContext as TimeViewModel);

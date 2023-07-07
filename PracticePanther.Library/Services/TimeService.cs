@@ -43,6 +43,7 @@ namespace PracticePanther.Library.Services
                 return;
             }
             time.TimeId = LastId + 1;
+            time.Date = DateTime.Now;
             _times?.Add(time);
 
         }
@@ -58,6 +59,9 @@ namespace PracticePanther.Library.Services
 
             if (existingTime != null)
             {
+                DateTime originalEntryDate = existingTime.Date;
+
+                existingTime.Date = originalEntryDate;
                 existingTime.Date = time.Date;
                 existingTime.Narrative = time.Narrative;
                 existingTime.Hours = time.Hours;
@@ -70,18 +74,6 @@ namespace PracticePanther.Library.Services
         {
             _times?.Remove(time);
         }
-
-        //public IEnumerable<Time> Search(string query)
-        //{
-        //    if (DateTime.TryParse(query, out DateTime searchDate))
-        //    {
-        //        return Times.Where(t => t.Date.Date == searchDate.Date);
-        //    }
-
-        //    // Return an empty collection if the query cannot be parsed as a valid date
-        //    return Enumerable.Empty<Time>();
-        //}
-
 
         //-----------------------------------------------------
         public int GetProjectId(int projectId)

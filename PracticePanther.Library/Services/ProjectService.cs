@@ -50,6 +50,7 @@ namespace PracticePanther.Library.Services
             {
                 //add
                 project.Id = LastId + 1;
+                project.OpenDate = DateTime.Now;
             }
             projects.Add(project);
         }
