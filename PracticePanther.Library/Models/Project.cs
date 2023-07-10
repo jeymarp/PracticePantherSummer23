@@ -28,7 +28,10 @@ namespace PracticePanther.CLI.Models
         public int ClientId { get; set; }
 
         public Client? Client { get; set; }
+        public List<Time>? Times { get; set; }
         public List<Employee>? Employees { get; set; }
+        public List<Bill>? Bills { get; set; }
+
         public override string ToString()
         {
             return $"{LongName}";

@@ -82,5 +82,10 @@ namespace PracticePanther.Library.Services
             }
         }
 
+        // new code for Assignment 3
+        public Employee? GetRate(decimal rate)
+        {
+            return Employees.FirstOrDefault(e => e.Rate == rate);
+        }
     }
 }

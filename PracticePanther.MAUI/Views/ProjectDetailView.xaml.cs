@@ -40,5 +40,10 @@ public partial class ProjectDetailView : ContentPage
         BindingContext = new ProjectViewModel(ClientId, ProjectId);
         
     }
-	
+
+    //new Bill code
+	private void BillClicked(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("//BillDetail");
+    }
 }

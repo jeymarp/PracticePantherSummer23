@@ -6,7 +6,7 @@ namespace PracticePanther.MAUI.Views;
 
 public partial class TimeView : ContentPage
 {
-    public int ProjectId { get; set; } //new
+    public int ProjectId { get; set; } 
 
     public TimeView()
 	{
@@ -14,13 +14,6 @@ public partial class TimeView : ContentPage
         BindingContext = new TimeViewViewModel();
 	}
 
-    //private void AddClicked(object sender, EventArgs e)
-    //{
-    //    (BindingContext as TimeViewViewModel).RefreshTimeList();
-    //    Shell.Current.GoToAsync("//TimeDetail");
-    //}
-
-    //---------------------------------new
     private void AddClicked(object sender, EventArgs e)
     {
         var timeViewViewModel = (BindingContext as TimeViewViewModel);

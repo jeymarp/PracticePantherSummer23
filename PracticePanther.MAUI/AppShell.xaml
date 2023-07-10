@@ -43,4 +43,8 @@
        Title="Time Details"
         ContentTemplate="{DataTemplate local2:TimeDetailView}"
         Route="TimeDetail" />
+    <ShellContent
+       Title="Bill Details"
+        ContentTemplate="{DataTemplate local2:BillDetailView}"
+        Route="BillDetail" />
 </Shell>

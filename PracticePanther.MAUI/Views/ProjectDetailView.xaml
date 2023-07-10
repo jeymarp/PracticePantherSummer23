@@ -38,5 +38,6 @@
         <Button Text="OK" Command="{Binding Path = AddCommand}" Clicked="OkClicked"/>
         <Button Text="Cancel" Clicked="CancelClicked"/>
         <Button Text="Acept Update" Command="{Binding Path = EditCommand}" Clicked="UpdateClicked"/>
+        <Button Text="Create Bill" Clicked="UpdateClicked"/>
     </VerticalStackLayout>
 </ContentPage>
