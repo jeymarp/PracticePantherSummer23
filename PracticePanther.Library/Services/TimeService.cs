@@ -34,11 +34,16 @@ namespace PracticePanther.Library.Services
 
         public void Add(Time time)
         {
-            if (time.ProjectId == 0)
+            if (time.ProjectId == 0 && time.EmployeeId == 0)
                 return;
 
             var proj = ProjectService.Current.Get(time.ProjectId);
             if (proj == null)
+            {
+                return;
+            }
+            var emp = EmployeeService.Current.Get(time.EmployeeId);   //adding EmployeeId to the condition
+            if (emp == null)
             {
                 return;
             }
@@ -51,10 +56,10 @@ namespace PracticePanther.Library.Services
 
         public void Update(Time time)
         {
-            //finding time entry to update 
-            //Time? existingTime = _times?.FirstOrDefault(t => t.ProjectId == time.ProjectId && 
-            //                       t.EmployeeId == time.EmployeeId);
-            Time? existingTime = _times?.FirstOrDefault(t => t.ProjectId == time.ProjectId);
+            //finding time entry to update
+            Time? existingTime = _times?.FirstOrDefault(t => t.ProjectId == time.ProjectId &&
+                                   t.EmployeeId == time.EmployeeId);
+            //? existingTime = _times?.FirstOrDefault(t => t.ProjectId == time.ProjectId);
 
 
             if (existingTime != null)
@@ -102,5 +107,19 @@ namespace PracticePanther.Library.Services
             }
         }
 
+        //----------------------------------------------------------------------------------
+        //New code to extend the time functionality
+        public int GetEmployeeId(int employeeId)
+        {
+            if (Times != null)
+            {
+                var time = Times.FirstOrDefault(t => t.EmployeeId == employeeId);
+                if (time != null)
+                {
+                    return time.EmployeeId;
+                }
+            }
+            return 0;
+        }
     }
 }

@@ -97,7 +97,7 @@ namespace PracticePanther.MAUI.ViewModels
         {
             int projectId = TimeService.Current.GetProjectId(Model.ProjectId);
 
-            if (Model.ProjectId == 0)
+            if (Model.ProjectId == 0 || Model.EmployeeId == 0)
             {
                 return;
             }
@@ -106,6 +106,13 @@ namespace PracticePanther.MAUI.ViewModels
             if (project == null)
             {
                 //Project does not exist
+                return;
+            }
+
+            var employee = EmployeeService.Current.Get(Model.EmployeeId);
+            if (employee == null)
+            {
+                // Employee does not exist
                 return;
             }
 
@@ -123,6 +130,9 @@ namespace PracticePanther.MAUI.ViewModels
                 SetupCommands();
             }
         }
+
+        //--------------------------------------------------------------------------------
+        //New code to extend the time functionality
 
     }
 }
