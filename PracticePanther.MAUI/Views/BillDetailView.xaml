@@ -3,11 +3,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PracticePanther.MAUI.Views.BillDetailView"
              Title="BillDetailView"
-             NavigatedTo="OnArrived">
-    <VerticalStackLayout>
-        <Label 
-            Text="Due Date: "
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+              NavigatedTo="OnArriving">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Text="List of Time entries:"
+               Padding="10"
+               HorizontalOptions="Start"
+               VerticalOptions="Center" />
+
+        <ListView ItemsSource="{Binding Times}"
+                  Grid.Row="1"
+                  Margin="1"
+                 >
+        </ListView>
+
+        <Button Text="Total Amount"
+                Clicked="CalculateTotalAmount_Clicked"
+                Grid.Row="2"
+                HorizontalOptions="Center"
+                VerticalOptions="Center" />
+
+        <Label Text="Due Date"
+               Grid.Row="3"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+    </Grid>
 </ContentPage>

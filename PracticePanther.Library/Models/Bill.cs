@@ -28,7 +28,8 @@ namespace PracticePanther.Library.Models
         }
 
         public object? ProjectId { get; internal set; }
-        public IEnumerable<object> Time { get; set; }
+        public object? ClientId { get; internal set; }
+        public IEnumerable<object>? Time { get; set; }
 
         public override string ToString()
         {

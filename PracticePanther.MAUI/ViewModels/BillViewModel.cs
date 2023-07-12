@@ -22,7 +22,6 @@ namespace PracticePanther.MAUI.ViewModels
 
         public DateTime DueDate => CalculateDueDate();
 
-
         public string Display
         {
             get
@@ -31,8 +30,12 @@ namespace PracticePanther.MAUI.ViewModels
             }
         }
 
-        //constructor
+        //constructors
         public BillViewModel()
+        {
+            Model = new Bill();
+        }
+        public BillViewModel(Bill bill)
         {
             Model = new Bill();
         }

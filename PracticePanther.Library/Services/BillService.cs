@@ -56,5 +56,12 @@ namespace PracticePanther.Library.Services
             return allBills;
         }
 
+        public IEnumerable<Bill> Search(string query)
+        {
+            return Bills
+                .Where(c => c.DueDate.ToString().ToUpper()
+                    .Contains(query.ToUpper()));
+        }
+
     }
 }

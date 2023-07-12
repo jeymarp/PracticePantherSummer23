@@ -44,6 +44,8 @@ public partial class ProjectDetailView : ContentPage
     //new Bill code
 	private void BillClicked(object sender, EventArgs e)
     {
+        var viewModel = (ProjectViewModel)BindingContext;
         Shell.Current.GoToAsync("//BillDetail");
     }
+
 }

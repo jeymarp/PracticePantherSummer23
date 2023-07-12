@@ -133,5 +133,15 @@ namespace PracticePanther.MAUI.ViewModels
             ProjectService.Current.Delete(Model);
         }
 
+        //---------------------------- BILL -------------------------------
+        // ProjectViewModel
+        public ICommand CreateBillCommand { get; private set; }
+
+        public void ExecuteCreateBill()
+        {
+            
+        }
+
+
     }
 }
