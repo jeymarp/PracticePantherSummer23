@@ -34,9 +34,24 @@ namespace PracticePanther.Library.Services
 
         private BillService()
         {
-            bills = new List<Bill>();
+            bills = new List<Bill>
+            {
+                //default list only for test purposes, delete later
+                new Bill {DueDate = DateTime.Now, ProjectId = 1},
+                new Bill {DueDate = DateTime.Now, ProjectId = 2},
+            };
         }
 
+        //test
+        public Bill? Get(DateTime dueDate)
+        {
+            return Bills.FirstOrDefault(b => b.DueDate == dueDate);
+        }
+
+        public Bill? GetId(int id)
+        {
+            return Bills?.FirstOrDefault(b => b.BillId == id);
+        }
 
         public List<Bill> GetBillsForProject(Project project)
         {

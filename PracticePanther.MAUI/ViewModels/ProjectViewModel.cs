@@ -15,8 +15,10 @@ using Microsoft.Maui.Controls;
 
 namespace PracticePanther.MAUI.ViewModels
 {
-    public class ProjectViewModel //: INotifyPropertyChanged
+    public class ProjectViewModel : INotifyPropertyChanged
     {
+        private Bill r;
+
         public Project Model { get; set; }
   
         public ICommand TimerCommand { get; private set; }
@@ -41,13 +43,15 @@ namespace PracticePanther.MAUI.ViewModels
 
         private void ExecuteTimer()
         {
-            var window = new Window(new TimerView(Model.Id))
+            var window = new Window()
             {
                 Width = 250,
                 Height = 350,
                 X = 0,
                 Y = 0
             };
+            var view = new TimerView(Model.Id, window);
+            window.Page = view;
             Application.Current.OpenWindow(window);
         }
         
@@ -78,6 +82,9 @@ namespace PracticePanther.MAUI.ViewModels
             DeleteCommand = new Command(ExecuteDelete);
             EditCommand = new Command(ExecuteEdit);
             CloseCommand = new Command(ExecuteClose);
+            //new for bill
+            ShowBillsCommand = new Command(
+                (p) => ExecuteShowBills((p as ProjectViewModel).Model.Id));
         }
 
         public ProjectViewModel()
@@ -117,7 +124,6 @@ namespace PracticePanther.MAUI.ViewModels
             SetupCommands();
         }
 
-
         public void Add()
         {
             ProjectService.Current.Add(Model);
@@ -136,12 +142,49 @@ namespace PracticePanther.MAUI.ViewModels
         //---------------------------- BILL -------------------------------
         // ProjectViewModel
         public ICommand CreateBillCommand { get; private set; }
+        public ICommand ShowBillsCommand { get; private set; }
+        public ProjectViewModel(Bill r)
+        {
+            this.r = r;
+        }
+
+        public void ExecuteShowBills(int id)
+        {
+            Shell.Current.GoToAsync($"//BillDetail?projectId={id}");
+        }
 
         public void ExecuteCreateBill()
         {
             
         }
+        public event PropertyChangedEventHandler PropertyChanged;
 
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public void RefreshBillsList()
+        {
+            NotifyPropertyChanged(nameof(Bills));
+        }
 
+        public ObservableCollection<BillViewModel> Bills
+        {
+            get
+            {
+                if (Model == null || Model.Id == 0)
+                {
+                    return new ObservableCollection<BillViewModel>();
+                }
+                return new ObservableCollection<BillViewModel>(BillService
+                    .Current.Bills.Where(b => b.ProjectId == Model.Id)
+                    .Select(r => new BillViewModel(r)));
+            }
+        }
+
+        public void RefreshBills()
+        {
+            NotifyPropertyChanged(nameof(Bills));
+        }
     }
 }

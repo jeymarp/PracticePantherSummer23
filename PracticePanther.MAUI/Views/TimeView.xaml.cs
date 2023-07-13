@@ -25,7 +25,6 @@ public partial class TimeView : ContentPage
     private void EditClicked(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("//TimeDetail");
-        //(BindingContext as TimeViewViewModel).RefreshTimeList();
     }
 
     private void DeleteClicked(object sender, EventArgs e)

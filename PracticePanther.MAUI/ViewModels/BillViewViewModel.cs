@@ -18,10 +18,11 @@ namespace PracticePanther.MAUI.ViewModels
 {
     public class BillViewViewModel : INotifyPropertyChanged
     {
+       
         public ProjectViewModel ProjectViewModel { get; set; }
 
         public Project Project { get; set; }
-
+        public Project SelectedBill { get; set; }
         public ClientViewModel ClientViewModel { get; set; }
         public Client Client { get; set; }
         public ICommand SearchCommand { get; private set; }
@@ -36,15 +37,31 @@ namespace PracticePanther.MAUI.ViewModels
         {
             SearchCommand = new Command(ExecuteSearchCommand);
         }
-     
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged(string propertyName)
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public BillViewViewModel(int projectId)
+        {
+            if (projectId > 0)
+            {
+                Project = ProjectService.Current.Get(projectId);
+            }
+            else
+            {
+                Project = new Project();
+            }
+
+        }
+        public void RefreshBillsList()
+        {
+            NotifyPropertyChanged(nameof(Bills));
+        }
         public ObservableCollection<BillViewModel> Bills
         {
             get
@@ -61,11 +78,10 @@ namespace PracticePanther.MAUI.ViewModels
                 }
                 return new ObservableCollection<BillViewModel>(
                     BillService.Current.Search(Query ?? string.Empty)
-                    .Where(p => (int)p.ClientId == Client.Id)
+                    .Where(p => p.ClientId == Client.Id)
                     .Select(r => new BillViewModel(r)));
             }
         }
-
     }
 
 }

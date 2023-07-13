@@ -26,20 +26,48 @@ namespace PracticePanther.MAUI.ViewModels
         {
             get
             {
-                return Model.ToString();
+                return Model.ToString() ?? string.Empty;
             }
         }
-
+       
         //constructors
         public BillViewModel()
         {
             Model = new Bill();
         }
-        public BillViewModel(Bill bill)
-        {
-            Model = new Bill();
-        }
 
+        public BillViewModel(int projectId)
+        {
+            if (projectId == 0)
+            {
+                Model = new Bill();
+            }
+            else
+            {
+                Model = BillService.Current.GetId(projectId);
+            }
+            //SetupCommands();
+        }
+        public BillViewModel(int projectId, int billId)
+        {
+            if (billId > 0 && projectId > 0)
+            {
+                Model = BillService.Current.GetId(billId);
+            }
+            else if(projectId > 0)
+            {
+                Model = new Bill {ProjectId = projectId };
+            }
+            //SetupCommands();
+        }
+        public BillViewModel(Bill model)
+        {
+            Model = model;
+        }
+        public BillViewModel(DateTime dueDate)
+        {
+            Model = new Bill {DueDate = dueDate };
+        }
         private decimal CalculateTotalAmount()
         {
             decimal totalAmount = 0;

@@ -2,6 +2,7 @@ using PracticePanther.CLI.Models;
 using PracticePanther.Library.Services;
 using PracticePanther.Library.Models;
 using PracticePanther.MAUI.ViewModels;
+using Microsoft.VisualBasic;
 
 namespace PracticePanther.MAUI.Views;
 
@@ -38,13 +39,14 @@ public partial class ProjectDetailView : ContentPage
     private void OnArrived(object sender, NavigatedToEventArgs e)
     {
         BindingContext = new ProjectViewModel(ClientId, ProjectId);
-        
+        //new
+        (BindingContext as ProjectViewModel).RefreshBills();
     }
 
     //new Bill code
 	private void BillClicked(object sender, EventArgs e)
     {
-        var viewModel = (ProjectViewModel)BindingContext;
+       //(BindingContext as ProjectViewViewModel).RefreshProjectList();
         Shell.Current.GoToAsync("//BillDetail");
     }
 

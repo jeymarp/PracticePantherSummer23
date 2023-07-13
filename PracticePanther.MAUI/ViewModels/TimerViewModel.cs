@@ -17,14 +17,37 @@ namespace PracticePanther.MAUI.ViewModels
     public class TimerViewModel : INotifyPropertyChanged
     {
         public Project Project { get; set; }
+        public int SelectedEmployee { get; set; }
+
+        public List<int> EmployeesId
+        {
+            get
+            {
+                List<int> result = new List<int>();
+                foreach(Employee employees in EmployeeService.Current.Employees)
+                {
+                    result.Add(employees.Id);
+                }
+                return result;
+            }
+        }
+        public List<Project> Projects
+        {
+            get
+            {
+                return ProjectService.Current.Projects;
+            }
+        }
         public string TimerDisplay
         {
             get
             {
-                return string.Format("{0:00}:{1:00}:{2:00}",
-              stopwatch.Elapsed.Hours,
-              stopwatch.Elapsed.Minutes,
-              stopwatch.Elapsed.Seconds);
+                var time = stopwatch.Elapsed;
+                var str = string.Format("{0:00}:{1:00}:{2:00}",
+              time.Hours,
+              time.Minutes,
+              time.Seconds);
+                return str;
             }
         }
         public string ProjectDisplay
@@ -35,11 +58,14 @@ namespace PracticePanther.MAUI.ViewModels
             }
         }
 
+        private Window parentWindow;
+
         private IDispatcherTimer timer { get; set; }
         private Stopwatch stopwatch { get; set; }
 
         public ICommand StartCommand { get; private set; }
         public ICommand StopCommand { get; private set; }
+        public ICommand SubmitCommand { get; private set; }
 
         public void ExecuteStart()
         {
@@ -52,12 +78,24 @@ namespace PracticePanther.MAUI.ViewModels
             stopwatch.Stop();
         }
 
+        public void ExecuteSubmit()
+        {
+            if (SelectedEmployee != 0 && stopwatch.Elapsed.TotalHours > 0)
+            {
+                TimeService.Current.Add(new Time {Date = DateTime.Now, Hours = (Decimal)stopwatch.Elapsed.TotalHours,
+                                                  ProjectId = Project.Id, EmployeeId = SelectedEmployee});
+                Application.Current.CloseWindow(parentWindow);
+            }
+        }
+
         private void SetupCommands()
         {
             StartCommand = new Command(ExecuteStart);
             StopCommand = new Command(ExecuteStop);
+            SubmitCommand = new Command(ExecuteSubmit);
         }
-        public TimerViewModel(int projectId)
+
+        public TimerViewModel(int projectId, Window parentWindow)
         {
             Project = ProjectService.Current.Get(projectId) ?? new Project();
             stopwatch = new Stopwatch();
@@ -67,6 +105,7 @@ namespace PracticePanther.MAUI.ViewModels
 
             timer.Tick += Timer_Tick;
             SetupCommands();
+            this.parentWindow = parentWindow;
         }
 
         private void Timer_Tick(object sender, EventArgs e)

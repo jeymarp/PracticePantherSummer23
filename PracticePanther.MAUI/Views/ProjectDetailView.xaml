@@ -35,6 +35,22 @@
             Text="Open Date: " />
             <Entry Grid.Column="1" Text="{Binding Path=Model.OpenDate}"/>
         </Grid>
+        <!--new code for Bills list view-->
+        <Grid Padding="5" Margin="5">
+            <Label Text="Bills:"></Label>
+        </Grid>
+        <ListView
+            ItemsSource="{Binding Bills}"
+            >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                    <Label VerticalTextAlignment="Center" Text="{Binding Display}"></Label>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!--new code for Bills list view-->
         <Button Text="OK" Command="{Binding Path = AddCommand}" Clicked="OkClicked"/>
         <Button Text="Cancel" Clicked="CancelClicked"/>
         <Button Text="Acept Update" Command="{Binding Path = EditCommand}" Clicked="UpdateClicked"/>
