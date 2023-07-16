@@ -36,9 +36,7 @@ namespace PracticePanther.Library.Services
         {
             bills = new List<Bill>
             {
-                //default list only for test purposes, delete later
-                new Bill {DueDate = DateTime.Now, ProjectId = 1},
-                new Bill {DueDate = DateTime.Now, ProjectId = 2},
+                new Bill() {ProjectId = 1, TotalAmount = 45 }
             };
         }
 
@@ -53,22 +51,14 @@ namespace PracticePanther.Library.Services
             return Bills?.FirstOrDefault(b => b.BillId == id);
         }
 
-        public List<Bill> GetBillsForProject(Project project)
+        public List<Bill> GetBillByProjectId(int projectId)
         {
-            return project.Bills;
+            return Bills.Where(b => b.ProjectId == projectId).ToList(); ;
         }
 
-        public List<Bill> GetBillsForClient(Client client)
+        public List<Bill> GetBillsForClientAndProject(int clientId, int projectId)
         {
-            List<Bill> allBills = new List<Bill>();
-
-            List<Project>? projects = client.Projects;
-            foreach (var project in projects)
-            {
-                allBills.AddRange(project.Bills);
-            }
-
-            return allBills;
+            return Bills.Where(b => b.ClientId == clientId && b.ProjectId == projectId).ToList();
         }
 
         public IEnumerable<Bill> Search(string query)
@@ -76,6 +66,15 @@ namespace PracticePanther.Library.Services
             return Bills
                 .Where(c => c.DueDate.ToString().ToUpper()
                     .Contains(query.ToUpper()));
+        }
+
+        //new
+        public void Add(Bill bill)
+        {
+            if (bill == null)
+                throw new ArgumentNullException(nameof(bill));
+
+            bills.Add(bill);
         }
 
     }

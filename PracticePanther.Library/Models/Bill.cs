@@ -19,7 +19,13 @@ namespace PracticePanther.Library.Models
         public decimal TotalAmount { get; set; }
         public DateTime DueDate { get; set; }
         public int BillId { get; set; }
-
+        public int ProjectId { get; set; }
+        public int ClientId { get; set; }
+        public List<Time>? Time { get; set; }
+        public Bill()
+        {
+            Time = new List<Time>();
+        }
         public string Display
         {
             get
@@ -28,13 +34,9 @@ namespace PracticePanther.Library.Models
             }
         }
 
-        public int ProjectId { get; set; }
-        public int ClientId { get; set; }
-        public IEnumerable<object>? Time { get; set; }
-
         public override string ToString()
         {
-            return $"{DueDate}";
+            return $"Due Date: {DueDate}, Total Amount: {TotalAmount:C}";
         }
     }
 }

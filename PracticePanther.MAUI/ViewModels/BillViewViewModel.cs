@@ -66,19 +66,19 @@ namespace PracticePanther.MAUI.ViewModels
         {
             get
             {
-                if ((Project.Id == 0) && Client != null && (Client.Id as int?) > 0)
+                if ((Project == null || Project.Id == 0) && Client != null && (Client.Id as int?) > 0)
                 {
                     return new ObservableCollection<BillViewModel>(BillService
                         .Current.Search(Query ?? string.Empty).Where(p => p.ClientId.Equals(Client.Id))
                         .Select(r => new BillViewModel(r)));
                 }
-                if (Project.Id == 0 || Client == null || Client.Id == 0)
+                if (Project == null || Project.Id == 0 || Client == null || Client.Id == 0)
                 {
                     return new ObservableCollection<BillViewModel>();
                 }
                 return new ObservableCollection<BillViewModel>(
                     BillService.Current.Search(Query ?? string.Empty)
-                    .Where(p => p.ClientId == Client.Id)
+                    .Where(p => ((p.ClientId == Client.Id) && (p.ProjectId == Project.Id)))
                     .Select(r => new BillViewModel(r)));
             }
         }

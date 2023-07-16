@@ -23,11 +23,26 @@ public partial class BillDetailView : ContentPage
 
     private void OnArriving(object sender, NavigatedToEventArgs e)
     {
-        BindingContext = new BillViewModel(ProjectId, BillId);
+        BindingContext = new BillViewModel(ProjectId);
     }
 
-    private void CalculateTotalAmount_Clicked(object sender, EventArgs e)
-	{
+    private void GoBackClicked(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("//ProjectDetail");
+    }
 
-	}
+    private void CalculateTotalAmountClicked(object sender, EventArgs e)
+    {
+        var viewModel = (BillViewModel)BindingContext;
+
+        if (viewModel != null && viewModel.Model != null)
+        {
+            // Call calculation logic within the BillViewModel, passing the time entries
+            decimal totalAmount = viewModel.CalculateTotalAmount(viewModel.Model.Time);
+
+            // Update the TotalAmount property in the view model
+            viewModel.Model.TotalAmount = totalAmount;
+        }
+    }
+
 }

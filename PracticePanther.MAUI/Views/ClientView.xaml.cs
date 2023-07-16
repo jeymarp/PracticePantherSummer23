@@ -46,4 +46,10 @@ public partial class ClientView : ContentPage
     {
         (BindingContext as ClientViewViewModel).RefreshClientList();
     }
+
+    //Client Bills 
+    private void BillsClientClicked(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("//BillView");
+    }
 }

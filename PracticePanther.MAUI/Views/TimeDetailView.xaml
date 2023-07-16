@@ -7,7 +7,7 @@
     <VerticalStackLayout>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Text="Date: " />
@@ -15,7 +15,7 @@
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Text="Who is the Employee ID that did the work?: " />
@@ -23,7 +23,7 @@
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Text="What is Project ID the work was for?" />
@@ -31,7 +31,7 @@
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Text="How long did it take it? " />
@@ -39,14 +39,21 @@
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Text="What was it?: " />
             <Entry Grid.Column="1" Text="{Binding Path=Model.Narrative}"/>
         </Grid>
-        <Button Text="OK" Clicked="OkClicked"/>
-        <Button Text="Cancel" Clicked="CancelClicked"/>
-        <Button Text="Acept Edit" Clicked="EditClicked"/>
+        <Grid Padding="5" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="9*" />
+                <ColumnDefinition Width="9*" />
+                <ColumnDefinition Width="9*" />
+            </Grid.ColumnDefinitions>
+            <Button Text="OK" Clicked="OkClicked" Grid.Column="0" />
+            <Button Text="Cancel" Clicked="CancelClicked" Grid.Column="1" />
+            <Button Text="Accept Edit" Clicked="EditClicked" Grid.Column="2" />
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>

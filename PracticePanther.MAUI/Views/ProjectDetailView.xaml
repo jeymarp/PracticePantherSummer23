@@ -50,10 +50,17 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <!--new code for Bills list view-->
-        <Button Text="OK" Command="{Binding Path = AddCommand}" Clicked="OkClicked"/>
-        <Button Text="Cancel" Clicked="CancelClicked"/>
-        <Button Text="Acept Update" Command="{Binding Path = EditCommand}" Clicked="UpdateClicked"/>
-        <Button Text="Create Bill"  Command="{Binding CreateBillCommand}" Clicked="BillClicked"/>
+        <Grid Padding="5" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="10*" />
+            </Grid.ColumnDefinitions>
+            <Button Text="OK" Command="{Binding Path=AddCommand}" Clicked="OkClicked" Grid.Column="0" />
+            <Button Text="Cancel" Clicked="CancelClicked" Grid.Column="1" />
+            <Button Text="Accept Update" Command="{Binding Path=EditCommand}" Clicked="UpdateClicked" Grid.Column="2" />
+            <Button Text="Create Bill" Command="{Binding CreateBillCommand}" Clicked="BillClicked" Grid.Column="3" />
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>

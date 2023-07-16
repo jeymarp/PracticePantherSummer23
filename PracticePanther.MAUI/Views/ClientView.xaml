@@ -30,7 +30,8 @@
                     <ViewCell>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="9*"/>
+                                <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
@@ -53,12 +54,16 @@
                                     Command="{Binding Path=CloseCommand}" 
                                     CommandParameter="{Binding}"
                                     Clicked="CloseClicked"/>
+                            <Button Grid.Column="5" 
+                                    Text="Bills" 
+                                    Command="{Binding Path=BillsClientCommand}" 
+                                    CommandParameter="{Binding}"
+                                    Clicked="BillsClientClicked"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <!--<Button Text="Delete" Clicked="DeleteClicked"/>-->
         <Button Text="Go Back" Clicked="GoBackClicked"/>
     </VerticalStackLayout>
 </ContentPage>

@@ -46,7 +46,6 @@ public partial class ProjectDetailView : ContentPage
     //new Bill code
 	private void BillClicked(object sender, EventArgs e)
     {
-       //(BindingContext as ProjectViewViewModel).RefreshProjectList();
         Shell.Current.GoToAsync("//BillDetail");
     }
 
