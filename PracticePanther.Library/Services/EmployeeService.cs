@@ -36,9 +36,8 @@ namespace PracticePanther.Library.Services
         {
             employees = new List<Employee>
             {
-                new Employee{Id = 1, Name = "Employee1",},
-                new Employee{Id = 2, Name = "Employee2",},
-                new Employee{Id = 3, Name = "Employee3",}
+                new Employee { Id = 1, Name = "Chris Mills", Rate = 725M }
+
             };
         }
 
@@ -63,9 +62,8 @@ namespace PracticePanther.Library.Services
         }
 
         public Employee? Get(int id)
-        {
-            return Employees.FirstOrDefault(e => e.Id == id);
-        }
+            => Employees.FirstOrDefault(e => e.Id == id);
+        
 
         public IEnumerable<Employee> Search(string query)
         {

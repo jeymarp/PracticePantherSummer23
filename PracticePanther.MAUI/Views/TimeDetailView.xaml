@@ -10,6 +10,34 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="Employee: " />
+            <Picker Grid.Column="1" 
+                    ItemsSource="{Binding Employees}"
+                    SelectedItem="{Binding Employee}"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="Project: " />
+            <Picker Grid.Column="1" 
+                    ItemsSource="{Binding Projects}"
+                    SelectedItem="{Binding Project}"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="Hours:" />
+            <Entry Grid.Column="1" Text="{Binding HoursDisplay, Mode=TwoWay}"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Text="Date: " />
             <Entry Grid.Column="1" Text="{Binding Path=Model.Date}"/>
         </Grid>
@@ -18,32 +46,8 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Text="Who is the Employee ID that did the work?: " />
-            <Entry Grid.Column="1" Text="{Binding Path=Model.EmployeeId}"/>
-        </Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Text="What is Project ID the work was for?" />
-            <Entry Grid.Column="1" Text="{Binding Path=Model.ProjectId}"/>
-        </Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Text="How long did it take it? " />
-            <Entry Grid.Column="1" Text="{Binding Path=Model.Hours}"/>
-        </Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Text="What was it?: " />
-            <Entry Grid.Column="1" Text="{Binding Path=Model.Narrative}"/>
+            <Label Grid.Column="0" Text="Narrative: " />
+            <Entry Grid.Column="1" Text="{Binding Model.Narrative}"/>
         </Grid>
         <Grid Padding="5" Margin="5">
             <Grid.ColumnDefinitions>

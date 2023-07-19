@@ -21,10 +21,10 @@ namespace PracticePanther.Library.Models
 
         public int TimeId { get; set; }
        
-        public override string ToString()
-        {
-            return $"{Date}";
-        }
+        //public override string ToString()
+        //{
+        //    return $"{Date}";
+        //}
 
         public Time()
         {

@@ -6,9 +6,6 @@
              x:Class="PracticePanther.MAUI.Views.TimeView"
              Title="TimeView"
              NavigatedTo="OnArrived">
-    <!--<ContentPage.BindingContext>
-        <vm:TimeViewViewModel/>
-    </ContentPage.BindingContext>-->
     <VerticalStackLayout>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -32,8 +29,15 @@
                                 <ColumnDefinition Width="10*"/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
+                                <!--<ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>-->
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0"  Text="{Binding Path=Display}"/>
+                            <Label Grid.Column="0"  Text="{Binding Path=Display}"></Label>
+                            <!--<Label Grid.Column="1" Text="{Binding Path=Model.EmployeeId}"></Label>
+                            <Label Grid.Column="2" Text="{Binding Path=Model.ProjectId}"></Label>
+                            <Label Grid.Column="3" Text="{Binding Path=Model.Narrative}"></Label>-->
                             <Button Grid.Column="1" 
                                     Text="Edit"
                                     Command="{Binding Path=EditCommand}"

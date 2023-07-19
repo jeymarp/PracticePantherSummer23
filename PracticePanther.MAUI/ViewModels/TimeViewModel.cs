@@ -14,18 +14,79 @@ using PracticePanther.Library.Services;
 
 namespace PracticePanther.MAUI.ViewModels
 {
-    public class TimeViewModel //: INotifyPropertyChanged
+    public class TimeViewModel : INotifyPropertyChanged
     {
         public Time Model { get; private set; }
+        public int TimeId { get; set; }
         private Time SelectedTime { get; set; }
         public DateTime OriginalEntryDate { get; set; } //Property to store the original entry date
 
-        //public int TimeId {get; set;} 
+        private Employee employee;
+        public Employee Employee
+        {
+            get
+            {
+                return employee;
+            }
+
+            set
+            {
+                employee = value;
+                if (employee != null)
+                {
+                    Model.EmployeeId = employee.Id;
+                }
+            }
+        }
+
+        private Project project;
+
+        public ObservableCollection<Employee> Employees
+            => new ObservableCollection<Employee> (EmployeeService.Current.Employees);
+
+        public ObservableCollection<Project> Projects
+            => new ObservableCollection<Project> (ProjectService.Current.Projects);
+
         public string Display
         {
             get
             {
-                return $"{Model.Date}";
+                return $"{Model.Date} Hours: {Model.Hours} EmployeeId: {Model.EmployeeId} " +
+                       $" ProjectId: {Model.ProjectId}";
+            }
+        }
+
+
+        public string HoursDisplay
+        {
+            get
+            {
+                return Model.Hours.ToString();
+            }
+
+            set
+            {
+                if (decimal.TryParse(value, out decimal v))
+                {
+                    Model.Hours = v;
+                }
+            }
+        }
+
+        public Project Project
+        {
+            get
+            {
+                return project;
+            }
+
+            set
+            {
+                project = value;
+                if (project != null)
+                {
+                    Model.ProjectId = project.Id;
+                }
             }
         }
 
@@ -92,10 +153,13 @@ namespace PracticePanther.MAUI.ViewModels
         }
 
         public int ProjectId { get; set; }
+        public int EmployeeId { get; set; } //new
 
         private void ExecuteAdd()
         {
             int projectId = TimeService.Current.GetProjectId(Model.ProjectId);
+            //new
+            int employeeId = TimeService.Current.GetEmployeeId(Model.EmployeeId);
 
             if (Model.ProjectId == 0 || Model.EmployeeId == 0)
             {
@@ -117,7 +181,7 @@ namespace PracticePanther.MAUI.ViewModels
             }
 
             TimeService.Current.Add(Model);
-            Shell.Current.GoToAsync($"//TimeDetail?project={Model.ProjectId}");
+            Shell.Current.GoToAsync($"//TimeDetail?project={Model.ProjectId}&employee={Model.EmployeeId}");
 
         }
 

@@ -26,7 +26,9 @@ namespace PracticePanther.Library.Services
 
         private TimeService()
         {
-            _times = new List<Time>();
+            _times = new List<Time> {
+                new Time{TimeId = 1, EmployeeId = 1, ProjectId = 1, Hours=1.75M, Narrative = "TEST"}
+            };
 
         }
 
@@ -59,8 +61,6 @@ namespace PracticePanther.Library.Services
             //finding time entry to update
             Time? existingTime = _times?.FirstOrDefault(t => t.ProjectId == time.ProjectId &&
                                    t.EmployeeId == time.EmployeeId);
-            //? existingTime = _times?.FirstOrDefault(t => t.ProjectId == time.ProjectId);
-
 
             if (existingTime != null)
             {
