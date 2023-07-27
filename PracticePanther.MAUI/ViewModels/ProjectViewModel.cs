@@ -152,12 +152,12 @@ namespace PracticePanther.MAUI.ViewModels
 
         public void ExecuteShowBills(int id)
         {
-            Shell.Current.GoToAsync($"//BillDetail?projectId={id}");
+            //Shell.Current.GoToAsync($"//BillDetail?projectId={id}");
         }
 
         public void ExecuteCreateBill()
         {
-            Add();
+            //Add();
             Shell.Current.GoToAsync($"//BillDetail?projectId={Model.Id}");
 
         }

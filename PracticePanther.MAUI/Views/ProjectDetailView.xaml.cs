@@ -30,12 +30,6 @@ public partial class ProjectDetailView : ContentPage
         Shell.Current.GoToAsync($"//ClientDetail?clientId={ClientId}");
     }
 
-    private void UpdateClicked(object sender, EventArgs e)
-    {
-        (BindingContext as ProjectViewModel).Edit();
-        Shell.Current.GoToAsync($"//ClientDetail?clientId={ClientId}");
-    }
-
     private void OnArrived(object sender, NavigatedToEventArgs e)
     {
         BindingContext = new ProjectViewModel(ClientId, ProjectId);
@@ -44,9 +38,11 @@ public partial class ProjectDetailView : ContentPage
     }
 
     //new Bill code
-	private void BillClicked(object sender, EventArgs e)
-    {
-        Shell.Current.GoToAsync("//BillDetail");
-    }
+    //private void BillClicked(object sender, EventArgs e)
+    //{
+    //    //Shell.Current.GoToAsync("//BillDetail");
+    //    //Shell.Current.GoToAsync($"//BillDetail?projectId={ProjectId}");
+
+    //}
 
 }

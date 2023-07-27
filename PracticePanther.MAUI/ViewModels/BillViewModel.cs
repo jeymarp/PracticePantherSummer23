@@ -49,30 +49,10 @@ namespace PracticePanther.MAUI.ViewModels
             CalculateTotalAmount(); // Calculate the total amount before adding the bill
             //Model.TotalAmount = _totalAmount;
             BillService.Current.Add(Model);
-            Shell.Current.GoToAsync($"//ProjectDetail?projectId={Model.ProjectId}");
+            Shell.Current.GoToAsync($"//ProjectDetail?projectId={ProjectService.Current.Get(Model.ProjectId).Id}&clientId={ProjectService.Current.Get(Model.ProjectId).ClientId}");
             
         }
 
-
-        //private void CalculateTotalAmount()
-        //{
-        //    _totalAmount = 0;
-        //    foreach (Time time in TimeService.Current.Times)
-        //    {
-        //        //if (Model.ProjectId == 0)
-        //        //{
-        //        //    foreach (Project project in ProjectService.Current.Projects)
-        //        //    {
-        //        //        if (time.ProjectId == project.Id)
-        //        //            _totalAmount += ((decimal)(time.Hours) * (EmployeeService.Current.Get(time.EmployeeId)?.Rate ?? 0));
-        //        //    }
-        //        //}
-        //        //if (time.ProjectId == Model.ProjectId)
-        //        //{
-        //        //    _totalAmount += (decimal)(time.Hours) * (EmployeeService.Current.Get(time.EmployeeId)?.Rate ?? 0);
-        //        //}
-        //    }
-        //}
 
         public void CalculateTotalAmount()
         {
@@ -159,9 +139,6 @@ namespace PracticePanther.MAUI.ViewModels
             SetupCommands();
         }
 
-
-
-
         public BillViewModel()
         {
             if (Model != null)
@@ -221,8 +198,26 @@ namespace PracticePanther.MAUI.ViewModels
         //if (Model.Time == null)
         //    Model.Time = new List<Time>(); //Initialize Time collection if it's null.
 
+        //private void CalculateTotalAmount()
+        //{
+        //    _totalAmount = 0;
+        //    foreach (Time time in TimeService.Current.Times)
+        //    {
+        //        //if (Model.ProjectId == 0)
+        //        //{
+        //        //    foreach (Project project in ProjectService.Current.Projects)
+        //        //    {
+        //        //        if (time.ProjectId == project.Id)
+        //        //            _totalAmount += ((decimal)(time.Hours) * (EmployeeService.Current.Get(time.EmployeeId)?.Rate ?? 0));
+        //        //    }
+        //        //}
+        //        //if (time.ProjectId == Model.ProjectId)
+        //        //{
+        //        //    _totalAmount += (decimal)(time.Hours) * (EmployeeService.Current.Get(time.EmployeeId)?.Rate ?? 0);
+        //        //}
+        //    }
+        //}
 
-       
 
     }
 
