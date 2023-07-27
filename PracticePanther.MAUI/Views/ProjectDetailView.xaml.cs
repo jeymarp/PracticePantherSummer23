@@ -40,7 +40,7 @@ public partial class ProjectDetailView : ContentPage
     {
         BindingContext = new ProjectViewModel(ClientId, ProjectId);
         //new
-        (BindingContext as ProjectViewModel).RefreshBills();
+        (BindingContext as ProjectViewModel).RefreshBillsList();
     }
 
     //new Bill code

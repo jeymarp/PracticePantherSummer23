@@ -11,119 +11,188 @@ using PracticePanther.Library.Models;
 using System.Xml.Linq;
 using System.Windows.Input;
 using Microsoft.VisualBasic;
+using System.Runtime.CompilerServices;
 
 namespace PracticePanther.MAUI.ViewModels
 {
     public class BillViewModel : INotifyPropertyChanged
     {
         public Bill Model { get; set; }
-
         private decimal _totalAmount;
 
         public decimal TotalAmount
         {
-            get { return _totalAmount; }
+            get => _totalAmount;
+            set
+            {
+                if (_totalAmount != value)
+                {
+                    _totalAmount = value;
+                    NotifyPropertyChanged();
+                }
+            }
         }
-        public DateTime DueDate => CalculateDueDate();
 
         public string Display
         {
             get
             {
-                return Model.ToString() ?? string.Empty;
+                return Model.ToString();
             }
-        }
-       
-        public BillViewModel(int projectId, int billId)
-        {
-            if (projectId > 0)
-            {
-                if (billId > 0)
-                {
-                    Model = BillService.Current.GetId(billId);
-                }
-                else
-                {
-                    Model = new Bill { ProjectId = projectId };
-                }
-            }
-            //SetupCommands();
-        }
-        public BillViewModel(Bill model)
-        {
-            Model = model;
         }
 
-        public BillViewModel(DateTime dueDate)
+        public ICommand AddCommand { get; private set; }
+
+
+        public void ExecuteAdd()
         {
-            Model = new Bill {DueDate = dueDate };
+            CalculateTotalAmount(); // Calculate the total amount before adding the bill
+            //Model.TotalAmount = _totalAmount;
+            BillService.Current.Add(Model);
+            Shell.Current.GoToAsync($"//ProjectDetail?projectId={Model.ProjectId}");
+            
         }
+
+
+        //private void CalculateTotalAmount()
+        //{
+        //    _totalAmount = 0;
+        //    foreach (Time time in TimeService.Current.Times)
+        //    {
+        //        //if (Model.ProjectId == 0)
+        //        //{
+        //        //    foreach (Project project in ProjectService.Current.Projects)
+        //        //    {
+        //        //        if (time.ProjectId == project.Id)
+        //        //            _totalAmount += ((decimal)(time.Hours) * (EmployeeService.Current.Get(time.EmployeeId)?.Rate ?? 0));
+        //        //    }
+        //        //}
+        //        //if (time.ProjectId == Model.ProjectId)
+        //        //{
+        //        //    _totalAmount += (decimal)(time.Hours) * (EmployeeService.Current.Get(time.EmployeeId)?.Rate ?? 0);
+        //        //}
+        //    }
+        //}
+
+        public void CalculateTotalAmount()
+        {
+           
+            //decimal totalAmount = 0;
+
+            foreach (Time timeEntry in TimeService.Current.Times)
+            {
+                Employee employee = EmployeeService.Current.Get(timeEntry.EmployeeId);
+                decimal? rate = employee?.Rate;
+                decimal hours = timeEntry.Hours;
+
+                if (rate.HasValue)
+                {
+                    Model.TotalAmount += hours * rate.Value;
+                }
+            }
+
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
      
+        public DateTime DueDate => CalculateDueDate();
 
         private DateTime CalculateDueDate()
         {
             return DateTime.Now.AddDays(30); //due date after 30 days
         }
 
+        //public BillViewModel()
+        //{
+        //    Model = new Bill();
+        //    SetupCommands();
+        //}
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
+        private void SetupCommands()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            AddCommand = new Command(ExecuteAdd);
+        }
+        public BillViewModel(int projectId)
+        {
+            if (projectId > 0)
+            {
+                Model = new Bill() { ProjectId = projectId };
+               
+            }
+            //else
+            //{
+            //    Model = BillService.Current.GetId(projectId);
+            //    CalculateTotalAmount();
+            //}
+            SetupCommands();
+        }
+        public BillViewModel(Bill model)
+        {
+            Model = model;
+            SetupCommands();
+            CalculateTotalAmount();
         }
 
-        //new
-        private readonly BillService _billService;
-        private readonly EmployeeService _employeeService;
+        public BillViewModel(int projectId, int billId)
+        {
+            if (projectId > 0 && billId > 0)
+            {
+                Model = BillService.Current.GetId(projectId);
+                CalculateTotalAmount();
+            }
+            else if (projectId > 0)
+            {
+                Model = new Bill { ProjectId = projectId };
+            }
+            SetupCommands();
+        }
+
+        public BillViewModel(DateTime dueDate)
+        {
+            Model = new Bill {DueDate = dueDate };
+            SetupCommands();
+        }
+
+
+
 
         public BillViewModel()
         {
-            _billService = BillService.Current;
-            _employeeService = EmployeeService.Current;
-
-            Model = new Bill();
-            if (Model.Time == null)
-                Model.Time = new List<Time>(); //Initialize Time collection if it's null.
-        }
-
-        public BillViewModel(int projectId)
-        {
-            _billService = BillService.Current;
-            _employeeService = EmployeeService.Current;
-
-            Model = _billService.GetId(projectId) ?? new Bill { ProjectId = projectId };
-        }
-
-        public BillViewModel(List<Time> timeEntries)
-        {
-            Model = new Bill { Time = timeEntries ?? new List<Time>() };
-            CalculateTotalAmount(Model.Time); // Calculate and initialize the TotalAmount property.
-        }
-
-        public decimal CalculateTotalAmount(List<Time> timeEntries)
-        {
-            decimal totalAmount = 0;
-
-            foreach (var timeEntry in timeEntries)
+            if (Model != null)
             {
-                Employee employee = _employeeService.Get(timeEntry.EmployeeId);
-                decimal? rate = employee?.Rate;
-                decimal hours = timeEntry.Hours;
-
-                if (rate.HasValue)
-                {
-                    totalAmount += hours * rate.Value;
-                }
+                DateTime dueDate = CalculateDueDate();
+                CalculateTotalAmount();
+              
             }
 
-            return totalAmount;
         }
+
+
 
         //new
         public List<Bill> GetBillsForProject(int projectId)
         {
             return BillService.Current.GetBillByProjectId(projectId);
         }
+
+        //public void Add()
+        //{
+        //    Model.TotalAmount = _totalAmount;
+
+        //    if (_totalAmount > 0)
+        //    {
+        //        BillService.Current.Add(Model);
+        //    }
+        //}
+
+
+        //new 7/25
 
 
         //constructors
@@ -145,30 +214,15 @@ namespace PracticePanther.MAUI.ViewModels
         //    //SetupCommands();
         //}
 
-        //public decimal CalculateTotalAmount()
-        //{
-        //    decimal totalAmount = 0;
+        //_billService = BillService.Current;
+        //_employeeService = EmployeeService.Current;
 
-        //    if (Model != null && Model.Time != null)
-        //    {
-        //        foreach (var timeEntry in Model.Time)
-        //        {
-        //            if (timeEntry is Time typedTimeEntry)
-        //            {
-        //                Employee employee = _employeeService.Get(typedTimeEntry.EmployeeId);
-        //                decimal? rate = employee?.Rate;
-        //                decimal hours = typedTimeEntry.Hours;
+        //Model = new Bill();
+        //if (Model.Time == null)
+        //    Model.Time = new List<Time>(); //Initialize Time collection if it's null.
 
-        //                if (rate.HasValue)
-        //                {
-        //                    totalAmount += hours * rate.Value;
-        //                }
-        //            }
-        //        }
-        //    }
 
-        //    return totalAmount;
-        //}
+       
 
     }
 

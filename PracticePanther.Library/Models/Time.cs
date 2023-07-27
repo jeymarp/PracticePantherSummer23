@@ -20,11 +20,7 @@ namespace PracticePanther.Library.Models
         public int EmployeeId { get; set; }
 
         public int TimeId { get; set; }
-       
-        //public override string ToString()
-        //{
-        //    return $"{Date}";
-        //}
+       public Employee Employee { get; set; }
 
         public Time()
         {

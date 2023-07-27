@@ -36,7 +36,7 @@ namespace PracticePanther.Library.Services
         {
             employees = new List<Employee>
             {
-                new Employee { Id = 1, Name = "Chris Mills", Rate = 725M }
+                new Employee { Id = 1, Name = "Jhon Smith", Rate = 45 }
 
             };
         }

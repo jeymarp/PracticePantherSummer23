@@ -85,6 +85,7 @@ namespace PracticePanther.MAUI.ViewModels
             //new for bill
             ShowBillsCommand = new Command(
                 (p) => ExecuteShowBills((p as ProjectViewModel).Model.Id));
+            CreateBillCommand = new Command(ExecuteCreateBill);
         }
 
         public ProjectViewModel()
@@ -143,6 +144,7 @@ namespace PracticePanther.MAUI.ViewModels
         // ProjectViewModel
         public ICommand CreateBillCommand { get; private set; }
         public ICommand ShowBillsCommand { get; private set; }
+        public List<Time> Times { get; private set; }
         public ProjectViewModel(Bill r)
         {
             this.r = r;
@@ -155,17 +157,15 @@ namespace PracticePanther.MAUI.ViewModels
 
         public void ExecuteCreateBill()
         {
-            
+            Add();
+            Shell.Current.GoToAsync($"//BillDetail?projectId={Model.Id}");
+
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        public void RefreshBillsList()
-        {
-            NotifyPropertyChanged(nameof(Bills));
         }
 
         public ObservableCollection<BillViewModel> Bills
@@ -182,7 +182,7 @@ namespace PracticePanther.MAUI.ViewModels
             }
         }
 
-        public void RefreshBills()
+        public void RefreshBillsList()
         {
             NotifyPropertyChanged(nameof(Bills));
         }

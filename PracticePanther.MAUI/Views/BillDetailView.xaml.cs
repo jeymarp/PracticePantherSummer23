@@ -18,7 +18,7 @@ public partial class BillDetailView : ContentPage
     public BillDetailView()
 	{
 		InitializeComponent();
-		BindingContext = new BillViewModel();
+		//BindingContext = new BillViewModel();
 	}
 
     private void OnArriving(object sender, NavigatedToEventArgs e)
@@ -28,21 +28,28 @@ public partial class BillDetailView : ContentPage
 
     private void GoBackClicked(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("//ProjectDetail");
+        Shell.Current.GoToAsync("//ClientDetail");
     }
 
-    private void CalculateTotalAmountClicked(object sender, EventArgs e)
-    {
-        var viewModel = (BillViewModel)BindingContext;
+    //private void CreateBillClicked(object sender, EventArgs e)
+    //{
+    //    //(BindingContext as BillViewModel).Add();
+    //    //Shell.Current.GoToAsync($"//ProjectDetail?projectId={ProjectId}");
+    //    Shell.Current.GoToAsync("//ProjectDetail");
+    //}
 
-        if (viewModel != null && viewModel.Model != null)
-        {
-            // Call calculation logic within the BillViewModel, passing the time entries
-            decimal totalAmount = viewModel.CalculateTotalAmount(viewModel.Model.Time);
+    //private void CalculateTotalAmountClicked(object sender, EventArgs e)
+    //{
+    //    var viewModel = (BillViewModel)BindingContext;
 
-            // Update the TotalAmount property in the view model
-            viewModel.Model.TotalAmount = totalAmount;
-        }
-    }
+    //    if (viewModel != null && viewModel.Model != null)
+    //    {
+    //        // Call calculation logic within the BillViewModel, passing the time entries
+    //        decimal totalAmount = viewModel.CalculateTotalAmount(viewModel.Model.Time);
+
+    //        // Update the TotalAmount property in the view model
+    //        viewModel.Model.TotalAmount = totalAmount;
+    //    }
+    //}
 
 }

@@ -82,6 +82,11 @@ namespace PracticePanther.MAUI.ViewModels
                     .Select(r => new BillViewModel(r)));
             }
         }
+
+        public void RefreshBillList()
+        {
+            NotifyPropertyChanged(nameof(Bills));
+        }
     }
 
 }

@@ -7,17 +7,16 @@
               NavigatedTo="OnArriving">
     <ContentPage.Content>
         <StackLayout Spacing="10">
-            <Label Text="Total Amount:"/>
-            <Label Text="{Binding TotalAmount}"/>
-
+            
             <Label Text="Due Date:"/>
             <Label Text="{Binding DueDate}"/>
 
-            <!-- Add a new Label to display the calculated total amount -->
-            <Label Text="{Binding Model.TotalAmount, StringFormat='Total Amount: {0:C}'}" x:Name="CalculatedTotalAmountLabel"/>
+            <!-- Add a new Label to display the calculated total amount --><!--
+            <Label Text="{Binding Model.TotalAmount, StringFormat='Total Amount: {0:C}'}" x:Name="CalculatedTotalAmountLabel"/>-->
 
 
-            <Button Text="Calculate Amount" Clicked="CalculateTotalAmountClicked"/>
+            <Button Text="Calculate Amount" Command="{Binding AddCommand}"
+                                              CommandParameter="{Binding}" ></Button>
             <Button Text="Go Back" Clicked="GoBackClicked"/>
         </StackLayout>
     </ContentPage.Content>

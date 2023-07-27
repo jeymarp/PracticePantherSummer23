@@ -27,7 +27,7 @@ namespace PracticePanther.Library.Services
         private TimeService()
         {
             _times = new List<Time> {
-                new Time{TimeId = 1, EmployeeId = 1, ProjectId = 1, Hours=1.75M, Narrative = "TEST"}
+                new Time{TimeId = 1, EmployeeId = 1, ProjectId = 1, Hours=2, Narrative = "TEST"}
             };
 
         }

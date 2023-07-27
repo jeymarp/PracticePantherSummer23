@@ -34,10 +34,10 @@ namespace PracticePanther.Library.Services
 
         private BillService()
         {
-            bills = new List<Bill>
-            {
-                new Bill() {ProjectId = 1, TotalAmount = 45 }
-            };
+            bills = new List<Bill>();
+            //{
+            //    new Bill() {ProjectId = 1, TotalAmount = 45 }
+            //};
         }
 
         //test
@@ -69,12 +69,35 @@ namespace PracticePanther.Library.Services
         }
 
         //new
+
+        private int LastId
+        {
+            get
+            {
+                return Bills.Any() ? Bills.Select(b => b.BillId).Max() : 0;
+            }
+        }
+
+        public int GetProjectId(int projectId)
+        {
+            if (Bills != null)
+            {
+                var bill = Bills.FirstOrDefault(b => b.ProjectId == projectId);
+                if (bill != null)
+                {
+                    return bill.ProjectId;
+                }
+            }
+            return 0;
+        }
+
         public void Add(Bill bill)
         {
-            if (bill == null)
-                throw new ArgumentNullException(nameof(bill));
-
-            bills.Add(bill);
+            //if (bill.BillId == 0)
+            //{
+                //bill.BillId = LastId + 1;
+                Bills.Add(bill);
+            //}
         }
 
     }
