@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PracticePanther.MAUI.Views.ClientDetailView"
+             xmlns:c="clr-namespace:PracticePanther.MAUI.Controls"
              Title="ClientDetailView"
              NavigatedTo="OnArriving">
     <VerticalStackLayout>
@@ -11,11 +12,71 @@
                 <ColumnDefinition Width="11*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0"
+           Padding="10"
             Text="Name" />
             <Entry Grid.Column="1" Text="{Binding Path=Model.Name}"/>
         </Grid>
+        <!--new code-->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="11*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="Is Active?" />
+            <Entry Grid.Column="1" Text="{Binding Path=Model.IsActive}"/>
+            <Label Grid.Column="2" Text="Notes: "/>
+            <Entry Grid.Column="3" Text="{Binding Path=Model.Notes}"/>
+        </Grid>
+        <Grid Padding="5" Margin="5">
+            <Label Text="Projects:"></Label>
+        </Grid>
+        <Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <!--<c:SearchBarControl Grid.Column="0" 
+                                QueryText="{Binding Query}"
+                                SearchButtonText="Search"
+                                SearchCommand="{Binding SearchCommand}"/>-->
+            </Grid>
+            <Grid HorizontalOptions="StartAndExpand">
+                <Button Grid.Column="2" Text="Add Project" Command="{Binding AddProjectCommand}"></Button>
+            </Grid>
+        </Grid>
+        <ListView
+            ItemsSource="{Binding Projects}"
+            >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="9*"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" VerticalTextAlignment="Center" Text="{Binding Display}"></Label>
+                            <Button Grid.Column="1" Text="Timer" Command="{Binding TimerCommand}"/>
+                            <Button Grid.Column="2" Text="Delete" Command="{Binding DeleteCommand}"
+                                     CommandParameter="{Binding}" Clicked="DeleteClicked"/>
+                            <Button Grid.Column="3" Text="Edit" Command="{Binding EditCommand}"></Button>
+                            <Button Grid.Column="4" Text="Close" Command="{Binding CloseCommand}"
+                                     CommandParameter="{Binding}" Clicked="CloseClicked"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
         <Button Text="OK" Clicked="OkClicked"/>
         <Button Text="Cancel" Clicked="CancelClicked"/>
+      
         
     </VerticalStackLayout>
 </ContentPage>

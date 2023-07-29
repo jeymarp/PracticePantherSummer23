@@ -13,5 +13,10 @@ namespace PracticePanther.Library.Models
         public decimal? Rate { get; set; }
 
         public int Id { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Id} {Name} {Rate}";
+        }
     }
 }

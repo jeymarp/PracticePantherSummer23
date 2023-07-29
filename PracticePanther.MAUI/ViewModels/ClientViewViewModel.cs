@@ -5,20 +5,33 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;
+using System.Windows.Input;
 
 namespace PracticePanther.MAUI.ViewModels
 {
     public class ClientViewViewModel : INotifyPropertyChanged
     {
         public Client SelectedClient { get; set; }
+        public ICommand SearchCommand { get; private set; }
+        public string Query { get; set; }
+
+        public void ExecuteSearchCommand()
+        {
+            NotifyPropertyChanged(nameof(Clients));
+        }
+
+        public ClientViewViewModel()
+        {
+            SearchCommand = new Command(ExecuteSearchCommand);
+        }
         public ObservableCollection<ClientViewModel> Clients
         {
             get
             {
-                    return
+                 return
                    new ObservableCollection<ClientViewModel>
                    (ClientService
-                       .Current.Clients.Where(c => c.Name.ToUpper().Contains(Query?.ToUpper() ?? string.Empty))
+                       .Current.Search(Query ?? string.Empty)
                        .Select(c => new ClientViewModel(c)).ToList());
             }
         }
@@ -43,31 +56,17 @@ namespace PracticePanther.MAUI.ViewModels
 
         public void Edit()
         {
-            Shell.Current.GoToAsync($"//EditClient?clientId={SelectedClient?.Id ?? 0 }");
+            Shell.Current.GoToAsync($"//ClienDetail?clientId={SelectedClient?.Id ?? 0}");
         }
-
         public void RefreshClientList()
         {
             NotifyPropertyChanged(nameof(Clients));
         }
 
-
-        public string Query { get; set; }
-
-        public void Search()
+        private void ProjectsClicked(object sender, EventArgs e)
         {
-           // ClientService.Current.Search(Query);    //new
-            NotifyPropertyChanged(nameof(Clients));
+          Shell.Current.GoToAsync($"ProjectView?clientId={SelectedClient?.Id ?? 0}");
+
         }
-        //-------------------------------------------------------------------------------
-        /*
-        
-       
-
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }*/
-
     }
 }

@@ -2,77 +2,63 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PracticePanther.MAUI.Views.ProjectDetailView"
-             Title="ProjectDetailView">
+             Title="ProjectDetailView"
+             NavigatedTo="OnArrived">
     <VerticalStackLayout>
-
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="11*"/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Label 
-                Text="Id"
-                VerticalOptions="Center" 
-                HorizontalOptions="Start" 
-                Grid.Row="0"
-                Grid.Column="0"
-                />
-            <Entry 
-                Text="{Binding Path=Id, Mode=TwoWay}"
-                Grid.Row="1"
-                Grid.Column="0"
-                ></Entry>
-            <Label 
-                Text="Short Name"
-                VerticalOptions="Center" 
-                HorizontalOptions="Start" 
-                Grid.Row="0"
-                Grid.Column="1"/>
-            <Entry 
-                Text="{Binding Path=ShortName, Mode=TwoWay}"
-                Grid.Row="1"
-                Grid.Column="1"></Entry>
-            <Label 
-                Text="Long Name"
-                VerticalOptions="Center" 
-                HorizontalOptions="Start" 
-                Grid.Row="0"
-                Grid.Column="1"/>
-            <Entry 
-                Text="{Binding Path=LongName, Mode=TwoWay}"
-                Grid.Row="1"
-                Grid.Column="1"></Entry>
-
+            <Label Grid.Column="0"
+            Padding="10"
+            Text="Name" />
+            <Entry Grid.Column="1" Text="{Binding Path=Model.LongName}"/>
         </Grid>
-
-
-        <Label 
-            Text="Client Id"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Entry Text="{Binding Path=ClientId, Mode=TwoWay}"></Entry>
-
-        <!--Clients-->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="11*"/>
             </Grid.ColumnDefinitions>
-            <Label Text="Not Linked to a project" Grid.Column="0"></Label>
-            <Label Text="Buttons" Grid.Column="1"></Label>
-            <Label Text="Linked to a project" Grid.Column="2"></Label>
+            <Label Grid.Column="0"
+            Padding="10"
+            Text="Is Active?:" />
+            <Entry Grid.Column="1" Text="{Binding Path=Model.IsActive}"/>
         </Grid>
-
-        <Button Text="Ok"
-                Clicked="OkClicked"
-                />
-        <Button Text="Cancel"
-                Clicked="CancelClicked"
-                />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="11*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+            Padding="10"
+            Text="Open Date: " />
+            <Entry Grid.Column="1" Text="{Binding Path=Model.OpenDate}"/>
+        </Grid>
+        <!--new code for Bills list view-->
+        <Grid Padding="5" Margin="5">
+            <Label Text="Bills:"></Label>
+        </Grid>
+        <ListView
+            ItemsSource="{Binding Bills}"
+            >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                    <Label VerticalTextAlignment="Center" Text="{Binding Display}"></Label>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid Padding="5" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="12*" />
+                <ColumnDefinition Width="12*" />
+                <ColumnDefinition Width="12*" />
+            </Grid.ColumnDefinitions>
+            <Button Text="OK" Command="{Binding Path=AddCommand}" Clicked="OkClicked" Grid.Column="0" />
+            <Button Text="Cancel" Clicked="CancelClicked" Grid.Column="1" />
+            <Button Text="Create Bill" Command="{Binding CreateBillCommand}" Clicked="BillClicked" Grid.Column="3" />
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>

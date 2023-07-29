@@ -27,13 +27,14 @@ namespace PracticePanther.CLI.Models
 
         public int ClientId { get; set; }
 
-        public ObservableCollection<Client>? Roster { get; set; }   //list of clients
-
         public Client? Client { get; set; }
-        public List<Employee>? employees { get; set; }
+        public List<Time>? Times { get; set; }
+        public List<Employee>? Employees { get; set; }
+        public List<Bill>? Bills { get; set; }
+
         public override string ToString()
         {
-            return $"{Id}. {ShortName}";
+            return $"{LongName}";
         }
     }
 }

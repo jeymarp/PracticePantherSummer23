@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PracticePanther.MAUI.ViewModels"
+             xmlns:c="clr-namespace:PracticePanther.MAUI.Controls"
+             x:Class="PracticePanther.MAUI.Views.EmployeeView"
+             Title="EmployeeView"
+             NavigatedTo="OnArrived">
+    <ContentPage.BindingContext>
+        <vm:ClientViewViewModel/>
+    </ContentPage.BindingContext>
+    <VerticalStackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="12*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <c:SearchBarControl Grid.Column="0" 
+                                QueryText="{Binding Query}"
+                                SearchButtonText="Search"
+                                SearchCommand="{Binding SearchCommand}"/>
+            <Button Grid.Column="2" Text="Add" Clicked="AddClicked"></Button>
+        </Grid>
+        <ListView 
+            ItemsSource="{Binding Path=Employees}"
+            SelectedItem="{Binding Path=SelectedEmployee}"
+            >
+        <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label  Grid.Column="0" Text="{Binding Path=Display}"/>
+                            <Button Grid.Column="1" 
+                            Text="Edit"
+                            Command="{Binding Path = EditCommand}"
+                            CommandParameter="{Binding}"
+                            Clicked="EditClicked"
+                            />
+                            <Button Grid.Column="2" 
+                            Text="Delete" 
+                            Command="{Binding Path=DeleteCommand}" 
+                            CommandParameter="{Binding}"
+                            Clicked="DeleteClicked"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Text="Go Back" Clicked="GoBackClicked"/>
+    </VerticalStackLayout>
+</ContentPage>

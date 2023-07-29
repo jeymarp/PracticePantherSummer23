@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PracticePanther.MAUI.Views.EmployeeDetailView"
+             Title="EmployeeDetailView"
+             NavigatedTo="OnArriving">
+    <VerticalStackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="11*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+            Text="Employee Name" />
+            <Entry Grid.Column="1" Text="{Binding Path=Model.Name}"/>
+            <!--new code-->
+        </Grid>
+        <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="11*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Text="Rate" />
+                <Entry Grid.Column="1" Text="{Binding Path=Model.Rate}"/>
+            </Grid>
+        <Button Text="OK" Clicked="OkClicked"/>
+        <Button Text="Cancel" Clicked="CancelClicked"/>
+    </VerticalStackLayout>
+</ContentPage>

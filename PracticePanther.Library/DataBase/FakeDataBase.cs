@@ -8,7 +8,7 @@ using PracticePanther.Library.Models;
 
 namespace PracticePanther.Library.DataBase
 {
-    public static class FakeDataBase
+    /*public static class FakeDataBase
     {
         private static List<Client> client = new List<Client>();
         private static List<Project> projects = new List<Project>();
@@ -54,6 +54,6 @@ namespace PracticePanther.Library.DataBase
                 return people;
             }
         }
-    }
+    }*/
 
 }

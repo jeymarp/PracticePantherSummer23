@@ -40,12 +40,10 @@ namespace PracticePanther.Library.Services
         {
             clients = new List<Client>
             {
-               new Client{ Id = 1, Name = "Client 1"},
-                new Client{ Id = 2, Name = "Client 2"},
-                new Client{ Id = 3, Name = "Client 3"},
-                new Client{ Id = 4, Name = "Client 4"},
-                new Client{ Id = 5, Name = "Client 5"},
-                new Client{ Id = 6, Name = "home"}
+                new Client{ Id = 1, Name = "Client 1",},
+                new Client{ Id = 2, Name = "Client 2", },
+                new Client{ Id = 3, Name = "Client 3", },
+                new Client{ Id = 6, Name = "Jhon Smith"}
             };
         }
 
@@ -66,7 +64,7 @@ namespace PracticePanther.Library.Services
                 //add
                 isAdd = true;
                 c.Id = LastId + 1;
-               
+
             }
 
             if (isAdd)
@@ -80,6 +78,12 @@ namespace PracticePanther.Library.Services
             return Clients.FirstOrDefault(c => c.Id == id);
         }
 
+        public IEnumerable<Client> Search(string query)
+        {
+            return Clients
+                .Where(c => c.Name.ToUpper()
+                    .Contains(query.ToUpper()));
+        }
         private int LastId
         {
             get
@@ -88,44 +92,40 @@ namespace PracticePanther.Library.Services
             }
         }
 
-       
-        public List<Client> Search(string query)
-        {
-           return Clients.Where(c => c.Name.ToUpper().Contains(query.ToUpper())).ToList();
-        }
-
+      
         public void Read()
-         {
-             if (!clients.Any())
-             {
-                 System.Console.WriteLine("Currently, there are no registered clients");
-             }
-             else
-             {
-                 foreach (var client in clients)
-                 {
-                     System.Console.WriteLine("Client information: ");
-                     System.Console.WriteLine($"ID: {client.Id}");
-                     System.Console.WriteLine($"Name: {client.Name}");
-                     System.Console.WriteLine($"Notes: {client.Notes}");
-                     System.Console.WriteLine($"Open Date: {client.OpenDate}");
-                     System.Console.WriteLine($"Client status: {client.IsActive}");
-                 }
-             }
-         }
-
-        /*
- public void Edit(Client? updatedClient)
-    {
-        var clientToUpdate = Clients.FirstOrDefault(c => c.Id == updatedClient?.Id);
-        if (clientToUpdate != null)
         {
-            clientToUpdate.Name = updatedClient?.Name;
-            clientToUpdate.Notes = updatedClient.Notes;
-            clientToUpdate.OpenDate = updatedClient.OpenDate;
-            clientToUpdate.ClosedDate = updatedClient.ClosedDate;
+           if (!clients.Any())
+           {
+               System.Console.WriteLine("Currently, there are no registered clients");
+           }
+           else
+           {
+               foreach (var client in clients)
+               {
+                   System.Console.WriteLine("Client information: ");
+                   System.Console.WriteLine($"ID: {client.Id}");
+                   System.Console.WriteLine($"Name: {client.Name}");
+                   System.Console.WriteLine($"Notes: {client.Notes}");
+                   System.Console.WriteLine($"Open Date: {client.OpenDate}");
+                   System.Console.WriteLine($"Client status: {client.IsActive}");
+               }
+           }
         }
-    }
-   }*/
+
+        public void Close(Client c)
+        {
+            Close(c.Id);
+        }
+
+        public void Close(int id)
+        {
+            var clientToClose = Clients.FirstOrDefault(c => c.Id == id);
+            if (clientToClose != null)
+            {
+                Clients?.Remove(clientToClose);
+
+            }
+        }
     }
 }

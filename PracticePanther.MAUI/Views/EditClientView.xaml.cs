@@ -7,21 +7,21 @@ using System.Xml.Linq;
 
 namespace PracticePanther.MAUI.Views;
 
-[QueryProperty(nameof(ClientId), "clientId")]
-public partial class EditClientView : ContentPage
+public partial class EditClientView
 {
-    public int ClientId { get; set; }
+    //public int ClientId { get; set; }
     //private EditClientViewViewModel viewModel;
     public EditClientView()
-	{
+    {
         InitializeComponent();
         //BindingContext = new EditClientViewViewModel(ClientId);
     }
+}
 
-
+/*
     private void CancelClicked(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("//Client");
     }
 
-}
+}*/

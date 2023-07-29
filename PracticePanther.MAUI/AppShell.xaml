@@ -14,13 +14,41 @@
     <ShellContent
         Title="Client Management"
         ContentTemplate="{DataTemplate local2:ClientView}"
-        Route="Client" />
+        Route="Clients" />
     <ShellContent
         Title="Project Management"
-        ContentTemplate="{DataTemplate local2:ProjectDetailView}"
-        Route="Project" />
+        ContentTemplate="{DataTemplate local2:ProjectView}"
+        Route="Projects" />
     <ShellContent
         Title="Client Details"
         ContentTemplate="{DataTemplate local2:ClientDetailView}"
         Route="ClientDetail" />
+    <ShellContent
+       Title="Project Details"
+        ContentTemplate="{DataTemplate local2:ProjectDetailView}"
+        Route="ProjectDetail" />
+    <ShellContent
+       Title="Employee Management"
+        ContentTemplate="{DataTemplate local2:EmployeeView}"
+        Route="Employees" />
+    <ShellContent
+       Title="Employee Details"
+        ContentTemplate="{DataTemplate local2:EmployeeDetailView}"
+        Route="EmployeeDetail" />
+    <ShellContent
+       Title="Time Management"
+        ContentTemplate="{DataTemplate local2:TimeView}"
+        Route="Time" />
+    <ShellContent
+       Title="Time Details"
+        ContentTemplate="{DataTemplate local2:TimeDetailView}"
+        Route="TimeDetail" />
+    <ShellContent
+       Title="Bill Details"
+        ContentTemplate="{DataTemplate local2:BillDetailView}"
+        Route="BillDetail" />
+    <ShellContent
+       Title="Bill View"
+        ContentTemplate="{DataTemplate local2:BillView}"
+        Route="BillView" />
 </Shell>

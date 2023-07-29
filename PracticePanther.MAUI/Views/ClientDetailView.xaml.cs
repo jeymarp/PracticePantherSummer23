@@ -1,3 +1,4 @@
+using Microsoft.Maui.Controls;
 
 using PracticePanther.CLI.Models;
 using PracticePanther.Library.Services;
@@ -6,6 +7,7 @@ using PracticePanther.MAUI.ViewModels;
 namespace PracticePanther.MAUI.Views;
 
 [QueryProperty(nameof(ClientId), "clientId")]
+
 public partial class ClientDetailView : ContentPage
 {
     public int ClientId { get; set; }
@@ -18,48 +20,29 @@ public partial class ClientDetailView : ContentPage
     private void OkClicked(object sender, EventArgs e)
     {
         (BindingContext as ClientViewModel).AddOrUpdate();
-        Shell.Current.GoToAsync("//Client");
+        Shell.Current.GoToAsync("//Clients");
     }
 
     private void CancelClicked(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("//Client");
+        Shell.Current.GoToAsync("//Clients");
     }
 
     private void OnArriving(object sender, NavigatedToEventArgs e)
     {
         BindingContext = new ClientViewModel(ClientId);
+        (BindingContext as ClientViewModel).RefreshProjects();
     }
-    //working on it
 
-    /*
-  private void AddClicked(object sender, EventArgs e)
-  {
-      (BindingContext as ClientViewViewModel).AddClicked(Shell.Current);
-  }
+    //Project Delete & Close
+    private void DeleteClicked(object sender, EventArgs e)
+    {
+        (BindingContext as ClientViewModel).RefreshProjects();
+    }
 
-  private void EditClicked(object sender, EventArgs e)
-  {
-      (BindingContext as ClientViewViewModel).EditClicked(Shell.Current);
-  }
+    private void CloseClicked(object sender, EventArgs e)
+    {
+        (BindingContext as ClientViewModel).RefreshProjects();
+    }
 
-  private void DeleteClick(object sender, EventArgs e)
-  {
-      (BindingContext as ClientViewViewModel).Delete();
-  }
-
-  private void GoBackClicked(object sender, EventArgs e)
-  {
-      Shell.Current.GoToAsync("//MainPage");
-  }
-
-  private void CloseClientClicked(object sender, EventArgs e) 
-  { 
-
-  }
-
-  private void CloseProjectClicked(object sender, EventArgs e)
-  {
-
-  }*/
 }

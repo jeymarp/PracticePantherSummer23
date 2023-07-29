@@ -1,4 +1,5 @@
-﻿using PracticePanther.Library.Models;
+﻿using PracticePanther.CLI.Models;
+using PracticePanther.Library.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,69 +11,79 @@ namespace PracticePanther.Library.Services
     public class EmployeeService
     {
         private static EmployeeService? instance;
-        private static object instanceLock = new object();
 
-        public static EmployeeService Current {
+        public List<Employee> Employees
+        {
             get
             {
-                lock (instanceLock)
+                return employees;
+            }
+        }
+
+        private List<Employee> employees;
+        public static EmployeeService? Current {
+            get
+            {
+                if (instance == null)
                 {
-                    if (instance == null)
-                    {
-                        instance = new EmployeeService();
-                    }
+                    instance = new EmployeeService();
                 }
                 return instance;
             }
         }
-        private List<Employee>? employeeList;
 
         private EmployeeService()
         {
-            employeeList = new List<Employee>
+            employees = new List<Employee>
             {
-                new Employee{Id = 1, Name = "Employee1"},
-                new Employee{Id = 2, Name = "Employee2"},
-                new Employee{Id = 1, Name = "Employee3"}
+                new Employee { Id = 1, Name = "Jhon Smith", Rate = 45 }
+
             };
         }
 
-        public List<Employee> EmployeeList
+        public void Delete(int id)
         {
-            get { return employeeList; }
+            var employeeToDelete = Employees.FirstOrDefault(e => e.Id == id);
+            if (employeeToDelete != null)
+            {
+                Employees.Remove(employeeToDelete);
+            }
+        }
+
+        public void AddOrUpdate(Employee e)
+        {
+            if (e.Id == 0)
+            {
+                //add
+                e.Id = LastId + 1;
+                Employees.Add(e);
+            }
+
         }
 
         public Employee? Get(int id)
+            => Employees.FirstOrDefault(e => e.Id == id);
+        
+
+        public IEnumerable<Employee> Search(string query)
         {
-            return employeeList.FirstOrDefault(e => e.Id == id);
+            return Employees
+                .Where(e => e.Name.ToUpper()
+                    .Contains(query.ToUpper()));
         }
 
-        public void Add(Employee? employee)
+        private int LastId
         {
-            if(employee != null)
+            get
             {
-                employeeList.Add(employee);
+                return Employees.Any() ? Employees.Select(e => e.Id).Max() : 0;
             }
         }
 
-        public void Remove(int id)
+        // new code for Assignment 3
+        public Employee? GetRate(decimal rate)
         {
-            var employeeToRemove = Get(id);
-            if(employeeToRemove != null)
-            {
-                employeeList.Remove(employeeToRemove);
-            }
+            return Employees.FirstOrDefault(e => e.Rate == rate);
         }
-
-        public void Delete(Employee e)
-        {
-            Remove(e.Id);
-        }
-
-        public void Read()
-        {
-            employeeList.ForEach(Console.WriteLine);
-        }
-
     }
 }
