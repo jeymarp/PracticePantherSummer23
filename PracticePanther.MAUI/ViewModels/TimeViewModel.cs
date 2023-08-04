@@ -11,6 +11,7 @@ using System.Xml;
 using PracticePanther.CLI.Models;
 using PracticePanther.Library.Models;
 using PracticePanther.Library.Services;
+using PracticePanther.Library.DTO;
 
 namespace PracticePanther.MAUI.ViewModels
 {
@@ -41,8 +42,8 @@ namespace PracticePanther.MAUI.ViewModels
 
         private Project project;
 
-        public ObservableCollection<Employee> Employees
-            => new ObservableCollection<Employee> (EmployeeService.Current.Employees);
+        public ObservableCollection<EmployeeDTO> Employees
+            => new ObservableCollection<EmployeeDTO> (EmployeeService.Current.Employees);
 
         public ObservableCollection<Project> Projects
             => new ObservableCollection<Project> (ProjectService.Current.Projects);
@@ -55,7 +56,6 @@ namespace PracticePanther.MAUI.ViewModels
                        $" ProjectId: {Model.ProjectId}";
             }
         }
-
 
         public string HoursDisplay
         {

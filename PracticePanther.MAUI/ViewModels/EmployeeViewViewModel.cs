@@ -8,8 +8,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 using System.Windows.Input;
-using PracticePanther.MAUI.ViewModels;
 using PracticePanther.MAUI.ViewModel;
+using PracticePanther.Library.DTO;
 
 namespace PracticePanther.MAUI.ViewModels
 {

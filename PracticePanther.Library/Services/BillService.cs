@@ -93,11 +93,7 @@ namespace PracticePanther.Library.Services
 
         public void Add(Bill bill)
         {
-            //if (bill.BillId == 0)
-            //{
-                //bill.BillId = LastId + 1;
-                Bills.Add(bill);
-            //}
+             Bills.Add(bill);
         }
 
     }

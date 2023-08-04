@@ -91,25 +91,5 @@ namespace PracticePanther.MAUI.ViewModels
 
 }
 
-//public BillViewViewModel(int projectId)
-//{
-//    ProjectViewModel = new ProjectViewModel(projectId);
-//    Bills = new ObservableCollection<BillViewModel>(
-//        ProjectViewModel.Model.Bills.Select(bill => new BillViewModel { Model = bill })
-//    );
-//}
-
-//public BillViewViewModel(ClientViewModel clientViewModel)
-//{
-//    Bills = new ObservableCollection<BillViewModel>();
-
-//    foreach (var projectViewModel in clientViewModel.Projects)
-//    {
-//        foreach (var bill in projectViewModel.Model.Bills)
-//        {
-//            Bills.Add(new BillViewModel { Model = bill });
-//        }
-//    }
-//}
 
 

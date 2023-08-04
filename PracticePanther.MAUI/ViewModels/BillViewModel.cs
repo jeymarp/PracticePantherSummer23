@@ -1,17 +1,10 @@
 ﻿using PracticePanther.CLI.Models;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PracticePanther.Library.Services;
 using PracticePanther.Library.Models;
-using System.Xml.Linq;
 using System.Windows.Input;
-using Microsoft.VisualBasic;
 using System.Runtime.CompilerServices;
+using PracticePanther.Library.DTO;
 
 namespace PracticePanther.MAUI.ViewModels
 {
@@ -61,7 +54,7 @@ namespace PracticePanther.MAUI.ViewModels
 
             foreach (Time timeEntry in TimeService.Current.Times)
             {
-                Employee employee = EmployeeService.Current.Get(timeEntry.EmployeeId);
+                EmployeeDTO employee = EmployeeService.Current.Get(timeEntry.EmployeeId);
                 decimal? rate = employee?.Rate;
                 decimal hours = timeEntry.Hours;
 
@@ -157,67 +150,6 @@ namespace PracticePanther.MAUI.ViewModels
         {
             return BillService.Current.GetBillByProjectId(projectId);
         }
-
-        //public void Add()
-        //{
-        //    Model.TotalAmount = _totalAmount;
-
-        //    if (_totalAmount > 0)
-        //    {
-        //        BillService.Current.Add(Model);
-        //    }
-        //}
-
-
-        //new 7/25
-
-
-        //constructors
-        //public BillViewModel()
-        //{
-        //    Model = new Bill();
-        //}
-
-        //public BillViewModel(int projectId)
-        //{
-        //    if (projectId == 0)
-        //    {
-        //        Model = new Bill();
-        //    }
-        //    else
-        //    {
-        //        Model = BillService.Current.GetId(projectId);
-        //    }
-        //    //SetupCommands();
-        //}
-
-        //_billService = BillService.Current;
-        //_employeeService = EmployeeService.Current;
-
-        //Model = new Bill();
-        //if (Model.Time == null)
-        //    Model.Time = new List<Time>(); //Initialize Time collection if it's null.
-
-        //private void CalculateTotalAmount()
-        //{
-        //    _totalAmount = 0;
-        //    foreach (Time time in TimeService.Current.Times)
-        //    {
-        //        //if (Model.ProjectId == 0)
-        //        //{
-        //        //    foreach (Project project in ProjectService.Current.Projects)
-        //        //    {
-        //        //        if (time.ProjectId == project.Id)
-        //        //            _totalAmount += ((decimal)(time.Hours) * (EmployeeService.Current.Get(time.EmployeeId)?.Rate ?? 0));
-        //        //    }
-        //        //}
-        //        //if (time.ProjectId == Model.ProjectId)
-        //        //{
-        //        //    _totalAmount += (decimal)(time.Hours) * (EmployeeService.Current.Get(time.EmployeeId)?.Rate ?? 0);
-        //        //}
-        //    }
-        //}
-
 
     }
 

@@ -1,26 +1,23 @@
-﻿using PracticePanther.CLI.Models;
+﻿using Newtonsoft.Json;
+using PracticePanther.CLI.Models;
 using PracticePanther.Library.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PracticePanther.Library.Utilities;
+using PracticePanther.Library.DTO;
 
 namespace PracticePanther.Library.Services
 {
     public class EmployeeService
     {
         private static EmployeeService? instance;
-
-        public List<Employee> Employees
+        private List<EmployeeDTO> employees;
+        public List<EmployeeDTO> Employees
         {
             get
             {
-                return employees;
+                return employees ?? new List<EmployeeDTO>();
             }
         }
 
-        private List<Employee> employees;
         public static EmployeeService? Current {
             get
             {
@@ -34,15 +31,16 @@ namespace PracticePanther.Library.Services
 
         private EmployeeService()
         {
-            employees = new List<Employee>
-            {
-                new Employee { Id = 1, Name = "Jhon Smith", Rate = 45 }
+            var response = new WebRequestHandler()
+                    .Get("/Employee").Result;
 
-            };
+           employees = JsonConvert
+                .DeserializeObject<List<EmployeeDTO>>(response) ?? new List<EmployeeDTO>();
         }
 
         public void Delete(int id)
         {
+            var response = new WebRequestHandler().Delete($"/Employee/Delete/{id}").Result;
             var employeeToDelete = Employees.FirstOrDefault(e => e.Id == id);
             if (employeeToDelete != null)
             {
@@ -50,40 +48,46 @@ namespace PracticePanther.Library.Services
             }
         }
 
-        public void AddOrUpdate(Employee e)
+        public void Delete(Employee e)
         {
-            if (e.Id == 0)
-            {
-                //add
-                e.Id = LastId + 1;
-                Employees.Add(e);
-            }
-
+            Delete(e.Id);
         }
 
-        public Employee? Get(int id)
-            => Employees.FirstOrDefault(e => e.Id == id);
-        
+        public void AddOrUpdate(EmployeeDTO e)
+        {
+            var response = new WebRequestHandler().Post("/Employee/", e).Result;
+            var myUpdatedEmployee = JsonConvert.DeserializeObject<EmployeeDTO>(response);
+            if(myUpdatedEmployee != null)
+            {
+                var existingEmployee = employees.FirstOrDefault(e => e.Id == myUpdatedEmployee.Id);
+                if(existingEmployee == null)
+                {
+                    employees.Add(myUpdatedEmployee);
+                }
+                else
+                {
+                    var index = employees.IndexOf(existingEmployee);
+                    employees.RemoveAt(index);
+                    employees.Insert(index, myUpdatedEmployee);
+                }
+            }
+        }
 
-        public IEnumerable<Employee> Search(string query)
+        public EmployeeDTO? Get(int id)
+        {
+            return Employees.FirstOrDefault(c => c.Id == id);
+        }
+
+        public EmployeeDTO? Get(decimal rate)
+        {
+            return Employees.FirstOrDefault(c => c.Rate == rate);
+        }
+
+        public IEnumerable<EmployeeDTO> Search(string query)
         {
             return Employees
                 .Where(e => e.Name.ToUpper()
                     .Contains(query.ToUpper()));
-        }
-
-        private int LastId
-        {
-            get
-            {
-                return Employees.Any() ? Employees.Select(e => e.Id).Max() : 0;
-            }
-        }
-
-        // new code for Assignment 3
-        public Employee? GetRate(decimal rate)
-        {
-            return Employees.FirstOrDefault(e => e.Rate == rate);
         }
     }
 }

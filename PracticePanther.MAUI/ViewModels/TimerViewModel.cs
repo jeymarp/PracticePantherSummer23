@@ -11,6 +11,7 @@ using System.Windows.Input;
 using PracticePanther.Library.Models;
 using PracticePanther.Library.Services;
 using PracticePanther.MAUI.Views;
+using PracticePanther.Library.DTO;
 
 namespace PracticePanther.MAUI.ViewModels
 {
@@ -24,7 +25,7 @@ namespace PracticePanther.MAUI.ViewModels
             get
             {
                 List<int> result = new List<int>();
-                foreach(Employee employees in EmployeeService.Current.Employees)
+                foreach(EmployeeDTO employees in EmployeeService.Current.Employees)
                 {
                     result.Add(employees.Id);
                 }

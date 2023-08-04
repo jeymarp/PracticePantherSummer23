@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows.Input;
-using PracticePanther.CLI.Models;
 using PracticePanther.Library.Models;
 using PracticePanther.Library.Services;
+using PracticePanther.Library.DTO;
 
 namespace PracticePanther.MAUI.ViewModel 
 {
     public class EmployeeViewModel : INotifyPropertyChanged
     {
-        public Employee Model { get; set; }
+        public EmployeeDTO Model { get; set; }
 
         public string Display
         {
@@ -48,7 +41,7 @@ namespace PracticePanther.MAUI.ViewModel
                 (e) => ExecuteEdit((e as EmployeeViewModel).Model.Id));
         }
 
-        public EmployeeViewModel(Employee employee)
+        public EmployeeViewModel(EmployeeDTO employee)
         {
             Model = employee;
             SetupCommands();
@@ -56,20 +49,20 @@ namespace PracticePanther.MAUI.ViewModel
 
         public EmployeeViewModel(int employeeId)
         {
-            if (employeeId == 0)
+            if (employeeId > 0)
             {
-                Model = new Employee();
+                Model = EmployeeService.Current.Get(employeeId);
             }
             else
             {
-                Model = EmployeeService.Current.Get(employeeId);
+                Model = new EmployeeDTO();
             }
             SetupCommands();
         }
 
         public EmployeeViewModel()
         {
-            Model = new Employee();
+            Model = new EmployeeDTO();
             SetupCommands();
         }
 

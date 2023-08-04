@@ -38,11 +38,11 @@ public partial class ProjectDetailView : ContentPage
     }
 
     //new Bill code
-    //private void BillClicked(object sender, EventArgs e)
-    //{
+    private void BillClicked(object sender, EventArgs e)
+    {
     //    //Shell.Current.GoToAsync("//BillDetail");
     //    //Shell.Current.GoToAsync($"//BillDetail?projectId={ProjectId}");
 
-    //}
+    }
 
 }

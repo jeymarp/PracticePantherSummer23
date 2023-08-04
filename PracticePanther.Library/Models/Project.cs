@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using PracticePanther.Library.Models;
 using PracticePanther.Library.Services;
-using PracticePanther.Library.DataBase;
 using System.Collections.ObjectModel;
 
 namespace PracticePanther.CLI.Models
